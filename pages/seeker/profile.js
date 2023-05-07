@@ -1,6 +1,6 @@
 import Layout from '@/components/layout/Dashboard';
 import SalaryExpectation from '@/components/profile/SalaryExpectation';
-import BasicInformation from '@/components/profile/BasicInformation';
+import BasicInformation from '@/components/profile/basicInfomation/BasicInformation';
 import WorkExperience from '@/components/profile/WorkExperience';
 import Education from '@/components/profile/Education';
 import Resume from '@/components/profile/Resume';
