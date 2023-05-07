@@ -39,12 +39,12 @@ const BasicInformation = ({ userProfile }) => {
         <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
       </button>
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-8'}>
-        <div className="flex flex-row flex-wrap justify-center md:justify-start items-center">
+        <div className="flex flex-row flex-wrap justify-center md:justify-start items-center mx-10">
           {/* basic information */}
           {!isEdit && (
             <>
               {/* profile pict */}
-              <div className="basis-full md:basis-1/5">
+              <div className="basis-full md:basis-1/5 mb-7 md:mb-0">
                 <div className="w-24 h-24 rounded-full overflow-hidden mx-auto">
                   <Image loader={() => profile.photo} className="w-full h-full object-cover object-center" src={profile.photo} alt="Alternative text" width={100} height={100} />
                 </div>
