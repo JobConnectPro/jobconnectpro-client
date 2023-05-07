@@ -21,7 +21,7 @@ export default function LoginForm() {
       const { email, password } = data;
       const { token } = await loginUser(email, password);
       // console.log(token);
-      Cookies.set('token', token, { expires: 1 });
+      Cookies.set('token', token);
 
       toast.success('Login Successfully!', {
         position: 'top-center',

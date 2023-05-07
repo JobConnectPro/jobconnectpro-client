@@ -9,7 +9,7 @@ export default function WorkExperience() {
   };
 
   return (
-    <div className="w-screen p-4 pt-0 pl-52">
+    <div className="w-full p-4 pt-0">
       <button onClick={toggle} className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600">
         Work Experience
         <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>

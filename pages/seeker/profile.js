@@ -1,5 +1,4 @@
-import Navbar from '@/components/Navbar';
-import Sidebar from '@/components/Sidebar';
+import Layout from '@/components/layout/Dashboard';
 import SalaryExpectation from '@/components/profile/SalaryExpectation';
 import BasicInformation from '@/components/profile/BasicInformation';
 import WorkExperience from '@/components/profile/WorkExperience';
@@ -9,16 +8,14 @@ import Skills from '@/components/profile/Skills';
 
 const Profile = ({ profile }) => {
   return (
-    <div>
-      <Navbar />
-      <Sidebar />
+    <Layout>
       <BasicInformation userProfile={profile} />
       <SalaryExpectation />
       <WorkExperience />
       <Education />
       <Skills />
       <Resume />
-    </div>
+    </Layout>
   );
 };
 
