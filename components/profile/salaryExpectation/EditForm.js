@@ -3,13 +3,9 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
-const BasicInformationEditForm = ({ isEdit, setIsEdit }) => {
+const SalaryExpectationEditForm = ({ isEdit, setIsEdit }) => {
   const [input, setInput] = useState({
-    name: '',
-    birthday: '',
-    gender: '',
-    phone: '',
-    address: '',
+    salary_expectation: '',
   });
 
   useEffect(() => {
@@ -20,11 +16,7 @@ const BasicInformationEditForm = ({ isEdit, setIsEdit }) => {
         })
         .then((res) => {
           setInput({
-            name: res.data.name,
-            birthday: new Date(res.data.birthday).toISOString().split('T')[0],
-            gender: res.data.gender,
-            phone: res.data.phone,
-            address: res.data.address,
+            salary_expectation: res.data.salary_expectation,
           });
         })
         .catch((error) => {
@@ -67,7 +59,7 @@ const BasicInformationEditForm = ({ isEdit, setIsEdit }) => {
           theme: 'colored',
         });
         setIsEdit(false);
-        setInput({ name: '', birthday: '', gender: '', phone: '', address: '' });
+        setInput({ salary_expectation: '' });
       })
       .catch((error) => {
         console.log(error);
@@ -88,42 +80,18 @@ const BasicInformationEditForm = ({ isEdit, setIsEdit }) => {
     <div className="w-full text-end">
       <form className="space-y-3" onSubmit={handleSubmit}>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="name" className="mr-2 basis-36">
-            Name:
+          <label htmlFor="salary_expectation" className="mr-2 basis-36">
+            Salary Expectation:
           </label>
-          <input type="text" id="name" name="name" value={input.name} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="birthday" className="mr-2 basis-36">
-            Birthday:
-          </label>
-          <input type="date" id="birthday" value={input.birthday} onChange={handleChange} name="birthday" className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="gender" className="mr-2 basis-36">
-            Gender:
-          </label>
-          <select id="gender" name="gender" value={input.gender} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-2 pl-1 pr-3" required>
-            <option value="">--Select an option--</option>
-            <option value="Man">Man</option>
-            <option value="Woman">Woman</option>
-          </select>
-        </div>
-
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="phone" className="mr-2 basis-36">
-            Mobile Number:
-          </label>
-          <input type="text" id="phone" name="phone" value={input.phone} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="address" className="mr-2 basis-36">
-            Address:
-          </label>
-          <input type="text" id="address" name="address" value={input.address} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
+          <input
+            type="number"
+            id="salary_expectation"
+            name="salary_expectation"
+            value={input.salary_expectation}
+            onChange={handleChange}
+            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+            required
+          />
         </div>
         <div>
           <div className="flex justify-center text-center gap-4">
@@ -145,4 +113,4 @@ const BasicInformationEditForm = ({ isEdit, setIsEdit }) => {
   );
 };
 
-export default BasicInformationEditForm;
+export default SalaryExpectationEditForm;
