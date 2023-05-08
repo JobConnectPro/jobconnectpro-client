@@ -19,9 +19,10 @@ export default function LoginForm() {
   const handleLogin = async (data) => {
     try {
       const { email, password } = data;
-      const { token } = await loginUser(email, password);
-      // console.log(token);
+      const { token, role } = await loginUser(email, password);
+
       Cookies.set('token', token);
+      Cookies.set('role', role);
 
       toast.success('Login Successfully!', {
         position: 'top-center',
