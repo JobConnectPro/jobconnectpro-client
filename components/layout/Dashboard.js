@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
 import Logo from '../Logo';
@@ -6,9 +6,15 @@ import { CgProfile } from 'react-icons/cg';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { AiOutlineSearch, AiOutlineAppstore, AiOutlineMessage } from 'react-icons/ai';
+import Cookies from 'js-cookie';
 
 const Dashboard = ({ children }) => {
+  const [role, setRole] = useState('');
   const [isHide, setIsHide] = useState(false);
+
+  useEffect(() => {
+    setRole(Cookies.get('role'));
+  }, [role]);
 
   return (
     <>
@@ -56,10 +62,24 @@ const Dashboard = ({ children }) => {
                 <AiOutlineSearch size={20} />
                 Job Board
               </Link>
-              <Link href={'/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
-                <CgProfile size={20} />
-                Profile
-              </Link>
+              {role == 'Admin' && (
+                <Link href={'/admin/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  Profile
+                </Link>
+              )}
+              {role == 'Employer' && (
+                <Link href={'/employer/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  Profile
+                </Link>
+              )}
+              {role == 'Seeker' && (
+                <Link href={'/seeker/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  Profile
+                </Link>
+              )}
               <Link href={'/applications'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                 <AiOutlineAppstore size={20} />
                 Applications

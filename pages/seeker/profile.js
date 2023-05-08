@@ -7,6 +7,7 @@ import Resume from '@/components/profile/Resume';
 import Skills from '@/components/profile/Skills';
 import Summary from '@/components/profile/summary/Summary';
 import Achievement from '@/components/profile/achievement/Achievement';
+import Project from '@/components/profile/project/Project';
 
 const Profile = ({ profile }) => {
   return (
@@ -15,6 +16,7 @@ const Profile = ({ profile }) => {
       <SalaryExpectation userProfile={profile} />
       <Summary userProfile={profile} />
       <Achievement userProfile={profile} />
+      <Project userProfile={profile} />
       <WorkExperience />
       <Education />
       <Skills />
