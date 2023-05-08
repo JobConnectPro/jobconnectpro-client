@@ -15,6 +15,7 @@ const Profile = ({ profile }) => {
       <SalaryExpectation userProfile={profile} />
       <Summary userProfile={profile} />
       <Achievement userProfile={profile} />
+      <Project userProfile={profile} />
       <WorkExperience />
       <Education />
       <Skills />

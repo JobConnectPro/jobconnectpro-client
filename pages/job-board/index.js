@@ -1,15 +1,10 @@
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
-import JobBoard from "@/components/jobBoard/JobBoard";
+import Layout from '@/components/layout/Dashboard';
+import JobBoard from '@/components/jobBoard/JobBoard';
 
 export default function profile() {
   return (
-    <>
-      <div>
-        <Navbar />
-        <Sidebar />
-        <JobBoard />
-      </div>
-    </>
+    <Layout>
+      <JobBoard />
+    </Layout>
   );
 }
