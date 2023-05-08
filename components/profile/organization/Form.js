@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
-const AchievementForm = ({
+const OrganizationForm = ({
   isEdit,
   setIsEdit,
   currentId,
@@ -12,23 +12,28 @@ const AchievementForm = ({
   setIsAdd,
 }) => {
   const [input, setInput] = useState({
-    title: '',
-    issuer: '',
-    date: '',
+    organization: '',
+    role: '',
+    start_date: '',
+    end_date: '',
     description: '',
   });
 
   useEffect(() => {
     if (isEdit) {
       axios
-        .get(`http://localhost:8000/achievements/${currentId}`, {
+        .get(`http://localhost:8000/organizations/${currentId}`, {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
+          console.log(res);
           setInput({
-            title: res.data.title,
-            issuer: res.data.issuer,
-            date: new Date(res.data.date).toISOString().split('T')[0],
+            organization: res.data.organization,
+            role: res.data.role,
+            start_date: new Date(res.data.start_date)
+              .toISOString()
+              .split('T')[0],
+            end_date: new Date(res.data.end_date).toISOString().split('T')[0],
             description: res.data.description,
           });
         })
@@ -57,8 +62,9 @@ const AchievementForm = ({
   const handleSubmit = (event) => {
     event.preventDefault();
     if (currentId === 0) {
+      // console.log(input);
       axios
-        .post('http://localhost:8000/achievements', input, {
+        .post('http://localhost:8000/organizations', input, {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
@@ -75,9 +81,10 @@ const AchievementForm = ({
           setIsAdd(false);
           setCurrentId(0);
           setInput({
-            title: '',
-            issuer: '',
-            date: '',
+            organization: '',
+            role: '',
+            start_date: '',
+            end_date: '',
             description: '',
           });
         })
@@ -96,7 +103,7 @@ const AchievementForm = ({
         });
     } else {
       axios
-        .put(`http://localhost:8000/achievements/${currentId}`, input, {
+        .put(`http://localhost:8000/organizations/${currentId}`, input, {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
@@ -139,42 +146,56 @@ const AchievementForm = ({
     <div className="w-full text-end">
       <form className="space-y-3" onSubmit={handleSubmit}>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="title" className="mr-2 basis-36">
-            Title:
+          <label htmlFor="organization" className="mr-2 basis-36">
+            Organization:
           </label>
           <input
             type="text"
-            id="title"
-            name="title"
-            value={input.title}
+            id="organization"
+            name="organization"
+            value={input.organization}
             onChange={handleChange}
             className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
             required
           />
         </div>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="issuer" className="mr-2 basis-36">
-            Issuer:
+          <label htmlFor="role" className="mr-2 basis-36">
+            Role:
           </label>
           <input
             type="text"
-            id="issuer"
-            name="issuer"
-            value={input.issuer}
+            id="role"
+            name="role"
+            value={input.role}
             onChange={handleChange}
             className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
             required
           />
         </div>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="date" className="mr-2 basis-36">
-            Date:
+          <label htmlFor="start_date" className="mr-2 basis-36">
+            Start Date:
           </label>
           <input
             type="date"
-            id="date"
-            name="date"
-            value={input.date}
+            id="start_date"
+            name="start_date"
+            value={input.start_date}
+            onChange={handleChange}
+            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+            required
+          />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="end_date" className="mr-2 basis-36">
+            End Date:
+          </label>
+          <input
+            type="date"
+            id="end_date"
+            name="end_date"
+            value={input.end_date}
             onChange={handleChange}
             className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
             required
@@ -205,9 +226,10 @@ const AchievementForm = ({
                 }
                 setCurrentId(0);
                 setInput({
-                  title: '',
-                  issuer: '',
-                  date: '',
+                  organization: '',
+                  role: '',
+                  start_date: '',
+                  end_date: '',
                   description: '',
                 });
               }}
@@ -228,4 +250,4 @@ const AchievementForm = ({
   );
 };
 
-export default AchievementForm;
+export default OrganizationForm;

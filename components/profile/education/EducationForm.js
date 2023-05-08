@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
-const AchievementForm = ({
+const EducationForm = ({
   isEdit,
   setIsEdit,
   currentId,
@@ -12,23 +12,43 @@ const AchievementForm = ({
   setIsAdd,
 }) => {
   const [input, setInput] = useState({
-    title: '',
-    issuer: '',
-    date: '',
+    attainment_id: '',
+    school: '',
+    major: '',
     description: '',
+    start_date: '',
+    end_date: '',
   });
+
+  const [attainments, setAttainments] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/attainments`, {
+        headers: { authorization: 'Bearer ' + Cookies.get('token') },
+      })
+      .then((res) => {
+        setAttainments([...res.data]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     if (isEdit) {
       axios
-        .get(`http://localhost:8000/achievements/${currentId}`, {
+        .get(`http://localhost:8000/educations/${currentId}`, {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
           setInput({
-            title: res.data.title,
-            issuer: res.data.issuer,
-            date: new Date(res.data.date).toISOString().split('T')[0],
+            organization: res.data.organization,
+            role: res.data.role,
+            start_date: new Date(res.data.start_date)
+              .toISOString()
+              .split('T')[0],
+            end_date: new Date(res.data.end_date).toISOString().split('T')[0],
             description: res.data.description,
           });
         })
@@ -58,7 +78,7 @@ const AchievementForm = ({
     event.preventDefault();
     if (currentId === 0) {
       axios
-        .post('http://localhost:8000/achievements', input, {
+        .post('http://localhost:8000/educations', input, {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
@@ -75,10 +95,12 @@ const AchievementForm = ({
           setIsAdd(false);
           setCurrentId(0);
           setInput({
-            title: '',
-            issuer: '',
-            date: '',
+            attainment_id: '',
+            school: '',
+            major: '',
             description: '',
+            start_date: '',
+            end_date: '',
           });
         })
         .catch((error) => {
@@ -96,7 +118,7 @@ const AchievementForm = ({
         });
     } else {
       axios
-        .put(`http://localhost:8000/achievements/${currentId}`, input, {
+        .put(`http://localhost:8000/educations/${currentId}`, input, {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
@@ -113,10 +135,12 @@ const AchievementForm = ({
           setIsEdit(false);
           setCurrentId(0);
           setInput({
-            title: '',
-            issuer: '',
-            date: '',
+            attainment_id: '',
+            school: '',
+            major: '',
             description: '',
+            start_date: '',
+            end_date: '',
           });
         })
         .catch((error) => {
@@ -139,42 +163,76 @@ const AchievementForm = ({
     <div className="w-full text-end">
       <form className="space-y-3" onSubmit={handleSubmit}>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="title" className="mr-2 basis-36">
-            Title:
+          <label htmlFor="school" className="mr-2 basis-36">
+            Insitute/University:
           </label>
           <input
             type="text"
-            id="title"
-            name="title"
-            value={input.title}
+            id="school"
+            name="school"
+            value={input.school}
             onChange={handleChange}
             className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
             required
           />
         </div>
+
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="issuer" className="mr-2 basis-36">
-            Issuer:
-          </label>
-          <input
-            type="text"
-            id="issuer"
-            name="issuer"
-            value={input.issuer}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
-            required
-          />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="date" className="mr-2 basis-36">
-            Date:
+          <label htmlFor="start_date" className="mr-2 basis-36">
+            Start Date:
           </label>
           <input
             type="date"
-            id="date"
-            name="date"
-            value={input.date}
+            id="start_date"
+            name="start_date"
+            value={input.start_date}
+            onChange={handleChange}
+            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+            required
+          />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="end_date" className="mr-2 basis-36">
+            End Date:
+          </label>
+          <input
+            type="date"
+            id="end_date"
+            name="end_date"
+            value={input.end_date}
+            onChange={handleChange}
+            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+            required
+          />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="role" className="mr-2 basis-36">
+            Qualification:
+          </label>
+          <select
+            id="attainment_id"
+            name="attainment_id"
+            value={input.attainment_id}
+            onChange={handleChange}
+            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+          >
+            <option value="">--Select an Option--</option>
+            {attainments.map((attainment) => {
+              return (
+                <option value={attainment.id}>{attainment.attainment}</option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="major" className="mr-2 basis-36">
+            Major:
+          </label>
+          <input
+            type="text"
+            id="major"
+            name="major"
+            value={input.major}
             onChange={handleChange}
             className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
             required
@@ -205,9 +263,10 @@ const AchievementForm = ({
                 }
                 setCurrentId(0);
                 setInput({
-                  title: '',
-                  issuer: '',
-                  date: '',
+                  organization: '',
+                  role: '',
+                  start_date: '',
+                  end_date: '',
                   description: '',
                 });
               }}
@@ -228,4 +287,4 @@ const AchievementForm = ({
   );
 };
 
-export default AchievementForm;
+export default EducationForm;
