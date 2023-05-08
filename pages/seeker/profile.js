@@ -1,12 +1,13 @@
-import Layout from "@/components/layout/Dashboard";
-import SalaryExpectation from "@/components/profile/salaryExpectation/SalaryExpectation";
-import BasicInformation from "@/components/profile/basicInfomation/BasicInformation";
-import WorkExperience from "@/components/profile/WorkExperience";
-import Education from "@/components/profile/Education";
-import Resume from "@/components/profile/Resume";
-import Skills from "@/components/profile/Skills";
-import Summary from "@/components/profile/summary/Summary";
-import Achievement from "@/components/profile/achievement/Achievement";
+import Layout from '@/components/layout/Dashboard';
+import SalaryExpectation from '@/components/profile/salaryExpectation/SalaryExpectation';
+import BasicInformation from '@/components/profile/basicInfomation/BasicInformation';
+import WorkExperience from '@/components/profile/WorkExperience';
+import Education from '@/components/profile/Education';
+import Resume from '@/components/profile/Resume';
+import Summary from '@/components/profile/summary/Summary';
+import Achievement from '@/components/profile/achievement/Achievement';
+import Project from '@/components/profile/project/Project';
+import UserSkill from '@/components/profile/skill/Skill';
 
 const Profile = ({ profile }) => {
   return (
@@ -16,9 +17,9 @@ const Profile = ({ profile }) => {
       <Summary userProfile={profile} />
       <Achievement userProfile={profile} />
       <Project userProfile={profile} />
+      <UserSkill userProfile={profile} />
       <WorkExperience />
       <Education />
-      <Skills />
       <Resume />
     </Layout>
   );
@@ -29,8 +30,8 @@ export default Profile;
 export const getServerSideProps = async (context) => {
   const { token } = context.req.cookies;
 
-  const result = await fetch("http://localhost:8000/users/profile", {
-    headers: { Authorization: "Bearer " + token },
+  const result = await fetch('http://localhost:8000/users/profile', {
+    headers: { Authorization: 'Bearer ' + token },
   });
   const data = await result.json();
 
