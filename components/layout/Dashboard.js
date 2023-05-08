@@ -62,24 +62,45 @@ const Dashboard = ({ children }) => {
                 <AiOutlineSearch size={20} />
                 Job Board
               </Link>
+              {/* admin */}
               {role == 'Admin' && (
                 <Link href={'/admin/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                   <CgProfile size={20} />
                   Profile
                 </Link>
               )}
+              {/* end of admin */}
+
+              {/* employer */}
               {role == 'Employer' && (
                 <Link href={'/employer/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                   <CgProfile size={20} />
                   Profile
                 </Link>
               )}
+              {/* end of employer */}
+
+              {/* seeker */}
               {role == 'Seeker' && (
                 <Link href={'/seeker/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                   <CgProfile size={20} />
                   Profile
                 </Link>
               )}
+              {role == 'Seeker' && (
+                <Link href={'/seeker/applications'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  Application
+                </Link>
+              )}
+              {role == 'Seeker' && (
+                <Link href={'/seeker/bookmarks'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  Bookmark
+                </Link>
+              )}
+              {/* end of seeker */}
+
               <Link href={'/applications'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                 <AiOutlineAppstore size={20} />
                 Applications
