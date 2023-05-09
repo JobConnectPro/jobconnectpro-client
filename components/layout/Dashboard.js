@@ -81,7 +81,10 @@ const Dashboard = ({ children }) => {
                     <div>
                       <Menu.Button className="flex items-center  text-sm font-bold focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">
                         <span className="sr-only">Open user menu</span>
-                        <p>{profile.name.split(' ')[0]}</p>
+                        <p>
+                          {!profile.name !== null &&
+                            profile.name?.split(' ')[0]}
+                        </p>
                         <RiArrowDropDownLine size={30} />
                         {/* <img
                           className="h-8 w-8 rounded-full"
@@ -214,20 +217,29 @@ const Dashboard = ({ children }) => {
               )}
 
               {role == 'Seeker' && (
-                <Link href={'/seeker/applications'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                <Link
+                  href={'/seeker/applications'}
+                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
+                >
                   <CgProfile size={20} />
                   Application
                 </Link>
               )}
               {role == 'Seeker' && (
-                <Link href={'/seeker/bookmarks'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                <Link
+                  href={'/seeker/bookmarks'}
+                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
+                >
                   <CgProfile size={20} />
                   Bookmark
                 </Link>
               )}
               {/* end of seeker */}
 
-              <Link href={'/applications'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
+              <Link
+                href={'/applications'}
+                className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
+              >
                 <AiOutlineAppstore size={20} />
                 Applications
               </Link>
