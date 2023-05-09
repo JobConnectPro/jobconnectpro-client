@@ -10,7 +10,6 @@ import Achievement from '@/components/profile/achievement/Achievement';
 import Project from '@/components/profile/project/Project';
 import Organization from '@/components/profile/organization/Organization';
 const Profile = ({ profile }) => {
-  console.log(profile);
   return (
     <Layout>
       <BasicInformation userProfile={profile} />

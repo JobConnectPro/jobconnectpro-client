@@ -1,10 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import { CgProfile } from "react-icons/cg";
-import { IoMdNotificationsOutline } from "react-icons/io";
-import { AiOutlineMessage } from "react-icons/ai";
-import Logo from "./Logo";
-import SearchBar from "./SearchBar";
+import React from 'react';
+import { useState } from 'react';
+import { CgProfile } from 'react-icons/cg';
+import { IoMdNotificationsOutline } from 'react-icons/io';
+import { AiOutlineMessage } from 'react-icons/ai';
+import Logo from './Logo';
+import SearchBar from './SearchBar';
 
 export default function Navbar() {
   return (
