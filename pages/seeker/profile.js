@@ -18,10 +18,9 @@ const Profile = ({ profile }) => {
       <Summary userProfile={profile} />
       <Achievement userProfile={profile} />
       <Project userProfile={profile} />
-      {/* <WorkExperience userProfile={profile} /> */}
-      <Education userProfile={profile} />
-      <Organization userProfile={profile} />
-      <Skills />
+      <UserSkill userProfile={profile} />
+      <WorkExperience />
+      <Education />
       <Resume />
     </Layout>
   );
