@@ -34,7 +34,7 @@ export default function LoginForm() {
         progress: undefined,
         theme: 'light',
       });
-      router.push('/');
+      router.push('/job-board');
     } catch (err) {
       toast.error(`${err.message}`, {
         position: 'top-center',
@@ -53,11 +53,18 @@ export default function LoginForm() {
       <div className=" flex flex-col bg-gray-100">
         <div className="container max-w-md  mx-auto flex flex-col px-2 mt-10 mb-20">
           <div className="bg-white px-6 py-8 rounded shadow-md">
-            <h1 class="mb-8 text-xl text-center font-bold text-gray-900 md:text-2xl dark:text-white">Sign In to jobconnect</h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(handleLogin)}>
+            <h1 class="mb-8 text-xl text-center font-bold text-gray-900 md:text-2xl dark:text-white">
+              Sign In to jobconnect
+            </h1>
+            <form
+              className="space-y-4 md:space-y-6"
+              onSubmit={handleSubmit(handleLogin)}
+            >
               <div>
                 <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Email
+                  </label>
                   <input
                     type="text"
                     className="block border border-grey-light w-full p-2 rounded mb-4"
@@ -67,7 +74,9 @@ export default function LoginForm() {
                   />
                 </div>
                 <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Password
+                  </label>
                   <input
                     type="password"
                     className="block border border-grey-light w-full p-2 rounded mb-4"
@@ -89,18 +98,28 @@ export default function LoginForm() {
                     />
                   </div>
                   <div class="ml-3 text-sm">
-                    <label class="text-gray-500 dark:text-gray-300">Remember me</label>
+                    <label class="text-gray-500 dark:text-gray-300">
+                      Remember me
+                    </label>
                   </div>
                 </div>
-                <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+                <a
+                  href="#"
+                  class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >
                   Forgot password?
                 </a>
               </div>
 
-              <button className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign In</button>
+              <button className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Sign In
+              </button>
               <p class="text-sm text-center font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{' '}
-                <Link href="/register" class="font-medium text-blue-500 hover:underline dark:text-primary-500">
+                <Link
+                  href="/register"
+                  class="font-medium text-blue-500 hover:underline dark:text-primary-500"
+                >
                   Sign up
                 </Link>
               </p>
