@@ -9,10 +9,10 @@ import { FaTrashAlt } from 'react-icons/fa';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import AchievementForm from './Form';
+import OrganizationForm from './Form';
 import { toast } from 'react-toastify';
 
-const Achievement = ({ userProfile }) => {
+const Organization = ({ userProfile }) => {
   const [profile, setProfile] = useState({ ...userProfile });
   const [isOpen, setIsOpen] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
@@ -33,9 +33,9 @@ const Achievement = ({ userProfile }) => {
       });
   }, [isAdd, isEdit, isDelete]);
 
-  const handleDelete = (achievementId) => {
+  const handleDelete = (organizationId) => {
     axios
-      .delete(`http://localhost:8000/achievements/${achievementId}`, {
+      .delete(`http://localhost:8000/organizations/${organizationId}`, {
         headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {
@@ -74,7 +74,7 @@ const Achievement = ({ userProfile }) => {
         }}
         className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600"
       >
-        Achievement
+        Organization
         <div>
           {isOpen ? (
             <RiArrowDropDownLine size={40} />
@@ -99,30 +99,41 @@ const Achievement = ({ userProfile }) => {
         <div className="flex flex-row flex-wrap justify-center items-start mx-10">
           {!isAdd && !isEdit && (
             <>
-              {profile.Achievements.map((achievement) => {
+              {profile.Organizations.map((organization) => {
                 return (
-                  <Fragment key={achievement.id}>
-                    <div className="basis-1/4 mb-5">
+                  <Fragment key={organization.id}>
+                    <div className="basis-1/4 mb-5 flex">
                       <p className="font-bold">
-                        {new Date(achievement.date).toLocaleDateString(
+                        {new Date(organization.start_date).toLocaleDateString(
+                          'id-ID',
+                          { month: 'long', year: 'numeric' }
+                        )}
+                      </p>
+                      <p className="font-bold">
+                        {''}-{''}
+                      </p>
+                      <p className="font-bold">
+                        {new Date(organization.end_date).toLocaleDateString(
                           'id-ID',
                           { month: 'long', year: 'numeric' }
                         )}
                       </p>
                     </div>
                     <div className="basis-1/2 mb-5">
-                      <p className="font-bold text-lg">{achievement.title}</p>
-                      <p className="font-bold text-slate-500">
-                        {achievement.issuer}
+                      <p className="font-bold text-lg">
+                        {organization.organization}
                       </p>
-                      <p className="text-justify">{achievement.description}</p>
+                      <p className="font-bold text-slate-500">
+                        {organization.role}
+                      </p>
+                      <p className="text-justify">{organization.description}</p>
                     </div>
                     <div className="basis-1/4 mb-5 text-center">
                       {/* edit button */}
                       <button
                         onClick={() => {
                           setIsEdit(true);
-                          setCurrentId(achievement.id);
+                          setCurrentId(organization.id);
                         }}
                         className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
                       >
@@ -133,7 +144,7 @@ const Achievement = ({ userProfile }) => {
                       <button
                         onClick={() => {
                           setIsDelete(true);
-                          handleDelete(achievement.id);
+                          handleDelete(organization.id);
                         }}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded-md ml-2"
                       >
@@ -147,7 +158,7 @@ const Achievement = ({ userProfile }) => {
             </>
           )}
           {isAdd && !isEdit && (
-            <AchievementForm
+            <OrganizationForm
               isAdd={isAdd}
               setIsAdd={setIsAdd}
               currentId={currentId}
@@ -155,7 +166,7 @@ const Achievement = ({ userProfile }) => {
             />
           )}
           {isEdit && !isAdd && (
-            <AchievementForm
+            <OrganizationForm
               isEdit={isEdit}
               setIsEdit={setIsEdit}
               currentId={currentId}
@@ -168,4 +179,4 @@ const Achievement = ({ userProfile }) => {
   );
 };
 
-export default Achievement;
+export default Organization;
