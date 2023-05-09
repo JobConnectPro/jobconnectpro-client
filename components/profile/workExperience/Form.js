@@ -3,47 +3,51 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 
-const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsAdd }) => {
+const WorkExperienceForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsAdd }) => {
   const [input, setInput] = useState({
-    project_name: "",
-    role: "",
-    link: "",
+    job_title: "",
+    company: "",
     start_date: "",
     end_date: "",
     description: "",
+    job_level: "",
+    salary: "",
+    salary_frequency: "",
   });
 
-  // useEffect(() => {
-  //   if (isEdit) {
-  //     axios
-  //       .get(`http://localhost:8000/projects/${currentId}`, {
-  //         headers: { authorization: 'Bearer ' + Cookies.get('token') },
-  //       })
-  //       .then((res) => {
-  //         setInput({
-  //           project_name: res.data.project_name,
-  //           role: res.data.role,
-  //           link: res.data.link,
-  //           start_date: new Date(res.data.start_date).toISOString().split('T')[0],
-  //           end_date: new Date(res.data.end_date).toISOString().split('T')[0],
-  //           description: res.data.description,
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //         toast.error(error, {
-  //           position: 'top-right',
-  //           autoClose: 5000,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: true,
-  //           progress: undefined,
-  //           theme: 'colored',
-  //         });
-  //       });
-  //   }
-  // }, [isEdit]);
+  useEffect(() => {
+    if (isEdit) {
+      axios
+        .get(`http://localhost:8000/work-experiences/${currentId}`, {
+          headers: { authorization: "Bearer " + Cookies.get("token") },
+        })
+        .then((res) => {
+          setInput({
+            job_title: res.data.job_title,
+            company: res.data.company,
+            start_date: new Date(res.data.start_date).toISOString().split("T")[0],
+            end_date: new Date(res.data.end_date).toISOString().split("T")[0],
+            description: res.data.description,
+            job_level: res.data.job_level,
+            salary: res.data.salary,
+            salary_frequency: res.data.salary_frequency,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error(error, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        });
+    }
+  }, [isEdit]);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -55,7 +59,7 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
     event.preventDefault();
     if (currentId === 0) {
       axios
-        .post("http://localhost:8000/projects", input, {
+        .post("http://localhost:8000/work-experiences", input, {
           headers: { authorization: "Bearer " + Cookies.get("token") },
         })
         .then((res) => {
@@ -72,12 +76,14 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
           setIsAdd(false);
           setCurrentId(0);
           setInput({
-            project_name: "",
-            role: "",
-            link: "",
+            job_title: "",
+            company: "",
             start_date: "",
             end_date: "",
             description: "",
+            job_level: "",
+            salary: "",
+            salary_frequency: "",
           });
         })
         .catch((error) => {
@@ -95,7 +101,7 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
         });
     } else {
       axios
-        .put(`http://localhost:8000/projects/${currentId}`, input, {
+        .put(`http://localhost:8000/work-experiences/${currentId}`, input, {
           headers: { authorization: "Bearer " + Cookies.get("token") },
         })
         .then((res) => {
@@ -112,12 +118,14 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
           setIsEdit(false);
           setCurrentId(0);
           setInput({
-            project_name: "",
-            role: "",
-            link: "",
+            job_title: "",
+            company: "",
             start_date: "",
             end_date: "",
             description: "",
+            job_level: "",
+            salary: "",
+            salary_frequency: "",
           });
         })
         .catch((error) => {
@@ -138,51 +146,37 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
 
   return (
     <div className="w-full text-end">
-      <form className="space-y-3" onSubmit={handleSubmit}>
+      <form className="space-y-2 p-4" onSubmit={handleSubmit}>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="project_name" className="mr-2 basis-36">
-            Project Name:
+          <label htmlFor="project_name" className="mr-2 text-start basis-36">
+            Job Title:
           </label>
           <input
             type="text"
-            id="project_name"
-            name="project_name"
-            value={input.project_name}
+            id="job_title"
+            name="job_title"
+            value={input.job_title}
             onChange={handleChange}
             className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
             required
           />
         </div>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="role" className="mr-2 basis-36">
-            Role:
+          <label htmlFor="role" className="mr-2 text-start basis-36">
+            Company:
           </label>
           <input
             type="text"
-            id="role"
-            name="role"
-            value={input.role}
+            id="company"
+            name="company"
+            value={input.company}
             onChange={handleChange}
             className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
             required
           />
         </div>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="link" className="mr-2 basis-36">
-            Link:
-          </label>
-          <input
-            type="text"
-            id="link"
-            name="link"
-            value={input.link}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
-            required
-          />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="start_date" className="mr-2 basis-36">
+          <label htmlFor="start_date" className="mr-2 text-start basis-36">
             Start Date:
           </label>
           <input
@@ -196,7 +190,7 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
           />
         </div>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="end_date" className="mr-2 basis-36">
+          <label htmlFor="end_date" className="mr-2 text-start basis-36">
             End Date:
           </label>
           <input
@@ -210,7 +204,7 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
           />
         </div>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="description" className="mr-2 basis-36 self-start">
+          <label htmlFor="description" className="mr-2 text-start basis-36 self-start">
             Description:
           </label>
           <textarea
@@ -221,6 +215,48 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
             className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full"
             required
             rows="5"
+          />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="role" className="mr-2 text-start basis-36">
+            Job Level:
+          </label>
+          <input
+            type="text"
+            id="job_level"
+            name="job_level"
+            value={input.job_level}
+            onChange={handleChange}
+            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+            required
+          />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="role" className="mr-2 text-start basis-36">
+            Salary:
+          </label>
+          <input
+            type="number"
+            id="salary"
+            name="salary"
+            value={input.salary}
+            onChange={handleChange}
+            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+            required
+          />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="role" className="mr-2 text-start basis-36">
+            Salary Freuency:
+          </label>
+          <input
+            type="text"
+            id="salary_frequency"
+            name="salary_frequency"
+            value={input.salary_frequency}
+            onChange={handleChange}
+            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+            required
           />
         </div>
         <div>
@@ -234,12 +270,14 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
                 }
                 setCurrentId(0);
                 setInput({
-                  project_name: "",
-                  role: "",
-                  link: "",
+                  job_title: "",
+                  company: "",
                   start_date: "",
                   end_date: "",
                   description: "",
+                  job_level: "",
+                  salary: "",
+                  salary_frequency: "",
                 });
               }}
               className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
@@ -248,7 +286,7 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
             </button>
             <button
               type="submit"
-              className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700"
+              className="my-4 bg-blue-500 p-2 px-4 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700"
             >
               Submit
             </button>
@@ -259,4 +297,4 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
   );
 };
 
-export default ProjectForm;
+export default WorkExperienceForm;

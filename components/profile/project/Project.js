@@ -1,11 +1,11 @@
-import { Fragment, useEffect, useState } from 'react';
-import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiAddCircleLine } from 'react-icons/ri';
-import { FaTrashAlt } from 'react-icons/fa';
+import { Fragment, useEffect, useState } from "react";
+import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiAddCircleLine } from "react-icons/ri";
+import { FaTrashAlt } from "react-icons/fa";
 
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import ProjectForm from './Form';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import Cookies from "js-cookie";
+import ProjectForm from "./Form";
+import { toast } from "react-toastify";
 
 const Project = ({ userProfile }) => {
   const [profile, setProfile] = useState({ ...userProfile });
@@ -17,8 +17,8 @@ const Project = ({ userProfile }) => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8000/users/profile', {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
+      .get("http://localhost:8000/users/profile", {
+        headers: { authorization: "Bearer " + Cookies.get("token") },
       })
       .then((res) => {
         setProfile({ ...res.data });
@@ -31,32 +31,32 @@ const Project = ({ userProfile }) => {
   const handleDelete = (projectId) => {
     axios
       .delete(`http://localhost:8000/projects/${projectId}`, {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
+        headers: { authorization: "Bearer " + Cookies.get("token") },
       })
       .then((res) => {
         toast.success(res.data.message, {
-          position: 'top-right',
+          position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'colored',
+          theme: "colored",
         });
         setIsDelete(false);
       })
       .catch((error) => {
         console.log(error);
         toast.error(error.response.data.message, {
-          position: 'top-right',
+          position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'colored',
+          theme: "colored",
         });
       });
   };
@@ -72,7 +72,7 @@ const Project = ({ userProfile }) => {
         Project
         <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
       </button>
-      <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
+      <div className={isOpen ? "hidden" : "w-full bg-white py-4"}>
         {/* add button */}
         {!isAdd && !isEdit && (
           <button
@@ -93,8 +93,8 @@ const Project = ({ userProfile }) => {
                   <Fragment key={project.id}>
                     <div className="basis-1/4 mb-5">
                       <p className="font-bold">
-                        {new Date(project.start_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })} -{' '}
-                        {new Date(project.end_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}
+                        {new Date(project.start_date).toLocaleDateString("id-ID", { month: "long", year: "numeric" })} -{" "}
+                        {new Date(project.end_date).toLocaleDateString("id-ID", { month: "long", year: "numeric" })}
                       </p>
                     </div>
                     <div className="basis-1/2 mb-5">
@@ -132,8 +132,12 @@ const Project = ({ userProfile }) => {
               })}
             </>
           )}
-          {isAdd && !isEdit && <ProjectForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />}
-          {isEdit && !isAdd && <ProjectForm isEdit={isEdit} setIsEdit={setIsEdit} currentId={currentId} setCurrentId={setCurrentId} />}
+          {isAdd && !isEdit && (
+            <ProjectForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />
+          )}
+          {isEdit && !isAdd && (
+            <ProjectForm isEdit={isEdit} setIsEdit={setIsEdit} currentId={currentId} setCurrentId={setCurrentId} />
+          )}
         </div>
       </div>
     </div>
