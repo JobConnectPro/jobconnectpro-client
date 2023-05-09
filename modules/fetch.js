@@ -28,9 +28,19 @@ const loginUser = async (email, password) => {
   }
 };
 
-const getJobsList = async () => {
+const getJobsList = async (searchQuery = '') => {
   try {
-    const response = await instance.get('/jobs');
+    const response = await instance.get(`/jobs?title=${searchQuery}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+};
+
+
+const getJobDetails = async (id) => {
+  try {
+    const response = await instance.get(`/jobs/${id}`);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
@@ -47,4 +57,4 @@ const getCategoryList = async () => {
   }
 }
 
-export { registerUser, loginUser, getJobsList, getCategoryList};
+export { registerUser, loginUser, getJobsList, getCategoryList, getJobDetails};
