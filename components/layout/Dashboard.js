@@ -5,16 +5,8 @@ import Logo from '../Logo';
 import { CgProfile } from 'react-icons/cg';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
-import {
-  AiOutlineSearch,
-  AiOutlineAppstore,
-  AiOutlineMessage,
-} from 'react-icons/ai';
-import {
-  RiArrowDropDownLine,
-  RiLogoutBoxRLine,
-  RiSettings4Line,
-} from 'react-icons/ri';
+import { AiOutlineSearch, AiOutlineAppstore, AiOutlineMessage } from 'react-icons/ai';
+import { RiArrowDropDownLine, RiLogoutBoxRLine, RiSettings4Line, RiBookmarkFill } from 'react-icons/ri';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import Cookies from 'js-cookie';
 import { RiLogoutBoxLine } from 'react-icons/ri';
@@ -81,10 +73,7 @@ const Dashboard = ({ children }) => {
                     <div>
                       <Menu.Button className="flex items-center  text-sm font-bold focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">
                         <span className="sr-only">Open user menu</span>
-                        <p>
-                          {!profile.name !== null &&
-                            profile.name?.split(' ')[0]}
-                        </p>
+                        <p>{!profile.name !== null && profile.name?.split(' ')[0]}</p>
                         <RiArrowDropDownLine size={30} />
                         {/* <img
                           className="h-8 w-8 rounded-full"
@@ -105,13 +94,7 @@ const Dashboard = ({ children }) => {
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
-                            <Link
-                              href="/seeker/profile"
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
+                            <Link href="/seeker/profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                               <div className="flex">
                                 <CgProfile size={20} />
                                 <p className=" ml-2">Profile</p>
@@ -121,13 +104,7 @@ const Dashboard = ({ children }) => {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <Link
-                              href="#"
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
+                            <Link href="#" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                               <div className="flex">
                                 <RiSettings4Line size={20} />
                                 <p className=" ml-2">Setting</p>
@@ -139,10 +116,7 @@ const Dashboard = ({ children }) => {
                           {({ active }) => (
                             <Link
                               href="/"
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
+                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                               onClick={() => {
                                 Cookies.remove('token');
                                 Cookies.remove('role');
@@ -166,39 +140,48 @@ const Dashboard = ({ children }) => {
         {/* end of navbar */}
         <div className="flex flex-row flex-nowrap">
           {/* sidebar */}
-          <div
-            className={
-              isHide
-                ? 'hidden'
-                : 'h-screen basis-auto fixed flex mt-[4rem] bg-white p-4 pr-10'
-            }
-          >
+          <div className={isHide ? 'hidden' : 'h-screen basis-auto fixed flex mt-[4rem] bg-white p-4 pr-10'}>
             <nav className="flex flex-col gap-4">
-              <Link
-                href={'/job-board'}
-                className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-              >
+              <Link href={'/job-board'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                 <AiOutlineSearch size={20} />
                 Job Board
               </Link>
               {/* admin */}
               {role == 'Admin' && (
-                <Link
-                  href={'/admin/profile'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
+                <Link href={'/admin/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                   <CgProfile size={20} />
                   Profile
+                </Link>
+              )}
+              {role == 'Admin' && (
+                <Link href={'/master/attainment'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  Attainment
+                </Link>
+              )}
+              {role == 'Admin' && (
+                <Link href={'/master/category'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  Category
+                </Link>
+              )}
+              {role == 'Admin' && (
+                <Link href={'/master/sector'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  Sector
+                </Link>
+              )}
+              {role == 'Admin' && (
+                <Link href={'/master/skill'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  Skill
                 </Link>
               )}
               {/* end of admin */}
 
               {/* employer */}
               {role == 'Employer' && (
-                <Link
-                  href={'/employer/profile'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
+                <Link href={'/employer/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                   <CgProfile size={20} />
                   Profile
                 </Link>
@@ -207,46 +190,26 @@ const Dashboard = ({ children }) => {
 
               {/* seeker */}
               {role == 'Seeker' && (
-                <Link
-                  href={'/seeker/profile'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
+                <Link href={'/seeker/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                   <CgProfile size={20} />
                   Profile
                 </Link>
               )}
-
               {role == 'Seeker' && (
-                <Link
-                  href={'/seeker/applications'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <CgProfile size={20} />
-                  Application
+                <Link href={'/seeker/applications'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <AiOutlineAppstore size={20} />
+                  Applications
                 </Link>
               )}
               {role == 'Seeker' && (
-                <Link
-                  href={'/seeker/bookmarks'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <CgProfile size={20} />
+                <Link href={'/seeker/bookmarks'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <RiBookmarkFill size={20} />
                   Bookmark
                 </Link>
               )}
               {/* end of seeker */}
 
-              <Link
-                href={'/applications'}
-                className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-              >
-                <AiOutlineAppstore size={20} />
-                Applications
-              </Link>
-              <Link
-                href={'/messages'}
-                className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-              >
+              <Link href={'/messages'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                 <AiOutlineMessage size={20} />
                 Messages
               </Link>
@@ -254,9 +217,7 @@ const Dashboard = ({ children }) => {
           </div>
           {/* end of sidebar */}
           {/* main content */}
-          <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-44'}>
-            {children}
-          </div>
+          <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-44'}>{children}</div>
           {/* main content */}
         </div>
       </div>
