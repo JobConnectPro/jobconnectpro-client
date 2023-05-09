@@ -4,11 +4,12 @@ import BasicInformation from '@/components/profile/basicInfomation/BasicInformat
 import WorkExperience from '@/components/profile/workExperience/WorkExperience';
 import Education from '@/components/profile/education/Education';
 import Resume from '@/components/profile/Resume';
-import Skills from '@/components/profile/Skills';
 import Summary from '@/components/profile/summary/Summary';
 import Achievement from '@/components/profile/achievement/Achievement';
 import Project from '@/components/profile/project/Project';
 import Organization from '@/components/profile/organization/Organization';
+import UserSkill from '@/components/profile/skill/Skill';
+
 const Profile = ({ profile }) => {
   return (
     <Layout>
@@ -21,6 +22,9 @@ const Profile = ({ profile }) => {
       <Education userProfile={profile} />
       <Organization userProfile={profile} />
       <Skills />
+      <UserSkill userProfile={profile} />
+      <WorkExperience />
+      <Education />
       <Resume />
     </Layout>
   );
