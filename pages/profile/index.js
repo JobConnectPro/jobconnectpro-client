@@ -7,6 +7,7 @@ import SalaryExpectation from "@/components/profile/salaryExpectation/SalaryExpe
 import Skills from "@/components/profile/Skills";
 import WorkExperience from "@/components/profile/WorkExperience";
 
+
 export default function profile() {
   return (
     <>
