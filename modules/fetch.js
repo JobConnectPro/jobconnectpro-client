@@ -53,7 +53,8 @@ const getCategoryList = async () => {
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
+    
   }
-};
+}
 
 export { registerUser, loginUser, getJobsList, getCategoryList, getJobDetails};
