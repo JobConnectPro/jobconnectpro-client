@@ -11,6 +11,7 @@ import UserSkill from '@/components/profile/skill/Skill';
 import Organization from '@/components/profile/organization/Organization';
 
 const Profile = ({ profile }) => {
+  console.log(profile);
   return (
     <Layout>
       <BasicInformation userProfile={profile} />
