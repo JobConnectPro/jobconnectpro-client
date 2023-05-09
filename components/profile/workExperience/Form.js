@@ -3,45 +3,34 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
-const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsAdd }) => {
+const WorkExperienceForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsAdd }) => {
   const [input, setInput] = useState({
-    attainment_id: '',
-    school: '',
-    major: '',
-    description: '',
+    job_title: '',
+    company: '',
     start_date: '',
     end_date: '',
+    description: '',
+    job_level: '',
+    salary: '',
+    salary_frequency: '',
   });
-
-  const [attainments, setAttainments] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/attainments`, {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
-      })
-      .then((res) => {
-        setAttainments([...res.data]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   useEffect(() => {
     if (isEdit) {
       axios
-        .get(`http://localhost:8000/educations/${currentId}`, {
+        .get(`http://localhost:8000/work-experiences/${currentId}`, {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
           setInput({
-            attainment_id: res.data.attainment_id,
-            school: res.data.school,
-            major: res.data.major,
-            description: res.data.description,
+            job_title: res.data.job_title,
+            company: res.data.company,
             start_date: new Date(res.data.start_date).toISOString().split('T')[0],
             end_date: new Date(res.data.end_date).toISOString().split('T')[0],
+            description: res.data.description,
+            job_level: res.data.job_level,
+            salary: res.data.salary,
+            salary_frequency: res.data.salary_frequency,
           });
         })
         .catch((error) => {
@@ -70,7 +59,7 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
     event.preventDefault();
     if (currentId === 0) {
       axios
-        .post('http://localhost:8000/educations', input, {
+        .post('http://localhost:8000/work-experiences', input, {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
@@ -87,12 +76,14 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
           setIsAdd(false);
           setCurrentId(0);
           setInput({
-            attainment_id: '',
-            school: '',
-            major: '',
-            description: '',
+            job_title: '',
+            company: '',
             start_date: '',
             end_date: '',
+            description: '',
+            job_level: '',
+            salary: '',
+            salary_frequency: '',
           });
         })
         .catch((error) => {
@@ -110,7 +101,7 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
         });
     } else {
       axios
-        .put(`http://localhost:8000/educations/${currentId}`, input, {
+        .put(`http://localhost:8000/work-experiences/${currentId}`, input, {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
@@ -127,12 +118,14 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
           setIsEdit(false);
           setCurrentId(0);
           setInput({
-            attainment_id: '',
-            school: '',
-            major: '',
-            description: '',
+            job_title: '',
+            company: '',
             start_date: '',
             end_date: '',
+            description: '',
+            job_level: '',
+            salary: '',
+            salary_frequency: '',
           });
         })
         .catch((error) => {
@@ -153,48 +146,62 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
 
   return (
     <div className="w-full text-end">
-      <form className="space-y-3" onSubmit={handleSubmit}>
+      <form className="space-y-2 p-4" onSubmit={handleSubmit}>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="school" className="mr-2 basis-36">
-            Insitute/University:
+          <label htmlFor="project_name" className="mr-2 text-start basis-36">
+            Job Title:
           </label>
-          <input type="text" id="school" name="school" value={input.school} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
+          <input type="text" id="job_title" name="job_title" value={input.job_title} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
-
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="start_date" className="mr-2 basis-36">
+          <label htmlFor="role" className="mr-2 text-start basis-36">
+            Company:
+          </label>
+          <input type="text" id="company" name="company" value={input.company} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="start_date" className="mr-2 text-start basis-36">
             Start Date:
           </label>
           <input type="date" id="start_date" name="start_date" value={input.start_date} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="end_date" className="mr-2 basis-36">
+          <label htmlFor="end_date" className="mr-2 text-start basis-36">
             End Date:
           </label>
           <input type="date" id="end_date" name="end_date" value={input.end_date} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
         <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="role" className="mr-2 basis-36">
-            Qualification:
-          </label>
-          <select id="attainment_id" name="attainment_id" value={input.attainment_id} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md">
-            <option value="">--Select an Option--</option>
-            {attainments.map((attainment) => {
-              return <option value={attainment.id}>{attainment.attainment}</option>;
-            })}
-          </select>
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="major" className="mr-2 basis-36">
-            Major:
-          </label>
-          <input type="text" id="major" name="major" value={input.major} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="description" className="mr-2 basis-36 self-start">
+          <label htmlFor="description" className="mr-2 text-start basis-36 self-start">
             Description:
           </label>
           <textarea id="description" name="description" value={input.description} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full" required rows="5" />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="role" className="mr-2 text-start basis-36">
+            Job Level:
+          </label>
+          <input type="text" id="job_level" name="job_level" value={input.job_level} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="role" className="mr-2 text-start basis-36">
+            Salary:
+          </label>
+          <input type="number" id="salary" name="salary" value={input.salary} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
+        </div>
+        <div className="flex items-center mx-auto justify-center">
+          <label htmlFor="role" className="mr-2 text-start basis-36">
+            Salary Freuency:
+          </label>
+          <input
+            type="text"
+            id="salary_frequency"
+            name="salary_frequency"
+            value={input.salary_frequency}
+            onChange={handleChange}
+            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+            required
+          />
         </div>
         <div>
           <div className="flex justify-center text-center gap-4">
@@ -207,19 +214,21 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
                 }
                 setCurrentId(0);
                 setInput({
-                  attainment_id: '',
-                  school: '',
-                  major: '',
-                  description: '',
+                  job_title: '',
+                  company: '',
                   start_date: '',
                   end_date: '',
+                  description: '',
+                  job_level: '',
+                  salary: '',
+                  salary_frequency: '',
                 });
               }}
               className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
             >
               Cancel
             </button>
-            <button type="submit" className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
+            <button type="submit" className="my-4 bg-blue-500 p-2 px-4 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
               Submit
             </button>
           </div>
@@ -229,4 +238,4 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
   );
 };
 
-export default EducationForm;
+export default WorkExperienceForm;
