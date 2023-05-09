@@ -37,4 +37,14 @@ const getJobsList = async () => {
   }
 };
 
-export { registerUser, loginUser, getJobsList };
+const getCategoryList = async () => {
+  try {
+    const response = await instance.get('/categories');
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+    
+  }
+}
+
+export { registerUser, loginUser, getJobsList, getCategoryList};
