@@ -7,7 +7,7 @@ const JobList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [perPage, setPerPage] = useState(10); // add state for number of items per page
+  const [perPage, setPerPage] = useState(10);
   const [locationFilter, setLocationFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [experienceFilter, setExperienceFilter] = useState('');
@@ -23,7 +23,7 @@ const JobList = () => {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); // reset to first page when searching
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page) => {
@@ -31,8 +31,8 @@ const JobList = () => {
   };
 
   const handlePerPageChange = (e) => {
-    setPerPage(parseInt(e.target.value)); // parse selected value to integer
-    setCurrentPage(1); // reset to first page when changing items per page
+    setPerPage(parseInt(e.target.value));
+    setCurrentPage(1);
   };
 
   const renderPagination = () => {
