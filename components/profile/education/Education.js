@@ -33,9 +33,9 @@ const Education = ({ userProfile }) => {
       });
   }, [isAdd, isEdit, isDelete]);
 
-  const handleDelete = (organizationId) => {
+  const handleDelete = (educationId) => {
     axios
-      .delete(`http://localhost:8000/organizations/${organizationId}`, {
+      .delete(`http://localhost:8000/educaations/${educationId}`, {
         headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {

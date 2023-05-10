@@ -50,7 +50,7 @@ const Dashboard = ({ children }) => {
     <>
       <div className="flex flex-col bg-slate-200">
         {/* navbar */}
-        <div className="w-full fixed bg-white">
+        <div className="w-full sticky top-0 z-30  bg-white">
           <div className="flex justify-between items-center p-4">
             <div className="flex flex-row items-center">
               <span className="mr-3 mt-2">
@@ -86,11 +86,6 @@ const Dashboard = ({ children }) => {
                             profile.name?.split(' ')[0]}
                         </p>
                         <RiArrowDropDownLine size={30} />
-                        {/* <img
-                          className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt=""
-                        /> */}
                       </Menu.Button>
                     </div>
                     <Transition
@@ -102,7 +97,7 @@ const Dashboard = ({ children }) => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                         <Menu.Item>
                           {({ active }) => (
                             <Link
@@ -170,7 +165,7 @@ const Dashboard = ({ children }) => {
             className={
               isHide
                 ? 'hidden'
-                : 'h-screen basis-auto fixed flex mt-[4rem] bg-white p-4 pr-10'
+                : 'h-screen basis-auto fixed flex  bg-white p-4 pr-10'
             }
           >
             <nav className="flex flex-col gap-4">
@@ -254,7 +249,13 @@ const Dashboard = ({ children }) => {
           </div>
           {/* end of sidebar */}
           {/* main content */}
-          <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-44'}>
+          <div
+            className={
+              isHide
+                ? 'basis-full ml-0 h-screen'
+                : 'basis-full h-screen ml-44 bg-white'
+            }
+          >
             {children}
           </div>
           {/* main content */}

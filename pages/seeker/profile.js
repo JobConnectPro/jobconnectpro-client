@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/Dashboard';
 import SalaryExpectation from '@/components/profile/salaryExpectation/SalaryExpectation';
 import BasicInformation from '@/components/profile/basicInfomation/BasicInformation';
-import WorkExperience from '@/components/profile/WorkExperience';
+// import WorkExperience from '@/components/profile/WorkExperience';
 import Education from '@/components/profile/education/Education';
 import Resume from '@/components/profile/Resume';
 import Summary from '@/components/profile/summary/Summary';
@@ -20,7 +20,7 @@ const Profile = ({ profile }) => {
       <Achievement userProfile={profile} />
       <Project userProfile={profile} />
       <UserSkill userProfile={profile} />
-      <WorkExperience />
+      {/* <WorkExperience /> */}
       <Education />
       <Resume />
     </Layout>
