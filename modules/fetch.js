@@ -28,14 +28,24 @@ const loginUser = async (email, password) => {
   }
 };
 
-const getJobsList = async (searchQuery = '') => {
+const getJobsList = async (searchQuery = '', page = 1, perPage = 10, locationFilter = '', typeFilter = '', experienceFilter = '') => {
   try {
-    const response = await instance.get(`/jobs?title=${searchQuery}`);
+    const response = await instance.get(`/jobs`, {
+      params: {
+        title: searchQuery,
+        page,
+        limit: perPage,
+        location: locationFilter,
+        type: typeFilter,
+        experience: experienceFilter
+      },
+    });
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
   }
 };
+
 
 
 const getJobDetails = async (id) => {

@@ -1,5 +1,8 @@
 import { getJobsList } from '@/modules/fetch';
 import { useState, useEffect } from 'react';
+import JobPagination from './JobPagination';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import JobCard from './JobCard';
 
 const JobList = () => {
@@ -7,32 +10,42 @@ const JobList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [perPage, setPerPage] = useState(10); // add state for number of items per page
   const [locationFilter, setLocationFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [experienceFilter, setExperienceFilter] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getJobsList(searchQuery, currentPage, perPage, locationFilter, typeFilter, experienceFilter);
+      const res = await getJobsList(
+        searchQuery,
+        currentPage,
+        locationFilter,
+        typeFilter,
+        experienceFilter
+      );
       setJobs(res.data);
-      setTotalPages(res.totalPages);
+      const totalItems = res.data.length;
+      const totalPagesCount = Math.ceil(totalItems / 10); // Menambahkan pembagian dengan 10 karena asumsi setiap halaman menampilkan 10 pekerjaan
+
+      setTotalPages(totalPagesCount);
+
+      if (currentPage > totalPagesCount && totalPagesCount > 0) {
+        setCurrentPage(totalPagesCount);
+      } else if (totalPagesCount === 0) {
+        setCurrentPage(1);
+      }
     };
+
     fetchData();
-  }, [searchQuery, currentPage, perPage, locationFilter, typeFilter, experienceFilter]);
+  }, [searchQuery, currentPage, locationFilter, typeFilter, experienceFilter]);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); // reset to first page when searching
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-  };
-
-  const handlePerPageChange = (e) => {
-    setPerPage(parseInt(e.target.value)); // parse selected value to integer
-    setCurrentPage(1); // reset to first page when changing items per page
   };
 
   const renderPagination = () => {
@@ -41,8 +54,8 @@ const JobList = () => {
       pages.push(
         <button
           key={i}
-          className={`border px-4 py-2 rounded ${
-            i === currentPage ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'
+          className={`border ${
+            i === currentPage ? 'bg-blue-500 text-white' : ''
           }`}
           onClick={() => handlePageChange(i)}
         >
@@ -50,13 +63,8 @@ const JobList = () => {
         </button>
       );
     }
-    return (
-      <div className="flex items-center justify-center mt-4">
-        {pages}
-      </div>
-    );
+    return pages;
   };
-  
 
   const handleLocationChange = (e) => {
     setLocationFilter(e.target.value);
@@ -74,7 +82,7 @@ const JobList = () => {
   };
 
   const locations = ['Surabaya', 'Jakarta', 'Los Angeles', 'Chicago', 'Boston'];
-  const types = ['Onsite', 'Remote'];
+  const types = ['On-Site', 'Remote'];
   const experiences = [1, 2, 3, 4, 5];
 
   const filteredJobs = jobs.filter((job) => {
@@ -90,7 +98,12 @@ const JobList = () => {
     return true;
   });
 
-  console.log(locationFilter)
+  const startIndex = (currentPage - 1) * 10;
+  const endIndex = Math.min(startIndex + 10, filteredJobs.length);
+
+  const paginatedJobs = filteredJobs.slice(startIndex, endIndex);
+
+  console.log(currentPage, totalPages);
 
   return (
     <div className='max-w-2xl mx-auto mb-5'>
@@ -141,39 +154,30 @@ const JobList = () => {
       </div>
       <div className='mb-4'>
         <input
+          className='border w-full p-2 rounded'
           type='text'
-          className='border-gray-400 border-2 py-2 px-4 w-full rounded-md'
-          placeholder='Search jobs by title...'
+          placeholder='Search jobs...'
           value={searchQuery}
           onChange={handleSearch}
         />
       </div>
-      <div className='flex justify-between mb-4'>
-        <div className='flex items-center mr-2'>
-          <span>Per page:</span>
-          <select
-            className='mx-2 border p-1'
-            value={perPage}
-            onChange={handlePerPageChange}
-          >
-            <option value='10'>10</option>
-            <option value='20'>20</option>
-            <option value='50'>50</option>
-          </select>
+      {paginatedJobs.length > 0 ? (
+        paginatedJobs.map((job) => <JobCard job={job} key={job.id} />)
+      ) : (
+        <p className='text-center'>No jobs found.</p>
+      )}
+
+      <div>
+        <div className='flex justify-between mb-4'>
+          <div className='flex items-center'>
+            <span>Page:</span>
+            <div className='flex items-center ml-2'>{renderPagination()}</div>
+          </div>
         </div>
-        <div className='flex items-center'>
-          <span>Page:</span>
-          <div className='flex items-center ml-2'>{renderPagination()}</div>
-        </div>
+        {/* <div className='flex flex-col'>{renderItems()}</div> */}
       </div>
-      <div className='grid gap-4'>
-        {jobs.map((job) => (
-          <JobCard job={job} key={job.id} />
-        ))}
-      </div>
-      <div className='flex justify-center mt-4'>{renderPagination()}</div>
     </div>
   );
 };
-export default JobList;
 
+export default JobList;
