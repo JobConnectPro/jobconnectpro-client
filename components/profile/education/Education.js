@@ -35,7 +35,7 @@ const Education = ({ userProfile }) => {
 
   const handleDelete = (educationId) => {
     axios
-      .delete(`http://localhost:8000/educaations/${educationId}`, {
+      .delete(`http://localhost:8000/educations/${educationId}`, {
         headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {
@@ -131,7 +131,7 @@ const Education = ({ userProfile }) => {
                       <button
                         onClick={() => {
                           setIsEdit(true);
-                          setCurrentId(organization.id);
+                          setCurrentId(education.id);
                         }}
                         className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
                       >
@@ -142,7 +142,7 @@ const Education = ({ userProfile }) => {
                       <button
                         onClick={() => {
                           setIsDelete(true);
-                          handleDelete(organization.id);
+                          handleDelete(education.id);
                         }}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded-md ml-2"
                       >

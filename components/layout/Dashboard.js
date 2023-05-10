@@ -14,6 +14,7 @@ import {
   RiArrowDropDownLine,
   RiLogoutBoxRLine,
   RiSettings4Line,
+  RiBookmarkFill,
 } from 'react-icons/ri';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import Cookies from 'js-cookie';
@@ -165,7 +166,7 @@ const Dashboard = ({ children }) => {
             className={
               isHide
                 ? 'hidden'
-                : 'h-screen basis-auto fixed flex  bg-white p-4 pr-10'
+                : 'h-screen basis-auto fixed flex mt-[4rem] bg-white p-4 pr-10'
             }
           >
             <nav className="flex flex-col gap-4">
@@ -184,6 +185,42 @@ const Dashboard = ({ children }) => {
                 >
                   <CgProfile size={20} />
                   Profile
+                </Link>
+              )}
+              {role == 'Admin' && (
+                <Link
+                  href={'/master/attainment'}
+                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
+                >
+                  <CgProfile size={20} />
+                  Attainment
+                </Link>
+              )}
+              {role == 'Admin' && (
+                <Link
+                  href={'/master/category'}
+                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
+                >
+                  <CgProfile size={20} />
+                  Category
+                </Link>
+              )}
+              {role == 'Admin' && (
+                <Link
+                  href={'/master/sector'}
+                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
+                >
+                  <CgProfile size={20} />
+                  Sector
+                </Link>
+              )}
+              {role == 'Admin' && (
+                <Link
+                  href={'/master/skill'}
+                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
+                >
+                  <CgProfile size={20} />
+                  Skill
                 </Link>
               )}
               {/* end of admin */}
@@ -210,14 +247,13 @@ const Dashboard = ({ children }) => {
                   Profile
                 </Link>
               )}
-
               {role == 'Seeker' && (
                 <Link
                   href={'/seeker/applications'}
                   className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
                 >
-                  <CgProfile size={20} />
-                  Application
+                  <AiOutlineAppstore size={20} />
+                  Applications
                 </Link>
               )}
               {role == 'Seeker' && (
@@ -225,19 +261,12 @@ const Dashboard = ({ children }) => {
                   href={'/seeker/bookmarks'}
                   className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
                 >
-                  <CgProfile size={20} />
+                  <RiBookmarkFill size={20} />
                   Bookmark
                 </Link>
               )}
               {/* end of seeker */}
 
-              <Link
-                href={'/applications'}
-                className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-              >
-                <AiOutlineAppstore size={20} />
-                Applications
-              </Link>
               <Link
                 href={'/messages'}
                 className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
@@ -249,13 +278,7 @@ const Dashboard = ({ children }) => {
           </div>
           {/* end of sidebar */}
           {/* main content */}
-          <div
-            className={
-              isHide
-                ? 'basis-full ml-0 h-screen'
-                : 'basis-full h-screen ml-44 bg-white'
-            }
-          >
+          <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-44'}>
             {children}
           </div>
           {/* main content */}
