@@ -10,6 +10,7 @@ import Organization from '@/components/profile/organization/Organization';
 import WorkExperience from '@/components/profile/workExperience/WorkExperience';
 import Resume from '@/components/profile/resume/Resume';
 
+
 const Profile = ({ profile }) => {
   console.log(profile);
   return (
@@ -33,8 +34,8 @@ export default Profile;
 export const getServerSideProps = async (context) => {
   const { token } = context.req.cookies;
 
-  const result = await fetch('http://localhost:8000/users/profile', {
-    headers: { Authorization: 'Bearer ' + token },
+  const result = await fetch("http://localhost:8000/users/profile", {
+    headers: { Authorization: "Bearer " + token },
   });
   const data = await result.json();
 

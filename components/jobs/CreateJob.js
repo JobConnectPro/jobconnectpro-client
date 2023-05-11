@@ -21,7 +21,6 @@ export default function CreateJob() {
     minimum_experience: '',
   });
   const [categoryOptions, setCategoryOptions] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
   const [companyOptions, setCompanyOptions] = useState([]);
 
   const handleInputChange = (e) => {
@@ -59,7 +58,6 @@ export default function CreateJob() {
       });
       const data = await response.json();
       if (response.ok) {
-        // window.location.href = `/jobs/${response.data.fullField.data.id}`;
         toast.success(`${data.message}`, {
           position: 'top-center',
           autoClose: 3000,
@@ -70,11 +68,10 @@ export default function CreateJob() {
           progress: undefined,
           theme: 'light',
         });
-        router.push('/');
+        router.push('/jobs');
         console.log(data);
       } else {
-        setErrorMessage(data.message);
-        toast.error(`${err.message}`, {
+        toast.error(`${data.message}`, {
           position: 'top-center',
           autoClose: 3000,
           hideProgressBar: false,
@@ -86,7 +83,6 @@ export default function CreateJob() {
         });
       }
     } catch (error) {
-      setErrorMessage(error.message);
       toast.error(`${err.message}`, {
         position: 'top-center',
         autoClose: 3000,
