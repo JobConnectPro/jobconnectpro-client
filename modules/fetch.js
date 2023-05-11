@@ -46,8 +46,6 @@ const getJobsList = async (searchQuery = '', page = 1, perPage = 10, locationFil
   }
 };
 
-
-
 const getJobDetails = async (id) => {
   try {
     const response = await instance.get(`/jobs/${id}`);
