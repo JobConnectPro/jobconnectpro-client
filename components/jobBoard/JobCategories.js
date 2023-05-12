@@ -11,19 +11,33 @@ export default function JobCategories() {
         <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
           Architecture and Engineering
         </button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">Art and Sports</button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">Customer Servive</button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          Art and Sports
+        </button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          Customer Service
+        </button>
         <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
           Education and Training
         </button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">General Services</button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">Health and Medical</button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          General Services
+        </button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          Health and Medical
+        </button>
         <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
           Hospitality and Tourism
         </button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">Human Resource</button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">IT and Softwaare</button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">Legal</button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          Human Resource
+        </button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          IT and Softwaare
+        </button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          Legal
+        </button>
         <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
           Management and Consultancy
         </button>
@@ -42,9 +56,15 @@ export default function JobCategories() {
         <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
           Sales and Marketing
         </button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">Sciences</button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">Skilled Trade</button>
-        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">Supply Chain</button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          Sciences
+        </button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          Skilled Trade
+        </button>
+        <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
+          Supply Chain
+        </button>
         <button className="py-3 w-full border border-slate-300 rounded-md hover:bg-blue-400">
           Writing and Content
         </button>
