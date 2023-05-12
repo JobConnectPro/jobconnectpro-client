@@ -107,10 +107,6 @@ export default function CreateJob() {
 
   console.log(categoryOptions);
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
   const fetchCompanyList = async () => {
     try {
       const response = await fetch(
@@ -138,15 +134,16 @@ export default function CreateJob() {
   };
 
   useEffect(() => {
+    fetchCategories();
     fetchCompanyList();
   }, []);
 
   return (
     <div className='w-1/2 mx-auto p-4'>
-      <h1 class='text-3xl font-bold mb-4'>Create Job</h1>
-      <form onSubmit={handleSubmit} class='space-y-4'>
+      <h1 className='text-3xl font-bold mb-4'>Create Job</h1>
+      <form onSubmit={handleSubmit} className='space-y-4'>
         <div>
-          <label htmlFor='title' class='block font-bold'>
+          <label htmlFor='title' className='block font-bold'>
             Title:
           </label>
           <input
@@ -156,12 +153,12 @@ export default function CreateJob() {
             value={formData.title}
             onChange={handleInputChange}
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
 
         <div>
-          <label htmlFor='company_id' class='block font-bold'>
+          <label htmlFor='company_id' className='block font-bold'>
             Company:
           </label>
           <select
@@ -170,7 +167,7 @@ export default function CreateJob() {
             value={formData.company_id}
             onChange={handleInputChange}
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           >
             <option value=''>Select a company</option>
             {companyOptions.map((company) => (
@@ -182,7 +179,7 @@ export default function CreateJob() {
         </div>
 
         <div>
-          <label htmlFor='description' class='block font-bold'>
+          <label htmlFor='description' className='block font-bold'>
             Description:
           </label>
           <input
@@ -192,12 +189,12 @@ export default function CreateJob() {
             value={formData.description}
             onChange={handleInputChange}
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
 
         <div>
-          <label htmlFor='categoryIds' class='block font-bold'>
+          <label htmlFor='categoryIds' className='block font-bold'>
             Categories:
           </label>
           <select
@@ -207,7 +204,7 @@ export default function CreateJob() {
             onChange={handleCategorySelect}
             multiple
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           >
             {categoryOptions.map((category) => (
               <option key={category.id} value={category.id}>
@@ -218,7 +215,7 @@ export default function CreateJob() {
         </div>
 
         <div>
-          <label htmlFor='requirement' class='block font-bold'>
+          <label htmlFor='requirement' className='block font-bold'>
             Requirement:
           </label>
           <textarea
@@ -227,12 +224,12 @@ export default function CreateJob() {
             value={formData.requirement}
             onChange={handleInputChange}
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           ></textarea>
         </div>
 
         <div>
-          <label htmlFor='job_level' class='block font-bold'>
+          <label htmlFor='job_level' className='block font-bold'>
             Job Level:
           </label>
           <input
@@ -242,13 +239,13 @@ export default function CreateJob() {
             value={formData.job_level}
             onChange={handleInputChange}
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
 
-        <div class='grid grid-cols-2 gap-4'>
+        <div className='grid grid-cols-2 gap-4'>
           <div>
-            <label htmlFor='minimum_salary' class='block font-bold'>
+            <label htmlFor='minimum_salary' className='block font-bold'>
               Minimum Salary:
             </label>
             <input
@@ -258,11 +255,11 @@ export default function CreateJob() {
               value={formData.minimum_salary}
               onChange={handleInputChange}
               required
-              class='w-full border border-gray-300 rounded-md p-2'
+              className='w-full border border-gray-300 rounded-md p-2'
             />
           </div>
           <div>
-            <label htmlFor='maximum_salary' class='block font-bold'>
+            <label htmlFor='maximum_salary' className='block font-bold'>
               Maximum Salary:
             </label>
             <input
@@ -272,13 +269,13 @@ export default function CreateJob() {
               value={formData.maximum_salary}
               onChange={handleInputChange}
               required
-              class='w-full border border-gray-300 rounded-md p-2'
+              className='w-full border border-gray-300 rounded-md p-2'
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor='type' class='block font-bold'>
+          <label htmlFor='type' className='block font-bold'>
             Type:
           </label>
           <select
@@ -287,7 +284,7 @@ export default function CreateJob() {
             value={formData.type}
             onChange={handleInputChange}
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           >
             <option value=''>-- Select Type --</option>
             <option value='Full-time'>On-site</option>
@@ -296,7 +293,7 @@ export default function CreateJob() {
         </div>
 
         <div>
-          <label htmlFor='location' class='block font-bold'>
+          <label htmlFor='location' className='block font-bold'>
             Location:
           </label>
           <input
@@ -306,12 +303,12 @@ export default function CreateJob() {
             value={formData.location}
             onChange={handleInputChange}
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
 
         <div>
-          <label htmlFor='starting_date' class='block font-bold'>
+          <label htmlFor='starting_date' className='block font-bold'>
             Starting Date:
           </label>
           <input
@@ -321,12 +318,12 @@ export default function CreateJob() {
             value={formData.starting_date}
             onChange={handleInputChange}
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
 
         <div>
-          <label htmlFor='minimum_experience' class='block font-bold'>
+          <label htmlFor='minimum_experience' className='block font-bold'>
             Minimum Experience:
           </label>
           <input
@@ -336,13 +333,13 @@ export default function CreateJob() {
             value={formData.minimum_experience}
             onChange={handleInputChange}
             required
-            class='w-full border border-gray-300 rounded-md p-2'
+            className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
 
         <button
           type='submit'
-          class='w-full bg-green-500 text-white font-bold rounded-md py-2'
+          className='w-full bg-green-500 text-white font-bold rounded-md py-2'
         >
           Create
         </button>

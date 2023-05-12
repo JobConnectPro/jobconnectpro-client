@@ -84,7 +84,7 @@ const JobList = () => {
     setCurrentPage(1);
   };
 
-  const locations = ['Surabaya', 'Jakarta', 'Los Angeles', 'Chicago', 'Boston'];
+  const locations = ['Surabaya', 'Jakarta', 'Jogja', 'Malang', 'Bandung'];
   const types = ['Onsite', 'Remote'];
   const experiences = [1, 2, 3, 4, 5];
 
