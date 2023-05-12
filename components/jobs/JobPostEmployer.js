@@ -1,8 +1,8 @@
-import { getJobsList } from '@/modules/fetch';
+import { getJobsPosts } from '@/modules/fetch';
 import { useState, useEffect } from 'react';
-import JobCard from './JobCard';
+import JobPostCard from './JobPostCard';
 
-const JobList = () => {
+const JobPost = () => {
   const [jobs, setJobs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +14,7 @@ const JobList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getJobsList(
+      const res = await getJobsPosts(
         searchQuery,
         currentPage,
         perPage,
@@ -22,7 +22,7 @@ const JobList = () => {
         typeFilter,
         experienceFilter
       );
-      setJobs(res.data);
+      setJobs(res);
       setTotalPages(res.totalPages);
     };
     fetchData();
@@ -88,7 +88,7 @@ const JobList = () => {
   const types = ['Onsite', 'Remote'];
   const experiences = [1, 2, 3, 4, 5];
 
-  const filteredJobs = jobs.filter((job) => {
+  const filteredJobs = [jobs].filter((job) => {
     if (locationFilter && job.location !== locationFilter) {
       return false;
     }
@@ -100,8 +100,6 @@ const JobList = () => {
     }
     return true;
   });
-
-  console.log(locationFilter);
 
   return (
     <div className="max-w-2xl mx-auto mb-5">
@@ -178,12 +176,12 @@ const JobList = () => {
         </div>
       </div>
       <div className="grid gap-4">
-        {jobs.map((job) => (
-          <JobCard job={job} key={job.id} />
+        {jobs.Jobs?.map((job) => (
+          <JobPostCard job={job} key={job.id} />
         ))}
       </div>
       <div className="flex justify-center mt-4">{renderPagination()}</div>
     </div>
   );
 };
-export default JobList;
+export default JobPost;

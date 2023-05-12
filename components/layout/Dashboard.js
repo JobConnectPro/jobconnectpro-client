@@ -98,7 +98,7 @@ const Dashboard = ({ children }) => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                      <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                         <Menu.Item>
                           {({ active }) => (
                             <Link
@@ -166,7 +166,7 @@ const Dashboard = ({ children }) => {
             className={
               isHide
                 ? 'hidden'
-                : 'h-screen basis-auto fixed flex mt-[4rem] bg-white p-4 pr-10'
+                : 'h-screen basis-auto fixed flex bg-white p-4 pr-10'
             }
           >
             <nav className="flex flex-col gap-4">
@@ -233,6 +233,15 @@ const Dashboard = ({ children }) => {
                 >
                   <CgProfile size={20} />
                   Profile
+                </Link>
+              )}
+              {role == 'Employer' && (
+                <Link
+                  href={'/employer/job'}
+                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
+                >
+                  <AiOutlineSearch size={20} />
+                  Job
                 </Link>
               )}
               {/* end of employer */}

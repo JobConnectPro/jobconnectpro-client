@@ -1,8 +1,11 @@
+import JobPost from '@/components/jobs/JobPostEmployer';
 import Layout from '@/components/layout/Dashboard';
 const Job = () => {
   return (
     <>
-      <Layout />
+      <Layout>
+        <JobPost />
+      </Layout>
     </>
   );
 };
