@@ -3,14 +3,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
-const OrganizationForm = ({
-  isEdit,
-  setIsEdit,
-  currentId,
-  setCurrentId,
-  isAdd,
-  setIsAdd,
-}) => {
+const OrganizationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsAdd }) => {
   const [input, setInput] = useState({
     organization: '',
     role: '',
@@ -30,9 +23,7 @@ const OrganizationForm = ({
           setInput({
             organization: res.data.organization,
             role: res.data.role,
-            start_date: new Date(res.data.start_date)
-              .toISOString()
-              .split('T')[0],
+            start_date: new Date(res.data.start_date).toISOString().split('T')[0],
             end_date: new Date(res.data.end_date).toISOString().split('T')[0],
             description: res.data.description,
           });
@@ -78,7 +69,7 @@ const OrganizationForm = ({
             progress: undefined,
             theme: 'colored',
           });
-          setIsAdd(false);
+          setIsAdd({ ...isAdd, organization: false });
           setCurrentId(0);
           setInput({
             organization: '',
@@ -117,7 +108,7 @@ const OrganizationForm = ({
             progress: undefined,
             theme: 'colored',
           });
-          setIsEdit(false);
+          setIsEdit({ ...isEdit, organization: false });
           setCurrentId(0);
           setInput({
             title: '',
@@ -149,80 +140,40 @@ const OrganizationForm = ({
           <label htmlFor="organization" className="mr-2 basis-36">
             Organization:
           </label>
-          <input
-            type="text"
-            id="organization"
-            name="organization"
-            value={input.organization}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
-            required
-          />
+          <input type="text" id="organization" name="organization" value={input.organization} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
         <div className="flex items-center mx-auto justify-center">
           <label htmlFor="role" className="mr-2 basis-36">
             Role:
           </label>
-          <input
-            type="text"
-            id="role"
-            name="role"
-            value={input.role}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
-            required
-          />
+          <input type="text" id="role" name="role" value={input.role} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
         <div className="flex items-center mx-auto justify-center">
           <label htmlFor="start_date" className="mr-2 basis-36">
             Start Date:
           </label>
-          <input
-            type="date"
-            id="start_date"
-            name="start_date"
-            value={input.start_date}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
-            required
-          />
+          <input type="date" id="start_date" name="start_date" value={input.start_date} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
         <div className="flex items-center mx-auto justify-center">
           <label htmlFor="end_date" className="mr-2 basis-36">
             End Date:
           </label>
-          <input
-            type="date"
-            id="end_date"
-            name="end_date"
-            value={input.end_date}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
-            required
-          />
+          <input type="date" id="end_date" name="end_date" value={input.end_date} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
         <div className="flex items-center mx-auto justify-center">
           <label htmlFor="description" className="mr-2 basis-36 self-start">
             Description:
           </label>
-          <textarea
-            id="description"
-            name="description"
-            value={input.description}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full"
-            required
-            rows="5"
-          />
+          <textarea id="description" name="description" value={input.description} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full" required rows="5" />
         </div>
         <div>
           <div className="flex justify-center text-center gap-4">
             <button
               onClick={() => {
                 if (isEdit) {
-                  setIsEdit(false);
+                  setIsEdit({ ...isEdit, organization: false });
                 } else {
-                  setIsAdd(false);
+                  setIsAdd({ ...isAdd, organization: false });
                 }
                 setCurrentId(0);
                 setInput({
@@ -237,10 +188,7 @@ const OrganizationForm = ({
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700"
-            >
+            <button type="submit" className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
               Submit
             </button>
           </div>

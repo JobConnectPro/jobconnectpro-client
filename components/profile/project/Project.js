@@ -7,26 +7,9 @@ import Cookies from 'js-cookie';
 import ProjectForm from './Form';
 import { toast } from 'react-toastify';
 
-const Project = ({ userProfile }) => {
-  const [profile, setProfile] = useState({ ...userProfile });
+const Project = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, setIsDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAdd, setIsAdd] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
   const [currentId, setCurrentId] = useState(0);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/users/profile', {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
-      })
-      .then((res) => {
-        setProfile({ ...res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [isAdd, isEdit, isDelete]);
 
   const handleDelete = (projectId) => {
     axios
@@ -44,7 +27,7 @@ const Project = ({ userProfile }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsDelete(false);
+        setIsDelete({ ...isDelete, project: false });
       })
       .catch((error) => {
         console.log(error);
@@ -74,10 +57,10 @@ const Project = ({ userProfile }) => {
       </button>
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
         {/* add button */}
-        {!isAdd && !isEdit && (
+        {!isAdd.project && !isEdit.project && (
           <button
             onClick={() => {
-              setIsAdd(true);
+              setIsAdd({ ...isAdd, project: true });
             }}
             className="bg-green-600 hover:bg-green-700 text-black font-bold p-1 rounded-md mx-10 mb-3"
           >
@@ -86,7 +69,7 @@ const Project = ({ userProfile }) => {
         )}
         {/* end of add button */}
         <div className="flex flex-row flex-wrap justify-center items-start mx-10">
-          {!isAdd && !isEdit && (
+          {!isAdd.project && !isEdit.project && (
             <>
               {profile.Projects.map((project) => {
                 return (
@@ -107,7 +90,7 @@ const Project = ({ userProfile }) => {
                       {/* edit button */}
                       <button
                         onClick={() => {
-                          setIsEdit(true);
+                          setIsEdit({ ...isEdit, project: true });
                           setCurrentId(project.id);
                         }}
                         className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
@@ -118,7 +101,7 @@ const Project = ({ userProfile }) => {
                       {/* delete button */}
                       <button
                         onClick={() => {
-                          setIsDelete(true);
+                          setIsDelete({ ...isDelete, project: true });
                           handleDelete(project.id);
                         }}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded-md ml-2"
@@ -132,8 +115,8 @@ const Project = ({ userProfile }) => {
               })}
             </>
           )}
-          {isAdd && !isEdit && <ProjectForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />}
-          {isEdit && !isAdd && <ProjectForm isEdit={isEdit} setIsEdit={setIsEdit} currentId={currentId} setCurrentId={setCurrentId} />}
+          {isAdd.project && !isEdit.project && <ProjectForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />}
+          {isEdit.project && !isAdd.project && <ProjectForm isEdit={isEdit} setIsEdit={setIsEdit} currentId={currentId} setCurrentId={setCurrentId} />}
         </div>
       </div>
     </div>

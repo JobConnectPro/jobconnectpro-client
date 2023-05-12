@@ -4,23 +4,8 @@ import ResumeEditForm from './EditForm';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const Resume = ({ userProfile }) => {
-  const [profile, setProfile] = useState({ ...userProfile });
+const Resume = ({ profile, isEdit, setIsEdit }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/users/profile', {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
-      })
-      .then((res) => {
-        setProfile({ ...res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [isEdit]);
 
   return (
     <div className="w-full p-4 pt-0">
@@ -35,7 +20,7 @@ const Resume = ({ userProfile }) => {
       </button>
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-8'}>
         <div className="flex flex-row flex-wrap justify-center items-center">
-          {!isEdit && (
+          {!isEdit.resume && (
             <>
               <p className="text-lg text-slate-700">
                 <a href={profile.resume} target="_blank">
@@ -45,7 +30,7 @@ const Resume = ({ userProfile }) => {
               {/* edit button */}
               <button
                 onClick={() => {
-                  setIsEdit(true);
+                  setIsEdit({ ...isEdit, resume: true });
                 }}
                 className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
               >
@@ -54,7 +39,7 @@ const Resume = ({ userProfile }) => {
               {/* end of edit button */}
             </>
           )}
-          {isEdit && <ResumeEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
+          {isEdit.resume && <ResumeEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
         </div>
       </div>
     </div>

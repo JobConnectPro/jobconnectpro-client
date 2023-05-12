@@ -27,7 +27,7 @@ const ResumeEditForm = ({ isEdit, setIsEdit }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsEdit(false);
+        setIsEdit({ ...isEdit, resume: false });
         setFile(null);
       })
       .catch((error) => {
@@ -67,7 +67,7 @@ const ResumeEditForm = ({ isEdit, setIsEdit }) => {
           <div className="flex justify-center text-center gap-4">
             <button
               onClick={() => {
-                setIsEdit(false);
+                setIsEdit({ ...isEdit, resume: false });
               }}
               className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
             >

@@ -1,10 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import {
-  RiArrowDropDownLine,
-  RiArrowDropUpLine,
-  RiEdit2Fill,
-  RiAddCircleLine,
-} from 'react-icons/ri';
+import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiAddCircleLine } from 'react-icons/ri';
 import { FaTrashAlt } from 'react-icons/fa';
 
 import axios from 'axios';
@@ -12,26 +7,9 @@ import Cookies from 'js-cookie';
 import OrganizationForm from './Form';
 import { toast } from 'react-toastify';
 
-const Organization = ({ userProfile }) => {
-  const [profile, setProfile] = useState({ ...userProfile });
+const Organization = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, setIsDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAdd, setIsAdd] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
   const [currentId, setCurrentId] = useState(0);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/users/profile', {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
-      })
-      .then((res) => {
-        setProfile({ ...res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [isAdd, isEdit, isDelete]);
 
   const handleDelete = (organizationId) => {
     axios
@@ -49,7 +27,7 @@ const Organization = ({ userProfile }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsDelete(false);
+        setIsDelete({ ...isDelete, organization: false });
       })
       .catch((error) => {
         console.log(error);
@@ -75,20 +53,14 @@ const Organization = ({ userProfile }) => {
         className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600"
       >
         Organization
-        <div>
-          {isOpen ? (
-            <RiArrowDropDownLine size={40} />
-          ) : (
-            <RiArrowDropUpLine size={40} />
-          )}
-        </div>
+        <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
       </button>
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
         {/* add button */}
-        {!isAdd && !isEdit && (
+        {!isAdd.organization && !isEdit.organization && (
           <button
             onClick={() => {
-              setIsAdd(true);
+              setIsAdd({ ...isAdd, organization: true });
             }}
             className="bg-green-600 hover:bg-green-700 text-black font-bold p-1 rounded-md mx-10 mb-3"
           >
@@ -97,42 +69,28 @@ const Organization = ({ userProfile }) => {
         )}
         {/* end of add button */}
         <div className="flex flex-row flex-wrap justify-center items-start mx-10">
-          {!isAdd && !isEdit && (
+          {!isAdd.organization && !isEdit.organization && (
             <>
               {profile.Organizations.map((organization) => {
                 return (
                   <Fragment key={organization.id}>
                     <div className="basis-1/4 mb-5 flex">
-                      <p className="font-bold">
-                        {new Date(organization.start_date).toLocaleDateString(
-                          'id-ID',
-                          { month: 'long', year: 'numeric' }
-                        )}
-                      </p>
+                      <p className="font-bold">{new Date(organization.start_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
                       <p className="font-bold">
                         {''}-{''}
                       </p>
-                      <p className="font-bold">
-                        {new Date(organization.end_date).toLocaleDateString(
-                          'id-ID',
-                          { month: 'long', year: 'numeric' }
-                        )}
-                      </p>
+                      <p className="font-bold">{new Date(organization.end_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
                     </div>
                     <div className="basis-1/2 mb-5">
-                      <p className="font-bold text-lg">
-                        {organization.organization}
-                      </p>
-                      <p className="font-bold text-slate-500">
-                        {organization.role}
-                      </p>
+                      <p className="font-bold text-lg">{organization.organization}</p>
+                      <p className="font-bold text-slate-500">{organization.role}</p>
                       <p className="text-justify">{organization.description}</p>
                     </div>
                     <div className="basis-1/4 mb-5 text-center">
                       {/* edit button */}
                       <button
                         onClick={() => {
-                          setIsEdit(true);
+                          setIsEdit({ ...isEdit, organization: true });
                           setCurrentId(organization.id);
                         }}
                         className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
@@ -143,7 +101,7 @@ const Organization = ({ userProfile }) => {
                       {/* delete button */}
                       <button
                         onClick={() => {
-                          setIsDelete(true);
+                          setIsDelete({ ...isDelete, organization: true });
                           handleDelete(organization.id);
                         }}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded-md ml-2"
@@ -157,22 +115,8 @@ const Organization = ({ userProfile }) => {
               })}
             </>
           )}
-          {isAdd && !isEdit && (
-            <OrganizationForm
-              isAdd={isAdd}
-              setIsAdd={setIsAdd}
-              currentId={currentId}
-              setCurrentId={setCurrentId}
-            />
-          )}
-          {isEdit && !isAdd && (
-            <OrganizationForm
-              isEdit={isEdit}
-              setIsEdit={setIsEdit}
-              currentId={currentId}
-              setCurrentId={setCurrentId}
-            />
-          )}
+          {isAdd.organization && !isEdit.organization && <OrganizationForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />}
+          {isEdit.organization && !isAdd.organization && <OrganizationForm isEdit={isEdit} setIsEdit={setIsEdit} currentId={currentId} setCurrentId={setCurrentId} />}
         </div>
       </div>
     </div>
