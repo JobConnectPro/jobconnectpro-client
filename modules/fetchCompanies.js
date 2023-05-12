@@ -14,10 +14,16 @@ const getCompanies = async (company_name, page) => {
     }
 }
 
-const getCompanyDetail = async (id) => {
+const getCompanyDetail = async (id, context) => {
     try {
-      const response = await instance.get(`/companies/${id}`);
-      return response.data;
+        const { token } = context.req.cookies;
+
+        const result = await fetch(`http://localhost:8000/companies/${id}`, {
+            headers: { Authorization: 'Bearer ' + token },
+        });
+        const data = await result.json();
+
+        return data
     } catch (error) {
       throw new Error(error.response.data.message || 'Something went wrong');
     }

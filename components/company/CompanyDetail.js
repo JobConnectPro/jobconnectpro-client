@@ -3,24 +3,11 @@ import { useState, useEffect } from 'react';
 import { getCompanyDetail } from '@/modules/fetchCompanies';
 import Link from 'next/link';
 
-const CompanyDetail = () => {
-    const router = useRouter();
-    const { id } = router.query;
-
-    const [company,setCompany] = useState("")
-    const [jobs,setJobs] = useState([])
-    const [sector,setSector] = useState("")
+const CompanyDetail = ({ res }) => {
+    const company = res
+    const jobs = company.Jobs
+    const sector = company.Sector
     const [searchTerm, setSearchTerm] = useState("");
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await getCompanyDetail(id)
-            setCompany(res)
-            setJobs(res.Jobs)
-            setSector(res.Sector)
-        }
-        fetchData()
-    },[id])
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
