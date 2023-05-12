@@ -1,17 +1,12 @@
-import axios from 'axios';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill } from 'react-icons/ri';
 import { MdEmail, MdPeopleAlt, MdContactPhone, MdCalendarMonth, MdLocationOn } from 'react-icons/md';
 import BasicInformationEditForm from './EditForm';
-import Cookies from 'js-cookie';
 import BasicInformationUploadForm from './UploadForm';
 
-const BasicInformation = ({ userProfile }) => {
-  const [profile, setProfile] = useState({ ...userProfile });
+const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [isUpload, setIsUpload] = useState(false);
 
   const date = new Date(profile.birthday);
   const birthday = date.toLocaleDateString('id-ID', {
@@ -19,19 +14,6 @@ const BasicInformation = ({ userProfile }) => {
     month: 'long',
     year: 'numeric',
   });
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/users/profile', {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
-      })
-      .then((res) => {
-        setProfile({ ...res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [isEdit]);
 
   return (
     <div className="w-full p-4 pt-24">
@@ -47,7 +29,7 @@ const BasicInformation = ({ userProfile }) => {
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-8'}>
         <div className="flex flex-row flex-wrap justify-center md:justify-start items-center mx-10">
           {/* basic information */}
-          {!isEdit && !isUpload && (
+          {!isEdit.basicInformation && !isUpload && (
             <>
               {/* profile pict */}
               <div className="basis-full md:basis-1/5 mb-7 md:mb-0">
@@ -76,7 +58,7 @@ const BasicInformation = ({ userProfile }) => {
                     {/* edit button */}
                     <button
                       onClick={() => {
-                        setIsEdit(true);
+                        setIsEdit({ ...isEdit, basicInformation: true });
                       }}
                       className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
                     >
@@ -122,8 +104,8 @@ const BasicInformation = ({ userProfile }) => {
           )}
           {/* end of basic information */}
           {/* form */}
-          {isEdit && !isUpload && <BasicInformationEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
-          {isUpload && !isEdit && <BasicInformationUploadForm isUpload={isUpload} setIsUpload={setIsUpload} />}
+          {isEdit.basicInformation && !isUpload && <BasicInformationEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
+          {isUpload && !isEdit.basicInformation && <BasicInformationUploadForm isUpload={isUpload} setIsUpload={setIsUpload} />}
           {/* end of form */}
         </div>
       </div>

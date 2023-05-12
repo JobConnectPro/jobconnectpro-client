@@ -4,23 +4,8 @@ import { useEffect, useState } from 'react';
 import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill } from 'react-icons/ri';
 import SummaryEditForm from './EditForm';
 
-const Summary = ({ userProfile }) => {
-  const [profile, setProfile] = useState({ ...userProfile });
+const Summary = ({ profile, isEdit, setIsEdit }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/users/profile', {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
-      })
-      .then((res) => {
-        setProfile({ ...res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [isEdit]);
 
   return (
     <div className="w-full p-4 pt-0">
@@ -35,13 +20,13 @@ const Summary = ({ userProfile }) => {
       </button>
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-8'}>
         <div className="flex flex-row flex-wrap justify-center items-center mx-10">
-          {!isEdit && (
+          {!isEdit.summary && (
             <>
               <p className="text-justify">{profile.summary}</p>
               {/* edit button */}
               <button
                 onClick={() => {
-                  setIsEdit(true);
+                  setIsEdit({ ...isEdit, summary: true });
                 }}
                 className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
               >
@@ -50,7 +35,7 @@ const Summary = ({ userProfile }) => {
               {/* end of edit button */}
             </>
           )}
-          {isEdit && <SummaryEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
+          {isEdit.summary && <SummaryEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
         </div>
       </div>
     </div>

@@ -58,7 +58,7 @@ const SummaryEditForm = ({ isEdit, setIsEdit }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsEdit(false);
+        setIsEdit({ ...isEdit, summary: false });
         setInput({ summary: '' });
       })
       .catch((error) => {
@@ -88,13 +88,15 @@ const SummaryEditForm = ({ isEdit, setIsEdit }) => {
         <div className="flex justify-center text-center gap-4">
           <button
             onClick={() => {
-              setIsEdit(false);
+              setIsEdit({ ...isEdit, summary: false });
             }}
             className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
           >
             Cancel
           </button>
-          <button type='submit' className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">Submit</button>
+          <button type="submit" className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
+            Submit
+          </button>
         </div>
       </form>
     </div>

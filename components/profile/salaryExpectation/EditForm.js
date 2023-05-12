@@ -58,7 +58,7 @@ const SalaryExpectationEditForm = ({ isEdit, setIsEdit }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsEdit(false);
+        setIsEdit({ ...isEdit, salary: false });
         setInput({ salary_expectation: '' });
       })
       .catch((error) => {
@@ -97,7 +97,7 @@ const SalaryExpectationEditForm = ({ isEdit, setIsEdit }) => {
           <div className="flex justify-center text-center gap-4">
             <button
               onClick={() => {
-                setIsEdit(false);
+                setIsEdit({ ...isEdit, salary: false });
               }}
               className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
             >
