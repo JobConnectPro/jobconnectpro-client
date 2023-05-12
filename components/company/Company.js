@@ -4,7 +4,7 @@ import { getCompanies } from '@/modules/fetchCompanies';
 import CustomPagination from '@/components/company/CustomPagination';
 
 const Company = () => {
-    const [companies, setCompanies] = useState([]);
+    const [companies, setCompanies] = useState();
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
@@ -51,12 +51,11 @@ const Company = () => {
             </div>
         </div>
         <div className='mt-4'>
-            {companies.length > 0 ? (
-            companies.map((company) => (
-                <CompanyCard key={company.id} company={company} />
-            ))
-            ) : (
-            <p>No companies found.</p>
+            {companies && companies.map((company) => (
+                <CompanyCard key={company.id} company={company}></CompanyCard>
+            ))}
+            {companies == null && (
+                <p>No companies found</p>
             )}
         </div>
         <div className='mt-4'>

@@ -1,6 +1,8 @@
 import Link from "next/link"
+import Cookies from "js-cookie"
 
-const CompanyCard = ({company}) => {
+const CompanyCard = ({company, children}) => {
+    const role = Cookies.get("role")
 
     return (
         <>
@@ -8,7 +10,12 @@ const CompanyCard = ({company}) => {
                 <p>{company.company_name}</p>
                 <p>{company.address}</p>
                 <p>{company.Sector.sector}</p>
-                <Link href={`http://localhost:3000/seeker/companies/${company.id}`}>Detail</Link>
+                {role == "Seeker" ? (
+                    <Link href={`http://localhost:3000/seeker/companies/${company.id}`}>Detail</Link>
+                ) : (
+                    <Link href={`http://localhost:3000/employer/companies/${company.id}`}>Detail</Link>
+                )}
+                {children}
             </div>
         </>
     )
