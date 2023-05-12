@@ -1,10 +1,10 @@
 import Layout from "@/components/layout/Dashboard";
-import AttainmentsForm from "@/components/profile/attainment/attaimentform";
+import UserList from "@/components/profile/user/user";
 
 const Profile = ({ profile }) => {
   return (
     <Layout>
-      <AttainmentsForm />
+      <UserList />
     </Layout>
   );
 };
