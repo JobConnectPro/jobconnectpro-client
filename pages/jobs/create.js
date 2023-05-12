@@ -3,7 +3,7 @@ import Footer from '@/components/homepage/Footer'
 import CreateJob from '@/components/jobs/CreateJob'
 
 import React from 'react'
-const createJobs = () => {
+const create = () => {
   return (
     <>
         <Header/>
@@ -13,4 +13,4 @@ const createJobs = () => {
   )
 }
 
-export default createJobs
+export default create

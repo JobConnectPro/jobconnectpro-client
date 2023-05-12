@@ -21,7 +21,6 @@ export default function CreateJob() {
     minimum_experience: '',
   });
   const [categoryOptions, setCategoryOptions] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
   const [companyOptions, setCompanyOptions] = useState([]);
 
   const handleInputChange = (e) => {
@@ -59,7 +58,6 @@ export default function CreateJob() {
       });
       const data = await response.json();
       if (response.ok) {
-        // window.location.href = `/jobs/${response.data.fullField.data.id}`;
         toast.success(`${data.message}`, {
           position: 'top-center',
           autoClose: 3000,
@@ -70,11 +68,10 @@ export default function CreateJob() {
           progress: undefined,
           theme: 'light',
         });
-        router.push('/');
+        router.push('/jobs');
         console.log(data);
       } else {
-        setErrorMessage(data.message);
-        toast.error(`${err.message}`, {
+        toast.error(`${data.message}`, {
           position: 'top-center',
           autoClose: 3000,
           hideProgressBar: false,
@@ -86,7 +83,6 @@ export default function CreateJob() {
         });
       }
     } catch (error) {
-      setErrorMessage(error.message);
       toast.error(`${err.message}`, {
         position: 'top-center',
         autoClose: 3000,
@@ -105,15 +101,11 @@ export default function CreateJob() {
       const categories = await getCategoryList();
       setCategoryOptions(categories);
     } catch (error) {
-      setErrorMessage(error.message);
+      console.log(error);
     }
   };
 
-  console.log(categoryOptions)
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+  console.log(categoryOptions);
 
   const fetchCompanyList = async () => {
     try {
@@ -134,27 +126,22 @@ export default function CreateJob() {
         console.log(companies);
         setCompanyOptions(companies);
       } else {
-        setErrorMessage(data.message);
+        console.log(data.message);
       }
     } catch (error) {
-      setErrorMessage(error.message);
+      console.log(error);
     }
   };
 
   useEffect(() => {
+    fetchCategories();
     fetchCompanyList();
   }, []);
 
   return (
-    <div>
+    <div className='w-1/2 mx-auto p-4'>
       <h1 className='text-3xl font-bold mb-4'>Create Job</h1>
-      {errorMessage && (
-        <div className='bg-red-500 text-white py-2 px-4 mb-4'>
-          {errorMessage}
-        </div>
-      )}
-      <form onSubmit={handleSubmit}>
-        {/* title */}
+      <form onSubmit={handleSubmit} className='space-y-4'>
         <div>
           <label htmlFor='title' className='block font-bold'>
             Title:
@@ -169,7 +156,7 @@ export default function CreateJob() {
             className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
-        {/* company */}
+
         <div>
           <label htmlFor='company_id' className='block font-bold'>
             Company:
@@ -191,7 +178,6 @@ export default function CreateJob() {
           </select>
         </div>
 
-        {/* description */}
         <div>
           <label htmlFor='description' className='block font-bold'>
             Description:
@@ -206,7 +192,7 @@ export default function CreateJob() {
             className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
-        {/* category */}
+
         <div>
           <label htmlFor='categoryIds' className='block font-bold'>
             Categories:
@@ -227,7 +213,7 @@ export default function CreateJob() {
             ))}
           </select>
         </div>
-        {/*  */}
+
         <div>
           <label htmlFor='requirement' className='block font-bold'>
             Requirement:
@@ -239,8 +225,9 @@ export default function CreateJob() {
             onChange={handleInputChange}
             required
             className='w-full border border-gray-300 rounded-md p-2'
-          />
+          ></textarea>
         </div>
+
         <div>
           <label htmlFor='job_level' className='block font-bold'>
             Job Level:
@@ -255,34 +242,38 @@ export default function CreateJob() {
             className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
-        <div>
-          <label htmlFor='minimum_salary' className='block font-bold'>
-            Minimum Salary:
-          </label>
-          <input
-            type='number'
-            id='minimum_salary'
-            name='minimum_salary'
-            value={formData.minimum_salary}
-            onChange={handleInputChange}
-            required
-            className='w-full border border-gray-300 rounded-md p-2'
-          />
+
+        <div className='grid grid-cols-2 gap-4'>
+          <div>
+            <label htmlFor='minimum_salary' className='block font-bold'>
+              Minimum Salary:
+            </label>
+            <input
+              type='number'
+              id='minimum_salary'
+              name='minimum_salary'
+              value={formData.minimum_salary}
+              onChange={handleInputChange}
+              required
+              className='w-full border border-gray-300 rounded-md p-2'
+            />
+          </div>
+          <div>
+            <label htmlFor='maximum_salary' className='block font-bold'>
+              Maximum Salary:
+            </label>
+            <input
+              type='number'
+              id='maximum_salary'
+              name='maximum_salary'
+              value={formData.maximum_salary}
+              onChange={handleInputChange}
+              required
+              className='w-full border border-gray-300 rounded-md p-2'
+            />
+          </div>
         </div>
-        <div>
-          <label htmlFor='maximum_salary' className='block font-bold'>
-            Maximum Salary:
-          </label>
-          <input
-            type='number'
-            id='maximum_salary'
-            name='maximum_salary'
-            value={formData.maximum_salary}
-            onChange={handleInputChange}
-            required
-            className='w-full border border-gray-300 rounded-md p-2'
-          />
-        </div>
+
         <div>
           <label htmlFor='type' className='block font-bold'>
             Type:
@@ -300,6 +291,7 @@ export default function CreateJob() {
             <option value='Part-time'>Remote</option>
           </select>
         </div>
+
         <div>
           <label htmlFor='location' className='block font-bold'>
             Location:
@@ -314,6 +306,7 @@ export default function CreateJob() {
             className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
+
         <div>
           <label htmlFor='starting_date' className='block font-bold'>
             Starting Date:
@@ -328,6 +321,7 @@ export default function CreateJob() {
             className='w-full border border-gray-300 rounded-md p-2'
           />
         </div>
+
         <div>
           <label htmlFor='minimum_experience' className='block font-bold'>
             Minimum Experience:
@@ -345,7 +339,7 @@ export default function CreateJob() {
 
         <button
           type='submit'
-          className='w-full border border-green-400 rounded-md m-3 p-3'
+          className='w-full bg-green-500 text-white font-bold rounded-md py-2'
         >
           Create
         </button>

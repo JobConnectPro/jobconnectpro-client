@@ -84,7 +84,7 @@ const JobList = () => {
     setCurrentPage(1);
   };
 
-  const locations = ['Surabaya', 'Jakarta', 'Los Angeles', 'Chicago', 'Boston'];
+  const locations = ['Surabaya', 'Jakarta', 'Jogja', 'Malang', 'Bandung'];
   const types = ['Onsite', 'Remote'];
   const experiences = [1, 2, 3, 4, 5];
 
@@ -102,12 +102,24 @@ const JobList = () => {
   });
 
   console.log(locationFilter);
+  console.log(experienceFilter);
 
   return (
-    <div className="max-w-2xl mx-auto mb-5">
-      <h1 className="text-3xl font-bold text-center mt-8 mb-4">Jobs</h1>
-      <div className="flex justify-between mb-4">
-        <div className="w-1/3">
+    <div className='max-w-2xl mx-auto mb-5'>
+      <h1 className='text-3xl font-bold text-center mt-8 mb-4'>Jobs</h1>
+      {/* SearchBar */}
+      <div className='mb-4'>
+        <input
+          type='text'
+          className='border-gray-400 border-2 py-2 px-4 w-full rounded-md'
+          placeholder='Search jobs by title...'
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+      </div>
+      {/* Filter */}
+      <div className='flex justify-between mb-4'>
+        <div className='w-1/3'>
           <select
             className="border p-1 rounded"
             value={locationFilter}
