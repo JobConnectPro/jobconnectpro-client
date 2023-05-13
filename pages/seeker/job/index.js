@@ -1,5 +1,5 @@
 import Layout from '@/components/layout/Dashboard';
-import JobList from '@/components/employer/job/JobList';
+import JobList from '@/components/seeker/job/JobList';
 
 const Job = () => {
   return (

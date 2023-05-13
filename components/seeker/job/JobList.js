@@ -81,14 +81,11 @@ const JobList = () => {
     return true;
   });
 
-  console.log(locationFilter);
-  console.log(experienceFilter);
-
   return (
     <div className="max-w-2xl mx-auto mb-5">
       <h1 className="text-3xl font-bold text-center mt-8 mb-4">Jobs</h1>
       {/* SearchBar */}
-     
+
       {/* Filter */}
       <div className="flex justify-between mb-4">
         <div className="w-1/3">

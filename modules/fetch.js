@@ -1,5 +1,6 @@
 import { instance } from './axios';
 
+// ==========
 const registerUser = async (data, role) => {
   try {
     const { name, email, phone, password, gender, birthday, address } = data;
@@ -28,14 +29,8 @@ const loginUser = async (email, password) => {
   }
 };
 
-const getJobsList = async (
-  searchQuery = '',
-  page = 1,
-  perPage = 10,
-  locationFilter = '',
-  typeFilter = '',
-  experienceFilter = ''
-) => {
+// ==========
+const getJobsList = async (searchQuery = '', page = 1, perPage = 10, locationFilter = '', typeFilter = '', experienceFilter = '') => {
   try {
     const response = await instance.get(`/jobs`, {
       params: {
@@ -71,25 +66,9 @@ const getCategoryList = async () => {
   }
 };
 
-const getJobsPosts = async (
-  searchQuery = '',
-  page = 1,
-  perPage = 10,
-  locationFilter = '',
-  typeFilter = '',
-  experienceFilter = ''
-) => {
+const getJobsPosts = async () => {
   try {
-    const response = await instance.get(`/users/job-post`, {
-      params: {
-        title: searchQuery,
-        page,
-        limit: perPage,
-        location: locationFilter,
-        type: typeFilter,
-        experience: experienceFilter,
-      },
-    });
+    const response = await instance.get(`/users/job-post`);
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
@@ -114,13 +93,4 @@ const getApplicant = async (applicantId, jobId) => {
   }
 };
 
-export {
-  registerUser,
-  loginUser,
-  getJobsList,
-  getCategoryList,
-  getJobDetails,
-  getJobsPosts,
-  getJobsPost,
-  getApplicant,
-};
+export { registerUser, loginUser, getJobsList, getCategoryList, getJobDetails, getJobsPosts, getJobsPost, getApplicant };
