@@ -1,4 +1,4 @@
-import CategoryForm from '@/components/category/CategoryForm';
+import CategoryForm from '@/components/admin/category/CategoryForm';
 import Layout from '@/components/layout/Dashboard';
 
 const Category = () => {

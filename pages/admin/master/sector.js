@@ -1,10 +1,10 @@
 import Layout from "@/components/layout/Dashboard";
-import SkillsForm from "@/components/profile/skills/SkillsForm";
+import SectorsForm from "@/components/admin/sectors/SectorsForm";
 
 const Profile = ({ profile }) => {
   return (
     <Layout>
-      <SkillsForm />
+      <SectorsForm />
     </Layout>
   );
 };
