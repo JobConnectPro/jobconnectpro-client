@@ -154,6 +154,12 @@ const Dashboard = ({ children }) => {
                 </Link>
               )}
               {role == 'Admin' && (
+                <Link href={'/master/users'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                  <CgProfile size={20} />
+                  User
+                </Link>
+              )}
+              {role == 'Admin' && (
                 <Link href={'/master/attainment'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                   <CgProfile size={20} />
                   Attainment
