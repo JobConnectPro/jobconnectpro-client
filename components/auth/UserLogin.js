@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../components/Logo';
+import Logo from '../Logo';
 import { loginUser } from '@/modules/fetch';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 
-export default function LoginForm() {
+export default function UserLogin() {
   const router = useRouter();
 
   const {
@@ -34,7 +34,15 @@ export default function LoginForm() {
         progress: undefined,
         theme: 'light',
       });
-      router.push('/job-board');
+      const roles = Cookies.get('role');
+
+      if (roles === 'Admin') {
+        router.push('/admin/profile');
+      } else if (roles === 'Employer') {
+        router.push('/employer/profile');
+      } else {
+        router.push('/seeker/profile');
+      }
     } catch (err) {
       toast.error(`${err.message}`, {
         position: 'top-center',
@@ -53,11 +61,11 @@ export default function LoginForm() {
       <div className=" flex flex-col bg-gray-100">
         <div className="container max-w-md  mx-auto flex flex-col px-2 mt-10 mb-20">
           <div className="bg-white px-6 py-8 rounded shadow-md">
-            <h1 class="mb-8 text-xl text-center font-bold text-gray-900 md:text-2xl dark:text-white">Sign In to jobconnect</h1>
+            <h1 className="mb-8 text-xl text-center font-bold text-gray-900 md:text-2xl dark:text-white">Sign In to jobconnect</h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(handleLogin)}>
               <div>
                 <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                   <input
                     type="text"
                     className="block border border-grey-light w-full p-2 rounded mb-4"
@@ -67,7 +75,7 @@ export default function LoginForm() {
                   />
                 </div>
                 <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                   <input
                     type="password"
                     className="block border border-grey-light w-full p-2 rounded mb-4"
@@ -77,30 +85,30 @@ export default function LoginForm() {
                   />
                 </div>
               </div>
-              <div class="flex items-center justify-between">
-                <div class="flex items-start">
-                  <div class="flex items-center h-5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-start">
+                  <div className="flex items-center h-5">
                     <input
                       id="remember"
                       aria-describedby="remember"
                       type="checkbox"
-                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                       required=""
                     />
                   </div>
-                  <div class="ml-3 text-sm">
-                    <label class="text-gray-500 dark:text-gray-300">Remember me</label>
+                  <div className="ml-3 text-sm">
+                    <label className="text-gray-500 dark:text-gray-300">Remember me</label>
                   </div>
                 </div>
-                <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+                <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
                   Forgot password?
                 </a>
               </div>
 
               <button className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign In</button>
-              <p class="text-sm text-center font-light text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{' '}
-                <Link href="/register" class="font-medium text-blue-500 hover:underline dark:text-primary-500">
+                <Link href="/register" className="font-medium text-blue-500 hover:underline dark:text-primary-500">
                   Sign up
                 </Link>
               </p>

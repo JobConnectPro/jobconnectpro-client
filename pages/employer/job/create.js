@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/Dashboard';
 import JobCreate from '@/components/employer/job/JobCreate';
 
-const CreateJob = () => {
+const JobCreates = () => {
   return (
     <Layout>
       <JobCreate />
@@ -9,4 +9,41 @@ const CreateJob = () => {
   );
 };
 
-export default CreateJob;
+export default JobCreates;
+
+export const getServerSideProps = async (context) => {
+  const { role, token } = context.req.cookies;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  if (role !== 'Employer') {
+    if (role === 'Admin') {
+      return {
+        redirect: {
+          destination: '/admin/profile',
+          permanent: false,
+        },
+      };
+    } else if (role === 'Seeker') {
+      return {
+        redirect: {
+          destination: '/seeker/profile',
+          permanent: false,
+        },
+      };
+    }
+  }
+
+  return {
+    props: {
+      role,
+    },
+  };
+};

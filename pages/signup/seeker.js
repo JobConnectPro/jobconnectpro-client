@@ -1,15 +1,15 @@
 import Header from '@/components/Header';
 import Footer from '@/components/homepage/Footer';
-import UserLogin from '@/components/auth/UserLogin';
+import SeekerRegister from '@/components/auth/register/SeekerRegister';
 
-const UserSignIn = () => {
+const SeekerSignUp = () => {
   return (
     <>
       <Header />
-      <UserLogin />
+      <SeekerRegister />
       <Footer />
     </>
   );
 };
 
-export default UserSignIn;
+export default SeekerSignUp;

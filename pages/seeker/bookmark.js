@@ -5,7 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
-const Bookmark = ({ data }) => {
+const Bookmarks = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
   const [isDelete, setIsDelete] = useState(false);
 
@@ -95,15 +95,42 @@ const Bookmark = ({ data }) => {
   );
 };
 
-export default Bookmark;
+export default Bookmarks;
 
 export const getServerSideProps = async (context) => {
-  const { token } = context.req.cookies;
+  const { role, token } = context.req.cookies;
 
   const result = await fetch('http://localhost:8000/users/job-bookmark', {
     headers: { Authorization: 'Bearer ' + token },
   });
   const data = await result.json();
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  if (role !== 'Seeker') {
+    if (role === 'Admin') {
+      return {
+        redirect: {
+          destination: '/admin/profile',
+          permanent: false,
+        },
+      };
+    } else if (role === 'Employer') {
+      return {
+        redirect: {
+          destination: '/employer/profile',
+          permanent: false,
+        },
+      };
+    }
+  }
 
   return {
     props: {

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Dashboard';
 import Link from 'next/link';
 
-const EmployerDetail = ({ data }) => {
+const EmployerDetails = ({ data }) => {
   const router = useRouter();
   const { id } = router.query;
   const [employer, setEmployer] = useState({ ...data });
@@ -29,10 +29,10 @@ const EmployerDetail = ({ data }) => {
   );
 };
 
-export default EmployerDetail;
+export default EmployerDetails;
 
 export const getServerSideProps = async (context) => {
-  const { token } = context.req.cookies;
+  const { role, token } = context.req.cookies;
   const { employerId } = context.query;
 
   const result = await fetch(`http://localhost:8000/users/employer/${employerId}`, {
@@ -40,7 +40,32 @@ export const getServerSideProps = async (context) => {
   });
   const data = await result.json();
 
-  console.log(data);
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  if (role !== 'Seeker') {
+    if (role === 'Admin') {
+      return {
+        redirect: {
+          destination: '/admin/profile',
+          permanent: false,
+        },
+      };
+    } else if (role === 'Employer') {
+      return {
+        redirect: {
+          destination: '/employer/profile',
+          permanent: false,
+        },
+      };
+    }
+  }
 
   return {
     props: {
