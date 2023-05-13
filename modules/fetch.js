@@ -1,5 +1,6 @@
 import { instance } from './axios';
 
+// ==========
 const registerUser = async (data, role) => {
   try {
     const { name, email, phone, password, gender, birthday, address } = data;
@@ -28,6 +29,7 @@ const loginUser = async (email, password) => {
   }
 };
 
+// ==========
 const getJobsList = async (searchQuery = '', page = 1, perPage = 10, locationFilter = '', typeFilter = '', experienceFilter = '') => {
   try {
     const response = await instance.get(`/jobs`, {
@@ -37,7 +39,7 @@ const getJobsList = async (searchQuery = '', page = 1, perPage = 10, locationFil
         limit: perPage,
         location: locationFilter,
         type: typeFilter,
-        experience: experienceFilter
+        experience: experienceFilter,
       },
     });
     return response.data;
@@ -45,8 +47,6 @@ const getJobsList = async (searchQuery = '', page = 1, perPage = 10, locationFil
     throw new Error(error.response.data.message || 'Something went wrong');
   }
 };
-
-
 
 const getJobDetails = async (id) => {
   try {
@@ -63,8 +63,34 @@ const getCategoryList = async () => {
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
-    
   }
-}
+};
 
-export { registerUser, loginUser, getJobsList, getCategoryList, getJobDetails};
+const getJobsPosts = async () => {
+  try {
+    const response = await instance.get(`/users/job-post`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+};
+
+const getJobsPost = async (jobId) => {
+  try {
+    const response = await instance.get(`/users/job-post/${jobId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+};
+
+const getApplicant = async (applicantId, jobId) => {
+  try {
+    const response = await instance.get(`/users/${applicantId}/job/${jobId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+};
+
+export { registerUser, loginUser, getJobsList, getCategoryList, getJobDetails, getJobsPosts, getJobsPost, getApplicant };

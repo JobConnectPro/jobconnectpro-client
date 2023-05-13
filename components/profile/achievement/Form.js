@@ -3,14 +3,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
-const AchievementForm = ({
-  isEdit,
-  setIsEdit,
-  currentId,
-  setCurrentId,
-  isAdd,
-  setIsAdd,
-}) => {
+const AchievementForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsAdd }) => {
   const [input, setInput] = useState({
     title: '',
     issuer: '',
@@ -72,7 +65,7 @@ const AchievementForm = ({
             progress: undefined,
             theme: 'colored',
           });
-          setIsAdd(false);
+          setIsAdd({ ...isAdd, achievement: false });
           setCurrentId(0);
           setInput({
             title: '',
@@ -110,7 +103,7 @@ const AchievementForm = ({
             progress: undefined,
             theme: 'colored',
           });
-          setIsEdit(false);
+          setIsEdit({ ...isEdit, achievement: false });
           setCurrentId(0);
           setInput({
             title: '',
@@ -142,66 +135,34 @@ const AchievementForm = ({
           <label htmlFor="title" className="mr-2 basis-36">
             Title:
           </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={input.title}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
-            required
-          />
+          <input type="text" id="title" name="title" value={input.title} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
         <div className="flex items-center mx-auto justify-center">
           <label htmlFor="issuer" className="mr-2 basis-36">
             Issuer:
           </label>
-          <input
-            type="text"
-            id="issuer"
-            name="issuer"
-            value={input.issuer}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
-            required
-          />
+          <input type="text" id="issuer" name="issuer" value={input.issuer} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
         <div className="flex items-center mx-auto justify-center">
           <label htmlFor="date" className="mr-2 basis-36">
             Date:
           </label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={input.date}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
-            required
-          />
+          <input type="date" id="date" name="date" value={input.date} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
         </div>
         <div className="flex items-center mx-auto justify-center">
           <label htmlFor="description" className="mr-2 basis-36 self-start">
             Description:
           </label>
-          <textarea
-            id="description"
-            name="description"
-            value={input.description}
-            onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full"
-            required
-            rows="5"
-          />
+          <textarea id="description" name="description" value={input.description} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full" required rows="5" />
         </div>
         <div>
           <div className="flex justify-center text-center gap-4">
             <button
               onClick={() => {
                 if (isEdit) {
-                  setIsEdit(false);
+                  setIsEdit({ ...isEdit, achievement: false });
                 } else {
-                  setIsAdd(false);
+                  setIsAdd({ ...isAdd, achievement: false });
                 }
                 setCurrentId(0);
                 setInput({
@@ -215,10 +176,7 @@ const AchievementForm = ({
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700"
-            >
+            <button type="submit" className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
               Submit
             </button>
           </div>

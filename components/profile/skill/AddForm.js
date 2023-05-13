@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 
-const SkillAddForm = ({ currentId, setCurrentId, isAdd, setIsAdd }) => {
+const SkillAddForm = ({ isAdd, setIsAdd }) => {
   const [skills, setSkills] = useState([]);
   const [input, setInput] = useState({
     skill_id: '',
@@ -46,7 +46,7 @@ const SkillAddForm = ({ currentId, setCurrentId, isAdd, setIsAdd }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsAdd(false);
+        setIsAdd({ ...isAdd, skill: false });
         setInput({
           skill_id: '',
           level: '',
@@ -102,7 +102,7 @@ const SkillAddForm = ({ currentId, setCurrentId, isAdd, setIsAdd }) => {
           <div className="flex justify-center text-center gap-4">
             <button
               onClick={() => {
-                setIsAdd(false);
+                setIsAdd({ ...isAdd, skill: false });
                 setInput({
                   skill_id: '',
                   level: '',

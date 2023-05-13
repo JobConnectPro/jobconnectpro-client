@@ -7,26 +7,9 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import SkillAddForm from './AddForm';
 
-const UserSkill = ({ userProfile }) => {
-  const [profile, setProfile] = useState({ ...userProfile });
+const UserSkill = ({ profile, isAdd, setIsAdd, isDelete, setIsDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAdd, setIsAdd] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
   const [currentId, setCurrentId] = useState(0);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/users/profile', {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
-      })
-      .then((res) => {
-        console.log(profile);
-        setProfile({ ...res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [isAdd, isDelete]);
 
   const handleDelete = (skillId) => {
     axios
@@ -44,7 +27,7 @@ const UserSkill = ({ userProfile }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsDelete(false);
+        setIsDelete({ ...isDelete, skill: false });
       })
       .catch((error) => {
         console.log(error);
@@ -74,10 +57,10 @@ const UserSkill = ({ userProfile }) => {
       </button>
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
         {/* add button */}
-        {!isAdd && (
+        {!isAdd.skill && (
           <button
             onClick={() => {
-              setIsAdd(true);
+              setIsAdd({ ...isAdd, skill: true });
             }}
             className="bg-green-600 hover:bg-green-700 text-black font-bold p-1 rounded-md mx-10 mb-3"
           >
@@ -86,7 +69,7 @@ const UserSkill = ({ userProfile }) => {
         )}
         {/* end of add button */}
         <div className="flex flex-row flex-wrap justify-center items-center gap-2">
-          {!isAdd && (
+          {!isAdd.skill && (
             <>
               {profile.UserSkilled.map((project) => {
                 return (
@@ -100,7 +83,7 @@ const UserSkill = ({ userProfile }) => {
                         {/* delete button */}
                         <button
                           onClick={() => {
-                            setIsDelete(true);
+                            setIsDelete({ ...isDelete, skill: true });
                             handleDelete(project.id);
                           }}
                           className="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded-md"
@@ -115,7 +98,7 @@ const UserSkill = ({ userProfile }) => {
               })}
             </>
           )}
-          {isAdd && <SkillAddForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />}
+          {isAdd.skill && <SkillAddForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />}
         </div>
       </div>
     </div>

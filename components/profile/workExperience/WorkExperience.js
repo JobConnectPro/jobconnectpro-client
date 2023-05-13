@@ -7,29 +7,9 @@ import Cookies from 'js-cookie';
 import WorkExperienceForm from './Form';
 import { toast } from 'react-toastify';
 
-const WorkExperience = ({ userProfile }) => {
-  const [profile, setProfile] = useState({ ...userProfile });
+const WorkExperience = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, setIsDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAdd, setIsAdd] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
   const [currentId, setCurrentId] = useState(0);
-
-  // menambahkan setOpen untuk tombol ADD
-  // const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/users/profile', {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
-      })
-      .then((res) => {
-        setProfile({ ...res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [isAdd, isEdit, isDelete]);
 
   const handleDelete = (workExperienceId) => {
     axios
@@ -47,7 +27,7 @@ const WorkExperience = ({ userProfile }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsDelete(false);
+        setIsDelete({ ...isDelete, workExperience: false });
       })
       .catch((error) => {
         console.log(error);
@@ -80,11 +60,11 @@ const WorkExperience = ({ userProfile }) => {
 
         {/* add button */}
         <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-500">
-          {!isAdd && !isEdit && (
+          {!isAdd.workExperience && !isEdit.workExperience && (
             <div
               className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-500 hover:bg-blue-600"
               onClick={() => {
-                setIsAdd(true);
+                setIsAdd({ ...isAdd, workExperience: true });
               }}
             >
               ADD
@@ -96,7 +76,7 @@ const WorkExperience = ({ userProfile }) => {
       </div>
       <div className={isOpen ? 'hidden' : ''}>
         <div className="w-full bg-slate-100 ">
-          {!isAdd && !isEdit && (
+          {!isAdd.workExperience && !isEdit.workExperience && (
             <>
               <table className="table-auto w-full">
                 <tbody>
@@ -122,9 +102,8 @@ const WorkExperience = ({ userProfile }) => {
                             {/* edit button */}
                             <button
                               onClick={() => {
-                                setIsEdit(true);
+                                setIsEdit({ ...isEdit, workExperience: true });
                                 setCurrentId(workExperience.id);
-                                // setIsOpen(true); //Menutup data workexperience !^
                               }}
                               className="bg-yellow-400 hover:bg-yellow-500 text-slate-500 font-bold mx-4 p-1 rounded-md"
                             >
@@ -134,7 +113,7 @@ const WorkExperience = ({ userProfile }) => {
                             {/* delete button */}
                             <button
                               onClick={() => {
-                                setIsDelete(true);
+                                setIsDelete({ ...isDelete, workExperience: true });
                                 handleDelete(workExperience.id);
                               }}
                               className="bg-red-500 hover:bg-red-700 text-slate-300 font-bold p-1 rounded-md"
@@ -151,8 +130,8 @@ const WorkExperience = ({ userProfile }) => {
               </table>
             </>
           )}
-          {isAdd && !isEdit && <WorkExperienceForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />}
-          {isEdit && !isAdd && <WorkExperienceForm isEdit={isEdit} setIsEdit={setIsEdit} currentId={currentId} setCurrentId={setCurrentId} />}
+          {isAdd.workExperience && !isEdit.workExperience && <WorkExperienceForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />}
+          {isEdit.workExperience && !isAdd.workExperience && <WorkExperienceForm isEdit={isEdit} setIsEdit={setIsEdit} currentId={currentId} setCurrentId={setCurrentId} />}
         </div>
       </div>
     </div>

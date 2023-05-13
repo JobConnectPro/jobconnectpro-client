@@ -2,6 +2,7 @@ import { instance } from './axios';
 import Cookies from 'js-cookie';
 
 const getCompanies = async (company_name, page) => {
+
     try {
         if (company_name) {
             const response = await instance.get(`/companies?company_name=${company_name}`)
