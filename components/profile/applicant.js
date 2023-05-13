@@ -4,6 +4,7 @@ import EducationApplicant from './applicant/Education';
 import OrganizationApplicant from './applicant/Organization';
 import ProjectApplicant from './applicant/Project';
 import SkillApplicant from './applicant/Skill';
+import ApplicantStatus from './applicant/ApplicantStatus';
 const ApplicantProfile = () => {
   return (
     <div className="max-w-4xl mx-auto my-8">
@@ -14,6 +15,7 @@ const ApplicantProfile = () => {
         <OrganizationApplicant />
         <ProjectApplicant />
         <SkillApplicant />
+        <ApplicantStatus />
       </div>
     </div>
   );

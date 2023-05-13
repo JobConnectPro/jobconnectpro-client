@@ -1,14 +1,14 @@
-import JobPostDetail from '@/components/jobs/JobPostDetail';
+import JobDetail from '@/components/employer/job/JobDetail';
 import Layout from '@/components/layout/Dashboard';
 
-const JobDetailEmployer = () => {
+const JobDet = () => {
   return (
     <>
       <Layout>
-        <JobPostDetail />
+        <JobDetail />
       </Layout>
     </>
   );
 };
 
-export default JobDetailEmployer;
+export default JobDet;

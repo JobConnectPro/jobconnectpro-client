@@ -5,8 +5,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
-const Bookmark = ({ profile }) => {
-  const [userProfile, setUserProfile] = useState({ ...profile });
+const Bookmark = ({ data }) => {
+  const [profile, setProfile] = useState({ ...data });
   const [isDelete, setIsDelete] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Bookmark = ({ profile }) => {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
-          setUserProfile({ ...res.data });
+          setProfile({ ...res.data });
         })
         .catch((error) => {
           console.log(error);
@@ -30,6 +30,7 @@ const Bookmark = ({ profile }) => {
         headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {
+        setIsDelete(false);
         toast.success(res.data.message, {
           position: 'top-right',
           autoClose: 5000,
@@ -40,7 +41,6 @@ const Bookmark = ({ profile }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsDelete(false);
       })
       .catch((error) => {
         console.log(error);
@@ -60,7 +60,7 @@ const Bookmark = ({ profile }) => {
   return (
     <Layout>
       <div className="pt-24 h-screen">
-        {userProfile.UserBookmark.map((bookmark) => {
+        {profile.UserBookmark.map((bookmark) => {
           return (
             <div className="flex flex-col justify-center">
               <div className="basis-full flex flex-row gap-2 px-3 py-5 mx-6 mb-2 bg-white border-solid border-black border-2">
@@ -74,9 +74,6 @@ const Bookmark = ({ profile }) => {
                   <p className="font-bold text-2xl">{bookmark.title}</p>
                   <p className="text-lg text-blue-600">{bookmark.Company.company_name}</p>
                 </div>
-                {/* <div className="basis-1/2">
-                  <p>{bookmark.bookmark.description}</p>
-                </div> */}
                 <div className="basis-1/2">
                   <button
                     onClick={() => {
@@ -108,11 +105,9 @@ export const getServerSideProps = async (context) => {
   });
   const data = await result.json();
 
-  console.log(data);
-
   return {
     props: {
-      profile: data,
+      data,
     },
   };
 };

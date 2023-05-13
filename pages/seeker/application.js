@@ -5,8 +5,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
-const Application = ({ profile }) => {
-  const [userProfile, setUserProfile] = useState({ ...profile });
+const Application = ({ data }) => {
+  const [profile, setProfile] = useState({ ...data });
   const [isDelete, setIsDelete] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Application = ({ profile }) => {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
-          setUserProfile({ ...res.data });
+          setProfile({ ...res.data });
         })
         .catch((error) => {
           console.log(error);
@@ -30,6 +30,7 @@ const Application = ({ profile }) => {
         headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {
+        setIsDelete(false);
         toast.success(res.data.message, {
           position: 'top-right',
           autoClose: 5000,
@@ -40,7 +41,6 @@ const Application = ({ profile }) => {
           progress: undefined,
           theme: 'colored',
         });
-        setIsDelete(false);
       })
       .catch((error) => {
         console.log(error);
@@ -60,7 +60,7 @@ const Application = ({ profile }) => {
   return (
     <Layout>
       <div className="pt-24 h-screen">
-        {userProfile.UserApplication.map((application) => {
+        {profile.UserApplication.map((application) => {
           return (
             <div className="flex flex-col justify-center">
               <div className="basis-full flex flex-row gap-2 px-3 py-5 mx-6 mb-2 bg-white border-solid border-black border-2">
@@ -113,7 +113,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      profile: data,
+      data,
     },
   };
 };

@@ -1,17 +1,17 @@
-import Layout from '@/components/layout/Dashboard';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 import SalaryExpectation from '@/components/profile/salaryExpectation/SalaryExpectation';
 import BasicInformation from '@/components/profile/basicInfomation/BasicInformation';
+import WorkExperience from '@/components/profile/workExperience/WorkExperience';
+import Organization from '@/components/profile/organization/Organization';
+import Achievement from '@/components/profile/achievement/Achievement';
 import Education from '@/components/profile/education/Education';
 import Summary from '@/components/profile/summary/Summary';
-import Achievement from '@/components/profile/achievement/Achievement';
 import Project from '@/components/profile/project/Project';
 import UserSkill from '@/components/profile/skill/Skill';
-import Organization from '@/components/profile/organization/Organization';
-import WorkExperience from '@/components/profile/workExperience/WorkExperience';
 import Resume from '@/components/profile/resume/Resume';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import Layout from '@/components/layout/Dashboard';
 
 const Profile = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
