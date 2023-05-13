@@ -1,7 +1,7 @@
-import CompanyCard from '@/components/company/CompanyCard';
+import CompanyCard from '@/components/employer/company/CompanyCard';
 import { useState, useEffect } from 'react';
 import { getCompanies } from '@/modules/fetchCompanies';
-import CustomPagination from '@/components/company/CustomPagination';
+import CustomPagination from '@/components/employer/company/CustomPagination';
 
 const Company = () => {
     const [companies, setCompanies] = useState();

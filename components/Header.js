@@ -11,21 +11,14 @@ export default function Header() {
         </div>
         <div className="">
           <ul className="flex items-center gap-6 font-semibold text-slate-600">
-            <li className="flex cursor-pointer gap-2 p-1 hover:bg-slate-100 rounded-md">
-              Jobseeker
-            </li>
-            <li className="flex cursor-pointer gap-2 p-1 hover:bg-slate-100 rounded-md">
-              Employer
-            </li>
-            <Link href="/signin">
-              <button className="cursor-pointer font-semibold bg-white text-blue-500 border border-blue-500 rounded-md mx-auto py-2 px-4 hover:bg-gray-300">
-                Sign in
-              </button>
+            <Link href="/signup/seeker">
+              <li className="flex cursor-pointer gap-2 p-1 hover:bg-slate-100 rounded-md">Jobseeker</li>
             </Link>
-            <Link href="/signup">
-              <button className="cursor-pointer font-semibold bg-blue-500 text-white rounded-md mx-auto py-2 px-4 hover:bg-blue-700">
-                Sign up
-              </button>
+            <Link href="/signup/employer">
+              <li className="flex cursor-pointer gap-2 p-1 hover:bg-slate-100 rounded-md">Employer</li>
+            </Link>
+            <Link href="/signin">
+              <button className="cursor-pointer font-semibold bg-white text-blue-500 border border-blue-500 rounded-md mx-auto py-2 px-4 hover:bg-gray-300">Sign in</button>
             </Link>
           </ul>
         </div>

@@ -5,7 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
-const Application = ({ data }) => {
+const Applications = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
   const [isDelete, setIsDelete] = useState(false);
 
@@ -73,7 +73,7 @@ const Application = ({ data }) => {
                 <div className="basis-1/2">
                   <p className="font-bold text-2xl">{application.title}</p>
                   <p className="text-lg text-blue-600">{application.Company.company_name}</p>
-                  <p className="text-lg text-green-600">{application.Application.status}</p>
+                  <p className="text-lg text-green-600">{application.s.status}</p>
                 </div>
                 {/* <div className="basis-1/2">
                   <p>{application.Application.description}</p>
@@ -99,17 +99,42 @@ const Application = ({ data }) => {
   );
 };
 
-export default Application;
+export default Applications;
 
 export const getServerSideProps = async (context) => {
-  const { token } = context.req.cookies;
+  const { role, token } = context.req.cookies;
 
   const result = await fetch('http://localhost:8000/users/job-application', {
     headers: { Authorization: 'Bearer ' + token },
   });
   const data = await result.json();
 
-  console.log(data);
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  if (role !== 'Seeker') {
+    if (role === 'Admin') {
+      return {
+        redirect: {
+          destination: '/admin/profile',
+          permanent: false,
+        },
+      };
+    } else if (role === 'Employer') {
+      return {
+        redirect: {
+          destination: '/employer/profile',
+          permanent: false,
+        },
+      };
+    }
+  }
 
   return {
     props: {

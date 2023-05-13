@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import SalaryExpectation from '@/components/profile/salaryExpectation/SalaryExpectation';
 import BasicInformation from '@/components/profile/basicInfomation/BasicInformation';
 import Layout from '@/components/layout/Dashboard';
 
-const Profile = ({ data }) => {
+const AdminProfiles = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
   const [isEdit, setIsEdit] = useState({
     basicInformation: false,
@@ -32,15 +31,42 @@ const Profile = ({ data }) => {
   );
 };
 
-export default Profile;
+export default AdminProfiles;
 
 export const getServerSideProps = async (context) => {
-  const { token } = context.req.cookies;
+  const { role, token } = context.req.cookies;
 
   const result = await fetch('http://localhost:8000/users/profile', {
     headers: { Authorization: 'Bearer ' + token },
   });
   const data = await result.json();
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  if (role !== 'Admin') {
+    if (role === 'Employer') {
+      return {
+        redirect: {
+          destination: '/employer/profile',
+          permanent: false,
+        },
+      };
+    } else if (role === 'Seeker') {
+      return {
+        redirect: {
+          destination: '/seeker/profile',
+          permanent: false,
+        },
+      };
+    }
+  }
 
   return {
     props: {

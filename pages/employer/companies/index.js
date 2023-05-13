@@ -1,13 +1,49 @@
 import Layout from '@/components/layout/Dashboard';
-import CompanyEmployer from '@/components/company/CompanyEmployer';
+import CompanyEmployer from '@/components/employer/company/CompanyEmployer';
 
-const companies = () => {
+const Companies = () => {
+  return (
+    <Layout>
+      <CompanyEmployer />
+    </Layout>
+  );
+};
 
-    return (
-        <Layout>
-            <CompanyEmployer></CompanyEmployer>
-        </Layout>
-    )
-}
+export default Companies;
 
-export default companies
+export const getServerSideProps = async (context) => {
+  const { role, token } = context.req.cookies;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  if (role !== 'Employer') {
+    if (role === 'Admin') {
+      return {
+        redirect: {
+          destination: '/admin/profile',
+          permanent: false,
+        },
+      };
+    } else if (role === 'Seeker') {
+      return {
+        redirect: {
+          destination: '/seeker/profile',
+          permanent: false,
+        },
+      };
+    }
+  }
+
+  return {
+    props: {
+      role,
+    },
+  };
+};

@@ -1,18 +1,22 @@
-import AttainmentForm from '@/components/admin/AttainmentForm';
+import { getCompanyDetail } from '@/modules/fetchCompanies';
+import CompanyDetail from '@/components/employer/company/CompanyDetail';
 import Layout from '@/components/layout/Dashboard';
 
-const Attainments = () => {
+const CompanyDetails = ({ data }) => {
   return (
     <Layout>
-      <AttainmentForm />
+      <CompanyDetail res={data} />
     </Layout>
   );
 };
 
-export default Attainments;
+export default CompanyDetails;
 
 export const getServerSideProps = async (context) => {
   const { role, token } = context.req.cookies;
+  const { companyId } = context.query;
+
+  const data = await getCompanyDetail(companyId, context);
 
   if (!token) {
     return {
@@ -23,18 +27,18 @@ export const getServerSideProps = async (context) => {
     };
   }
 
-  if (role !== 'Admin') {
-    if (role === 'Employer') {
+  if (role !== 'Seeker') {
+    if (role === 'Admin') {
       return {
         redirect: {
-          destination: '/employer/profile',
+          destination: '/admin/profile',
           permanent: false,
         },
       };
-    } else if (role === 'Seeker') {
+    } else if (role === 'Employer') {
       return {
         redirect: {
-          destination: '/seeker/profile',
+          destination: '/employer/profile',
           permanent: false,
         },
       };
@@ -43,7 +47,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      role,
+      data,
     },
   };
 };

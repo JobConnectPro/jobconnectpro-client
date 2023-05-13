@@ -1,15 +1,15 @@
-import AttainmentForm from '@/components/admin/AttainmentForm';
 import Layout from '@/components/layout/Dashboard';
+import AddCompanyForm from '@/components/employer/company/AddCompanyForm';
 
-const Attainments = () => {
+const CompanyCreate = () => {
   return (
     <Layout>
-      <AttainmentForm />
+      <AddCompanyForm />
     </Layout>
   );
 };
 
-export default Attainments;
+export default CompanyCreate;
 
 export const getServerSideProps = async (context) => {
   const { role, token } = context.req.cookies;
@@ -23,11 +23,11 @@ export const getServerSideProps = async (context) => {
     };
   }
 
-  if (role !== 'Admin') {
-    if (role === 'Employer') {
+  if (role !== 'Employer') {
+    if (role === 'Admin') {
       return {
         redirect: {
-          destination: '/employer/profile',
+          destination: '/admin/profile',
           permanent: false,
         },
       };

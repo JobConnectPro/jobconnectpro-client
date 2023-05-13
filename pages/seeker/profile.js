@@ -13,7 +13,7 @@ import UserSkill from '@/components/profile/skill/Skill';
 import Resume from '@/components/profile/resume/Resume';
 import Layout from '@/components/layout/Dashboard';
 
-const Profile = ({ data }) => {
+const SeekerProfiles = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
   const [isAdd, setIsAdd] = useState({
     workExperience: false,
@@ -73,15 +73,42 @@ const Profile = ({ data }) => {
   );
 };
 
-export default Profile;
+export default SeekerProfiles;
 
 export const getServerSideProps = async (context) => {
-  const { token } = context.req.cookies;
+  const { role, token } = context.req.cookies;
 
   const result = await fetch('http://localhost:8000/users/profile', {
     headers: { Authorization: 'Bearer ' + token },
   });
   const data = await result.json();
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  if (role !== 'Seeker') {
+    if (role === 'Admin') {
+      return {
+        redirect: {
+          destination: '/admin/profile',
+          permanent: false,
+        },
+      };
+    } else if (role === 'Employer') {
+      return {
+        redirect: {
+          destination: '/employer/profile',
+          permanent: false,
+        },
+      };
+    }
+  }
 
   return {
     props: {

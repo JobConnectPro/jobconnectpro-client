@@ -1,4 +1,4 @@
-import CompanyCard from '@/components/company/CompanyCard';
+import CompanyCard from '@/components/employer/company/CompanyCard';
 import { useState, useEffect } from 'react';
 import { getCompaniesEmployer } from '@/modules/fetchCompanies';
 import Link from 'next/link';

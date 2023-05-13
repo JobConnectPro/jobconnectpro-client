@@ -10,7 +10,7 @@ const SidebarSeeker = () => {
         <AiOutlineSearch size={20} />
         Job
       </Link>
-      <Link href={'/seeker/company'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+      <Link href={'/seeker/companies'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
         <RiBuilding4Fill size={20} />
         Company
       </Link>
