@@ -84,7 +84,7 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
             progress: undefined,
             theme: 'colored',
           });
-          setIsAdd(false);
+          setIsAdd({ ...isAdd, education: false });
           setCurrentId(0);
           setInput({
             attainment_id: '',
@@ -124,7 +124,7 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
             progress: undefined,
             theme: 'colored',
           });
-          setIsEdit(false);
+          setIsEdit({ ...isEdit, education: false });
           setCurrentId(0);
           setInput({
             attainment_id: '',
@@ -201,9 +201,9 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
             <button
               onClick={() => {
                 if (isEdit) {
-                  setIsEdit(false);
+                  setIsEdit({ ...isEdit, education: false });
                 } else {
-                  setIsAdd(false);
+                  setIsAdd({ ...isAdd, education: false });
                 }
                 setCurrentId(0);
                 setInput({

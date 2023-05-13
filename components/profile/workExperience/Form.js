@@ -73,7 +73,7 @@ const WorkExperienceForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd,
             progress: undefined,
             theme: 'colored',
           });
-          setIsAdd(false);
+          setIsAdd({ ...isAdd, workExperience: false });
           setCurrentId(0);
           setInput({
             job_title: '',
@@ -115,7 +115,7 @@ const WorkExperienceForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd,
             progress: undefined,
             theme: 'colored',
           });
-          setIsEdit(false);
+          setIsEdit({ ...isEdit, workExperience: false });
           setCurrentId(0);
           setInput({
             job_title: '',
@@ -208,9 +208,9 @@ const WorkExperienceForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd,
             <button
               onClick={() => {
                 if (isEdit) {
-                  setIsEdit(false);
+                  setIsEdit({ ...isEdit, workExperience: false });
                 } else {
-                  setIsAdd(false);
+                  setIsAdd({ ...isAdd, workExperience: false });
                 }
                 setCurrentId(0);
                 setInput({

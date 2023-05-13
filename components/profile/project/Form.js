@@ -69,7 +69,7 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
             progress: undefined,
             theme: 'colored',
           });
-          setIsAdd(false);
+          setIsAdd({ ...isAdd, project: false });
           setCurrentId(0);
           setInput({
             project_name: '',
@@ -109,7 +109,7 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
             progress: undefined,
             theme: 'colored',
           });
-          setIsEdit(false);
+          setIsEdit({ ...isEdit, project: false });
           setCurrentId(0);
           setInput({
             project_name: '',
@@ -180,9 +180,9 @@ const ProjectForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setIsA
             <button
               onClick={() => {
                 if (isEdit) {
-                  setIsEdit(false);
+                  setIsEdit({ ...isEdit, project: false });
                 } else {
-                  setIsAdd(false);
+                  setIsAdd({ ...isAdd, project: false });
                 }
                 setCurrentId(0);
                 setInput({

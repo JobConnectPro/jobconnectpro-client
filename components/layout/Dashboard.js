@@ -1,7 +1,15 @@
-import React, { useEffect, Fragment } from 'react';
+import { useEffect, Fragment } from 'react';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
 import Link from 'next/link';
 import Logo from '../Logo';
+import {
+  RiArrowDropDownLine,
+  RiLogoutBoxRLine,
+  RiSettings4Line,
+  RiAlignJustify,
+} from 'react-icons/ri';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
@@ -17,31 +25,17 @@ import {
   RiBookmarkFill,
 } from 'react-icons/ri';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import Cookies from 'js-cookie';
-import { RiLogoutBoxLine } from 'react-icons/ri';
-import axios from 'axios';
-import Profile from '@/pages/admin/profile';
+import SidebarEmployer from './sidebar/SidebarEmployer';
+import SidebarSeeker from './sidebar/SidebarSeeker';
+import SidebarAdmin from './sidebar/SidebarAdmin';
 
-const Dashboard = ({ children }) => {
+const Dashboard = ({ children, profile }) => {
   const [role, setRole] = useState('');
   const [isHide, setIsHide] = useState(false);
-  const [profile, setProfile] = useState([]);
+
   useEffect(() => {
     setRole(Cookies.get('role'));
   }, [role]);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/users/profile', {
-        headers: { authorization: 'Bearer ' + Cookies.get('token') },
-      })
-      .then((res) => {
-        setProfile({ ...res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -64,19 +58,13 @@ const Dashboard = ({ children }) => {
                     }
                   }}
                 >
-                  <GiHamburgerMenu size={20} />
+                  <RiAlignJustify size={20} />
                 </button>
               </span>
               <Logo />
             </div>
             <div>
               <ul className="flex items-center gap-6 text-slate-600">
-                <li className="cursor-pointer hover:text-blue-700">
-                  <AiOutlineMessage size={30} />
-                </li>
-                <li className="cursor-pointer hover:text-blue-700">
-                  <IoMdNotificationsOutline size={30} />
-                </li>
                 <li className="cursor-pointer hover:text-blue-700">
                   <Menu as="div" className="relative ml-3">
                     <div>
@@ -98,7 +86,7 @@ const Dashboard = ({ children }) => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
                             <Link
@@ -277,6 +265,7 @@ const Dashboard = ({ children }) => {
             </nav>
           </div>
           {/* end of sidebar */}
+
           {/* main content */}
           <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-44'}>
             {children}

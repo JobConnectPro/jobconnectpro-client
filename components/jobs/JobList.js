@@ -14,12 +14,26 @@ const JobList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getJobsList(searchQuery, currentPage, perPage, locationFilter, typeFilter, experienceFilter);
+      const res = await getJobsList(
+        searchQuery,
+        currentPage,
+        perPage,
+        locationFilter,
+        typeFilter,
+        experienceFilter
+      );
       setJobs(res.data);
       setTotalPages(res.totalPages);
     };
     fetchData();
-  }, [searchQuery, currentPage, perPage, locationFilter, typeFilter, experienceFilter]);
+  }, [
+    searchQuery,
+    currentPage,
+    perPage,
+    locationFilter,
+    typeFilter,
+    experienceFilter,
+  ]);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -42,7 +56,9 @@ const JobList = () => {
         <button
           key={i}
           className={`border px-4 py-2 rounded ${
-            i === currentPage ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'
+            i === currentPage
+              ? 'bg-blue-500 text-white'
+              : 'bg-white text-gray-700'
           }`}
           onClick={() => handlePageChange(i)}
         >
@@ -50,13 +66,8 @@ const JobList = () => {
         </button>
       );
     }
-    return (
-      <div className="flex items-center justify-center mt-4">
-        {pages}
-      </div>
-    );
+    return <div className="flex items-center justify-center mt-4">{pages}</div>;
   };
-  
 
   const handleLocationChange = (e) => {
     setLocationFilter(e.target.value);
@@ -73,7 +84,7 @@ const JobList = () => {
     setCurrentPage(1);
   };
 
-  const locations = ['Surabaya', 'Jakarta', 'Los Angeles', 'Chicago', 'Boston'];
+  const locations = ['Surabaya', 'Jakarta', 'Jogja', 'Malang', 'Bandung'];
   const types = ['Onsite', 'Remote'];
   const experiences = [1, 2, 3, 4, 5];
 
@@ -90,55 +101,13 @@ const JobList = () => {
     return true;
   });
 
-  console.log(locationFilter)
+  console.log(locationFilter);
+  console.log(experienceFilter);
 
   return (
     <div className='max-w-2xl mx-auto mb-5'>
       <h1 className='text-3xl font-bold text-center mt-8 mb-4'>Jobs</h1>
-      <div className='flex justify-between mb-4'>
-        <div className='w-1/3'>
-          <select
-            className='border p-1 rounded'
-            value={locationFilter}
-            onChange={handleLocationChange}
-          >
-            <option value=''>Location (All)</option>
-            {locations.map((location) => (
-              <option key={location} value={location}>
-                {location}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className='w-1/3'>
-          <select
-            className='border p-1 rounded'
-            value={typeFilter}
-            onChange={handleTypeChange}
-          >
-            <option value=''>Type (All)</option>
-            {types.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className='w-1/3'>
-          <select
-            className='border p-1 rounded'
-            value={experienceFilter}
-            onChange={handleExperienceChange}
-          >
-            <option value=''>Experience (All)</option>
-            {experiences.map((experience) => (
-              <option key={experience} value={experience}>
-                {experience}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+      {/* SearchBar */}
       <div className='mb-4'>
         <input
           type='text'
@@ -148,32 +117,85 @@ const JobList = () => {
           onChange={handleSearch}
         />
       </div>
+      {/* Filter */}
       <div className='flex justify-between mb-4'>
-        <div className='flex items-center mr-2'>
+        <div className='w-1/3'>
+          <select
+            className="border p-1 rounded"
+            value={locationFilter}
+            onChange={handleLocationChange}
+          >
+            <option value="">Location (All)</option>
+            {locations.map((location) => (
+              <option key={location} value={location}>
+                {location}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="w-1/3">
+          <select
+            className="border p-1 rounded"
+            value={typeFilter}
+            onChange={handleTypeChange}
+          >
+            <option value="">Type (All)</option>
+            {types.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="w-1/3">
+          <select
+            className="border p-1 rounded"
+            value={experienceFilter}
+            onChange={handleExperienceChange}
+          >
+            <option value="">Experience (All)</option>
+            {experiences.map((experience) => (
+              <option key={experience} value={experience}>
+                {experience}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className="mb-4">
+        <input
+          type="text"
+          className="border-gray-400 border-2 py-2 px-4 w-full rounded-md"
+          placeholder="Search jobs by title..."
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+      </div>
+      <div className="flex justify-between mb-4">
+        <div className="flex items-center mr-2">
           <span>Per page:</span>
           <select
-            className='mx-2 border p-1'
+            className="mx-2 border p-1"
             value={perPage}
             onChange={handlePerPageChange}
           >
-            <option value='10'>10</option>
-            <option value='20'>20</option>
-            <option value='50'>50</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
           </select>
         </div>
-        <div className='flex items-center'>
+        <div className="flex items-center">
           <span>Page:</span>
-          <div className='flex items-center ml-2'>{renderPagination()}</div>
+          <div className="flex items-center ml-2">{renderPagination()}</div>
         </div>
       </div>
-      <div className='grid gap-4'>
+      <div className="grid gap-4">
         {jobs.map((job) => (
           <JobCard job={job} key={job.id} />
         ))}
       </div>
-      <div className='flex justify-center mt-4'>{renderPagination()}</div>
+      <div className="flex justify-center mt-4">{renderPagination()}</div>
     </div>
   );
 };
 export default JobList;
-
