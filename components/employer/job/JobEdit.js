@@ -31,8 +31,6 @@ const JobEdit = ({ job }) => {
     }
   };
 
-  console.log(categoryOptions);
-
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -59,8 +57,6 @@ const JobEdit = ({ job }) => {
     }));
   };
 
-  console.log(job.id);
-
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -73,7 +69,6 @@ const JobEdit = ({ job }) => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(response.body);
       const data = await response.json();
       if (response.ok) {
         toast.success(`${data.message}`, {
@@ -87,7 +82,6 @@ const JobEdit = ({ job }) => {
           theme: 'light',
         });
         router.push('/employer/job');
-        console.log(data);
       } else {
         toast.error(`${data.message}`, {
           position: 'top-center',
@@ -101,7 +95,6 @@ const JobEdit = ({ job }) => {
         });
       }
     } catch (error) {
-      //   console.log(`Ini Error Dari Edit : ${error}`);
       toast.error(`${error.message}`, {
         position: 'top-center',
         autoClose: 3000,
@@ -121,21 +114,21 @@ const JobEdit = ({ job }) => {
       <form onSubmit={handleEditSubmit} className="space-y-4 mx-6 mb-10">
         <div className="">
           <label className="">
-            Title<span class="required text-red-600 text-lg">*</span>
+            Title<span className="required text-red-600 text-lg">*</span>
           </label>
           <input className="w-full px-4 py-2 border rounded-md" type="text" name="title" value={formData.title} onChange={handleInputChange} required />
         </div>
 
         <div className="">
           <label className="">
-            Location<span class="required text-red-600 text-lg">*</span>
+            Location<span className="required text-red-600 text-lg">*</span>
           </label>
           <input className="w-full px-4 py-2 border rounded-md" type="text" name="location" value={formData.location} onChange={handleInputChange} required />
         </div>
 
         <div className="">
           <label className="">
-            Description<span class="required text-red-600 text-lg">*</span>
+            Description<span className="required text-red-600 text-lg">*</span>
           </label>
           <textarea
             id="description"
@@ -151,7 +144,7 @@ const JobEdit = ({ job }) => {
 
         <div className="">
           <label className="">
-            Categories<span class="required text-red-600 text-lg">*</span>
+            Categories<span className="required text-red-600 text-lg">*</span>
           </label>
           <select className="w-full px-4 py-2 border rounded-md" name="categoryIds" value={formData.categoryIds} onChange={handleCategorySelect} required multiple>
             {categoryOptions.map((category) => (
@@ -164,14 +157,14 @@ const JobEdit = ({ job }) => {
 
         <div className="">
           <label className="">
-            Requirement<span class="required text-red-600 text-lg">*</span>
+            Requirement<span className="required text-red-600 text-lg">*</span>
           </label>
           <textarea className="w-full px-4 py-2 border rounded-md" name="requirement" value={formData.requirement} onChange={handleInputChange} cols="4" rows="8" required></textarea>
         </div>
 
         <div className="">
           <label className="">
-            Job Level<span class="required text-red-600 text-lg">*</span>
+            Job Level<span className="required text-red-600 text-lg">*</span>
           </label>
           <select id="job_level" name="job_level" value={formData.job_level} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2">
             <option value="">-- Select Type --</option>
@@ -185,7 +178,7 @@ const JobEdit = ({ job }) => {
 
         <div className="">
           <label className="">
-            Type<span class="required text-red-600 text-lg">*</span>
+            Type<span className="required text-red-600 text-lg">*</span>
           </label>
           <input className="w-full px-4 py-2 border rounded-md" type="text" name="type" value={formData.type} onChange={handleInputChange} required />
         </div>
@@ -207,14 +200,14 @@ const JobEdit = ({ job }) => {
 
         <div className="">
           <label className="">
-            Minimum Experience<span class="required text-red-600 text-lg">*</span>
+            Minimum Experience<span className="required text-red-600 text-lg">*</span>
           </label>
           <input className="w-full px-4 py-2 border rounded-md" type="number" name="minimum_experience" value={formData.minimum_experience} onChange={handleInputChange} required />
         </div>
 
         <div className="">
           <label className="">
-            Status<span class="required text-red-600 text-lg">*</span>
+            Status<span className="required text-red-600 text-lg">*</span>
           </label>
           <select className="w-full px-4 py-2 border rounded-md" name="status" value={formData.status} onChange={handleInputChange} required>
             <option value="1">Open</option>

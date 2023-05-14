@@ -22,7 +22,6 @@ const Employers = ({ data }) => {
         headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {
-        console.log(res);
         setEmployers([...res.data.data]);
         setTotalPages(res.data.totalPages);
       })
@@ -72,8 +71,8 @@ const Employers = ({ data }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row justify-start gap-2 mx-6">
           {employers.map((employer) => {
             return (
-              <div class="bg-white rounded-lg border-slate-200 border overflow-hidden pt-4">
-                <div class="flex items-center justify-center h-28 bg-white">
+              <div className="bg-white rounded-lg border-slate-200 border overflow-hidden pt-4" key={employer.id}>
+                <div className="flex items-center justify-center h-28 bg-white">
                   <div className="w-24 h-24 rounded-full overflow-hidden mx-auto">
                     {employer.photo != null && (
                       <Image loader={() => employer.photo} className="w-full h-full object-cover object-center" src={employer.photo} alt="Profile Picture" width={100} height={100} />
@@ -81,15 +80,15 @@ const Employers = ({ data }) => {
                     {employer.photo == null && <Image className="w-full h-full object-cover object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={100} height={100} />}
                   </div>
                 </div>
-                <div class="px-6 py-4">
+                <div className="px-6 py-4">
                   <Link href={`/seeker/employer/${employer.id}`}>
-                    <div class="font-bold text-lg text-black hover:text-blue-500 mb-1">{employer.name}</div>
+                    <div className="font-bold text-lg text-black hover:text-blue-500 mb-1">{employer.name}</div>
                   </Link>
-                  <div class="text-sm text-gray-500">Recruiter in:</div>
+                  <div className="text-sm text-gray-500">Recruiter in:</div>
                   <div className="flex flex-col">
                     {employer.Companies.map((company) => {
                       return (
-                        <div class="mt-1">
+                        <div className="mt-1" key={company.id}>
                           {company.logo != null && (
                             <Image
                               loader={() => company.logo}
@@ -104,16 +103,13 @@ const Employers = ({ data }) => {
                             <Image className="inline-block rounded-full ring-2 ring-white object-cover object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={40} height={40} />
                           )}
                           <Link href={`/seeker/companies/${company.id}`}>
-                            <div class="inline-block pl-2 text-sm text-gray-700 hover:text-blue-500">{company.company_name}</div>
+                            <div className="inline-block pl-2 text-sm text-gray-700 hover:text-blue-500">{company.company_name}</div>
                           </Link>
                         </div>
                       );
                     })}
                   </div>
                 </div>
-                {/* <div class="px-6 py-4 flex justify-center">
-                  <button class="px-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Follow</button>
-                </div> */}
               </div>
             );
           })}

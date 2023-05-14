@@ -17,8 +17,8 @@ const CompanyDetail = ({ res }) => {
 
   return (
     <div className="w-full p-4 pt-20">
-      <div class="flex flex-row bg-white">
-        <div class="lg:w-3/4 px-4 py-8">
+      <div className="flex flex-row bg-white">
+        <div className="lg:w-3/4 px-4 py-8">
           <div>
             <div>
               <p>{company.company_name}</p>
@@ -39,7 +39,7 @@ const CompanyDetail = ({ res }) => {
             </div>
           </div>
         </div>
-        <div class="lg:1/4 px-4 py-8">
+        <div className="lg:1/4 px-4 py-8">
           <div className="w-24 h-24 bg-slate-600 rounded-md">
             <img src={company.logo}></img>
           </div>
@@ -49,13 +49,13 @@ const CompanyDetail = ({ res }) => {
       <div className="bg-white mt-4 h-48">
         <p>{company.description}</p>
       </div>
-      <div class="flex flex-row bg-blue-700 mt-4 p-4">
+      <div className="flex flex-row bg-blue-700 mt-4 p-4">
         <div>job opening di perusahaan</div>
         <div>
           <input type="text" placeholder="find job" onChange={handleSearch}></input>
         </div>
       </div>
-      <div class="flex flex-row bg-white">
+      <div className="flex flex-row bg-white">
         {filteredJobs.length > 0 ? (
           filteredJobs.map((job) => (
             <div key={job.id}>
