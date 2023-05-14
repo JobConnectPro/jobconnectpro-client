@@ -4,6 +4,8 @@ import Image from 'next/image';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import { RiHeartFill } from 'react-icons/ri';
+import Link from 'next/link';
 
 const Bookmarks = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
@@ -59,37 +61,37 @@ const Bookmarks = ({ data }) => {
 
   return (
     <Layout>
-      <div className="pt-24 h-screen">
-        {profile.UserBookmark.map((bookmark) => {
-          return (
-            <div className="flex flex-col justify-center">
-              <div className="basis-full flex flex-row gap-2 px-3 py-5 mx-6 mb-2 bg-white border-solid border-black border-2">
-                <div className="basis-1/4">
+      <div className="mt-[22px] h-screen">
+        <h1 className="mx-6 mb-4 text-3xl font-bold">Bookmark</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-2 grid-flow-row justify-start gap-2 mx-6">
+          {profile.UserBookmark.map((bookmark) => {
+            return (
+              <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
+                <div className="flex items-center">
                   {bookmark.Company.logo != null && (
-                    <Image loader={() => bookmark.Company.logo} className="object-cover object-center" src={bookmark.Company.logo} alt="Alternative text" width={80} height={80} />
+                    <Image loader={() => bookmark.Company.logo} className="mr-4 object-cover object-center" src={bookmark.Company.logo} alt="Alternative text" width={60} height={60} />
                   )}
-                  {bookmark.Company.logo == null && <Image className=" object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={80} height={80} />}
+                  {bookmark.Company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
+                  <div>
+                    <Link href={`/seeker/job/${bookmark.id}`}>
+                      <h2 className="text-lg font-semibold text-black hover:text-blue-500">{bookmark.title}</h2>
+                    </Link>
+                    <p className="text-blue-500">{bookmark.Company.company_name}</p>
+                  </div>
                 </div>
-                <div className="basis-1/2">
-                  <p className="font-bold text-2xl">{bookmark.title}</p>
-                  <p className="text-lg text-blue-600">{bookmark.Company.company_name}</p>
-                </div>
-                <div className="basis-1/2">
-                  <button
-                    onClick={() => {
-                      setIsDelete(true);
-                      handleDelete(bookmark.id);
-                    }}
-                    className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
-                  >
-                    Cancel
-                  </button>
-                  <button className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500">Detail</button>
-                </div>
+                <button
+                  onClick={() => {
+                    setIsDelete(true);
+                    handleDelete(bookmark.id);
+                  }}
+                  className="bg-red-500 hover:bg-red-600 text-white text-sm font-bold p-2 rounded"
+                >
+                  Remove
+                </button>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </Layout>
   );

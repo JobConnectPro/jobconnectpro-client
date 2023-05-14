@@ -1,6 +1,7 @@
 import Layout from '@/components/layout/Dashboard';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -53,40 +54,66 @@ const Employers = ({ data }) => {
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto mb-5">
-        <h1 className="text-3xl font-bold text-center mt-8 mb-4">Employers</h1>
-        {/* Filter */}
-        <div className="flex justify-between mb-4"></div>
-        <div className="mb-4"></div>
-        <div className="flex justify-between mb-4">
+      <div className="mt-[22px] h-screen">
+        <h1 className="mx-6 mb-6 text-3xl font-bold">Recruiter</h1>
+        {/* pagination */}
+        <div className="flex justify-between mb-4 mx-6">
           <div className="flex items-center mr-2">
-            <span>Per page:</span>
-            <select className="mx-2 border p-1" value={perPage} onChange={handlePerPageChange}>
+            <span>Show:</span>
+            <select className="mx-2 border rounded-lg p-1" value={perPage} onChange={handlePerPageChange}>
               <option value="10">10</option>
               <option value="20">20</option>
               <option value="50">50</option>
             </select>
           </div>
-          <div className="flex items-center">
-            <span>Page:</span>
-            <div className="flex items-center ml-2">{renderPagination()}</div>
-          </div>
         </div>
-        <div className="grid gap-4">
+        {/* pagination */}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row justify-start gap-2 mx-6">
           {employers.map((employer) => {
             return (
-              <div className="basis-1/4 bg-white">
-                <p>{employer.name}</p>
-                {employer.Companies.map((company) => {
-                  return (
-                    <>
-                      <p>{company.company_name}</p>
-                    </>
-                  );
-                })}
-                <Link href={`/seeker/employer/${employer.id}`}>
-                  <button className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500">Detail</button>
-                </Link>
+              <div class="bg-white rounded-lg border-slate-200 border overflow-hidden pt-4">
+                <div class="flex items-center justify-center h-28 bg-white">
+                  <div className="w-24 h-24 rounded-full overflow-hidden mx-auto">
+                    {employer.photo != null && (
+                      <Image loader={() => employer.photo} className="w-full h-full object-cover object-center" src={employer.photo} alt="Profile Picture" width={100} height={100} />
+                    )}
+                    {employer.photo == null && <Image className="w-full h-full object-cover object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={100} height={100} />}
+                  </div>
+                </div>
+                <div class="px-6 py-4">
+                  <Link href={`/seeker/employer/${employer.id}`}>
+                    <div class="font-bold text-lg text-black hover:text-blue-500 mb-1">{employer.name}</div>
+                  </Link>
+                  <div class="text-sm text-gray-500">Recruiter in:</div>
+                  <div className="flex flex-col">
+                    {employer.Companies.map((company) => {
+                      return (
+                        <div class="mt-1">
+                          {company.logo != null && (
+                            <Image
+                              loader={() => company.logo}
+                              className="inline-block rounded-full ring-2 ring-white object-cover object-center"
+                              src={company.logo}
+                              alt="Company Logo"
+                              width={40}
+                              height={40}
+                            />
+                          )}
+                          {company.logo == null && (
+                            <Image className="inline-block rounded-full ring-2 ring-white object-cover object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={40} height={40} />
+                          )}
+                          <Link href={`/seeker/companies/${company.id}`}>
+                            <div class="inline-block pl-2 text-sm text-gray-700 hover:text-blue-500">{company.company_name}</div>
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                {/* <div class="px-6 py-4 flex justify-center">
+                  <button class="px-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Follow</button>
+                </div> */}
               </div>
             );
           })}
