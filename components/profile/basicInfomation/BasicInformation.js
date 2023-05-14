@@ -16,7 +16,7 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
   });
 
   return (
-    <div className="w-full p-4 pt-24">
+    <div className="w-full p-4 pt-10">
       <button
         onClick={() => {
           setIsOpen(!isOpen);

@@ -16,7 +16,7 @@ const SidebarSeeker = () => {
       </Link>
       <Link href={'/seeker/employer'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
         <RiTeamFill size={20} />
-        Employer
+        Recruiter
       </Link>
       <Link href={'/seeker/profile'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
         <CgProfile size={20} />
@@ -24,7 +24,7 @@ const SidebarSeeker = () => {
       </Link>
       <Link href={'/seeker/application'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
         <AiOutlineAppstore size={20} />
-        Applications
+        Application
       </Link>
       <Link href={'/seeker/bookmark'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
         <RiBookmarkFill size={20} />

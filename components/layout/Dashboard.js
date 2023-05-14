@@ -25,9 +25,9 @@ const Dashboard = ({ children, profile }) => {
 
   return (
     <>
-      <div className="flex flex-col bg-slate-200">
+      <div className="flex flex-col bg-gray-100">
         {/* navbar */}
-        <div className="w-full sticky top-0 z-30  bg-white">
+        <div className="w-full sticky top-0 z-30 bg-white border-b border-gray-200">
           <div className="flex justify-between items-center p-4">
             <div className="flex flex-row items-center">
               <span className="mr-3 mt-2">
@@ -46,7 +46,7 @@ const Dashboard = ({ children, profile }) => {
               <Logo />
             </div>
             <div>
-              <ul className="flex items-center gap-6 text-slate-600">
+              <ul className="flex items-center gap-6 text-gray-600">
                 <li className="cursor-pointer hover:text-blue-700">
                   <Menu as="div" className="relative ml-3">
                     <div>
@@ -115,7 +115,7 @@ const Dashboard = ({ children, profile }) => {
 
         {/* sidebar */}
         <div className="flex flex-row flex-nowrap">
-          <div className={isHide ? 'hidden' : 'h-screen basis-auto fixed flex bg-white p-4 pr-10'}>
+          <div className={isHide ? 'hidden' : 'h-screen w-[200px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200'}>
             <nav className="flex flex-col gap-4">
               {/* <Link href={'/job-board'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                 <AiOutlineSearch size={20} />
@@ -129,7 +129,7 @@ const Dashboard = ({ children, profile }) => {
           {/* end of sidebar */}
 
           {/* main content */}
-          <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-44'}>{children}</div>
+          <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-52'}>{children}</div>
           {/* main content */}
         </div>
       </div>
