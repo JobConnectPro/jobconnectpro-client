@@ -100,9 +100,9 @@ export default function UserLogin() {
                     <label className="text-gray-500 dark:text-gray-300">Remember me</label>
                   </div>
                 </div>
-                <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+                <Link href="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
                   Forgot password?
-                </a>
+                </Link>
               </div>
 
               <button className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign In</button>
