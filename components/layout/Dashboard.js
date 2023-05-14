@@ -115,7 +115,7 @@ const Dashboard = ({ children, profile }) => {
 
         {/* sidebar */}
         <div className="flex flex-row flex-nowrap">
-          <div className={isHide ? 'hidden' : 'h-screen w-[200px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200'}>
+          <div className={isHide ? 'hidden' : 'h-screen w-[208px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200'}>
             <nav className="flex flex-col gap-4">
               {/* <Link href={'/job-board'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                 <AiOutlineSearch size={20} />

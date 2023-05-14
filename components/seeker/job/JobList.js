@@ -82,14 +82,28 @@ const JobList = () => {
   });
 
   return (
-    <div className="max-w-2xl mx-auto mb-5">
-      <h1 className="text-3xl font-bold text-center mt-8 mb-4">Jobs</h1>
-      {/* SearchBar */}
-
-      {/* Filter */}
-      <div className="flex justify-between mb-4">
-        <div className="w-1/3">
-          <select className="border p-1 rounded" value={locationFilter} onChange={handleLocationChange}>
+    <div className="mb-5">
+      <div className="w-full bg-blue-700 sticky top-16">
+        <div className="mx-6">
+          <div className="grid grid-cols-1 py-4 gap-2 border-b border-slate-200">
+            <form>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
+                <input
+                  type="search"
+                  value={searchQuery}
+                  onChange={handleSearch}
+                  id="default-search"
+                  className="block w-full px-4 py-2 text-gray-900 rounded-lg "
+                  placeholder="Search jobs by title.."
+                  required
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className="grid gap-x-5 mx-6 py-4 grid-cols-3 text-center items-center">
+          <select className="border p-2 rounded-lg text-gray-500" value={locationFilter} onChange={handleLocationChange}>
             <option value="">Location (All)</option>
             {locations.map((location) => (
               <option key={location} value={location}>
@@ -97,9 +111,7 @@ const JobList = () => {
               </option>
             ))}
           </select>
-        </div>
-        <div className="w-1/3">
-          <select className="border p-1 rounded" value={typeFilter} onChange={handleTypeChange}>
+          <select className="border p-2 rounded-lg text-gray-500" value={typeFilter} onChange={handleTypeChange}>
             <option value="">Type (All)</option>
             {types.map((type) => (
               <option key={type} value={type}>
@@ -107,9 +119,7 @@ const JobList = () => {
               </option>
             ))}
           </select>
-        </div>
-        <div className="w-1/3">
-          <select className="border p-1 rounded" value={experienceFilter} onChange={handleExperienceChange}>
+          <select className="border p-2 rounded-lg text-gray-500" value={experienceFilter} onChange={handleExperienceChange}>
             <option value="">Experience (All)</option>
             {experiences.map((experience) => (
               <option key={experience} value={experience}>
@@ -119,24 +129,17 @@ const JobList = () => {
           </select>
         </div>
       </div>
-      <div className="mb-4">
-        <input type="text" className="border-gray-400 border-2 py-2 px-4 w-full rounded-md" placeholder="Search jobs by title..." value={searchQuery} onChange={handleSearch} />
-      </div>
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between my-4 mx-6">
         <div className="flex items-center mr-2">
-          <span>Per page:</span>
-          <select className="mx-2 border p-1" value={perPage} onChange={handlePerPageChange}>
+          <span>Show:</span>
+          <select className="mx-2 border rounded-lg p-1" value={perPage} onChange={handlePerPageChange}>
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>
           </select>
         </div>
-        <div className="flex items-center">
-          <span>Page:</span>
-          <div className="flex items-center ml-2">{renderPagination()}</div>
-        </div>
       </div>
-      <div className="grid gap-4">
+      <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-2 mx-6">
         {jobs.map((job) => (
           <JobCard job={job} key={job.id} />
         ))}
