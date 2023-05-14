@@ -16,19 +16,21 @@ const JobList = () => {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto mb-5">
-      <h1 className="text-3xl font-bold text-center mt-8 mb-4">Jobs</h1>
-      <Link href="/employer/job/create">
-        <button className="bg-green-600 hover:bg-green-700 text-black font-bold p-1 rounded-md mx-10 mb-3">
-          <RiAddCircleLine size={15} />
-        </button>
-      </Link>
-      <div className="grid gap-4">
-        {jobs.Jobs?.map((job) => (
-          <JobCard job={job} key={job.id} />
-        ))}
+    <>
+      <div className="mt-[22px] h-screen">
+        <div className="grid grid-cols-2">
+          <h1 className="mx-6 mb-4 text-3xl font-bold">My Job</h1>
+          <Link href="/employer/job/create" className="justify-self-end">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded mx-6">Add Job</button>
+          </Link>
+        </div>
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-2 mx-6">
+          {jobs.Jobs?.map((job) => (
+            <JobCard job={job} key={job.id} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default JobList;

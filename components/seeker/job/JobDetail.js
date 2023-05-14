@@ -197,7 +197,7 @@ const JobDetail = ({ job }) => {
                 <h1 className="text-lg text-gray-500">ADDRESS</h1>
                 <p className="text-blue-700">{job.Company.address}</p>
               </div>
-              <div>
+              <div className='col-span-2'>
                 <h1 className="text-lg text-gray-500">SALARY</h1>
                 <p className="text-blue-700">
                   {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(job.minimum_salary)} -{' '}
