@@ -19,7 +19,6 @@ const OrganizationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, s
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
-          console.log(res);
           setInput({
             organization: res.data.organization,
             role: res.data.role,

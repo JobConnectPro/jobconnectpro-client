@@ -2,66 +2,52 @@ import { useState, useEffect, Fragment } from 'react';
 import { useRouter } from 'next/router';
 import { getApplicant } from '@/modules/fetch';
 import { BsFillBriefcaseFill } from 'react-icons/bs';
-import Image from 'next/image';
 
 const WorkExperienceApplicant = () => {
   const router = useRouter();
   const applicantId = router.query.applicantid;
   const jobId = router.query.id;
-  //   console.log(applicantId, jobId);
   const [applicant, setApplicant] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getApplicant(applicantId, jobId);
-
       setApplicant(res);
     };
     fetchData();
   }, [applicantId]);
 
-  console.log(applicant);
-
   return (
     <>
-      <div>
-        <div className="flex mt-5">
-          <BsFillBriefcaseFill size={30} />
-          <p className="ml-2 text-lg">Work Experience</p>
-        </div>
-        <div>
-          <table className="table-auto w-full">
-            <tbody>
-              {applicant.WorkExperiences?.map((workExperience) => {
-                return (
-                  <tr className="border-t border-blue-300 font-semibold hover:bg-slate-50">
-                    <Fragment key={workExperience.id}>
-                      <td className="px-2 py-6">
-                        {new Date(workExperience.start_date).toLocaleDateString(
-                          'id-ID',
-                          {
-                            month: 'long',
-                            year: 'numeric',
-                          }
-                        )}{' '}
-                        -{' '}
-                        {new Date(workExperience.end_date).toLocaleDateString(
-                          'id-ID',
-                          {
-                            month: 'long',
-                            year: 'numeric',
-                          }
-                        )}
-                      </td>
-                      <td className="">
-                        {workExperience.job_title} at {workExperience.company}
-                      </td>
-                    </Fragment>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+      <div class="bg-white border border-slate-200 rounded-lg overflow-hidden">
+        <div className="px-6 py-4">
+          <div className="flex">
+            <BsFillBriefcaseFill size={30} />
+            <p className="ml-2 text-lg mb-4">Work Experience</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {applicant.WorkExperiences?.map((workExperience) => {
+              return (
+                <div className="border border-blue-300 rounded-lg py-4 px-6" key={workExperience.id}>
+                  <h1 className="text-blue-500 text-lg">{workExperience.job_title}</h1>
+                  <p className="font-bold">{workExperience.company}</p>
+                  <p className="text-sm mb-3 text-gray-500">
+                    {' '}
+                    {new Date(workExperience.start_date).toLocaleDateString('id-ID', {
+                      month: 'long',
+                      year: 'numeric',
+                    })}{' '}
+                    -{' '}
+                    {new Date(workExperience.end_date).toLocaleDateString('id-ID', {
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </p>
+                  {workExperience.description}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </>

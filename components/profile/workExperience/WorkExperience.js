@@ -82,8 +82,8 @@ const WorkExperience = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete,
                 <tbody>
                   {profile.WorkExperiences.map((workExperience) => {
                     return (
-                      <tr className="border-t border-blue-300 font-semibold hover:bg-slate-50">
-                        <Fragment key={workExperience.id}>
+                      <tr className="border-t border-blue-300 font-semibold hover:bg-slate-50" key={workExperience.id}>
+                        <Fragment>
                           <td className="px-2 py-6">
                             {new Date(workExperience.start_date).toLocaleDateString('id-ID', {
                               month: 'long',
@@ -98,7 +98,7 @@ const WorkExperience = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete,
                           <td className="">
                             {workExperience.job_title} at {workExperience.company}
                           </td>
-                          <td td className="text-right p-2">
+                          <td className="text-right p-2">
                             {/* edit button */}
                             <button
                               onClick={() => {
