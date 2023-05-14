@@ -34,7 +34,7 @@ const JobDetail = () => {
     };
     fetchData();
   }, [jobId]);
-  console.log(job);
+  
   const handleDeleteClick = async () => {
     try {
       const response = await fetch(`http://localhost:8000/jobs/${job.id}`, {
@@ -57,7 +57,6 @@ const JobDetail = () => {
           theme: 'light',
         });
         router.push('/employer/job');
-        console.log(data);
       } else {
         toast.error(`${data.message}`, {
           position: 'top-center',
@@ -89,23 +88,23 @@ const JobDetail = () => {
       {!isEditFormOpen && (
         <>
           <h1 className="mx-6 mb-3 text-3xl font-bold">My Job Detail & Applicant</h1>
-          <div class="bg-white border border-slate-200 rounded-lg overflow-hidden mx-6">
-            <div class="flex items-center justify-center pt-10">
+          <div className="bg-white border border-slate-200 rounded-lg overflow-hidden mx-6">
+            <div className="flex items-center justify-center pt-10">
               {job.Company?.logo != null && <Image loader={() => job.Company?.logo} className="object-center" src={job.Company?.logo} alt="Profile Picture" width={150} height={150} />}
               {job.Company?.logo == null && <Image className="object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={150} height={150} />}
             </div>
-            <div class="px-6 pt-4 pb-3 border-b">
+            <div className="px-6 pt-4 pb-3 border-b">
               <h1 className="text-4xl font-bold text-left mt-8 relative z-10">{job.title}</h1>
-              <p class="text-blue-700 text-lg">{job.Company?.company_name}</p>
+              <p className="text-blue-700 text-lg">{job.Company?.company_name}</p>
               <p className="text-gray-700  text-lg">{job.location}</p>
             </div>
-            <div class="px-6 mt-5">
+            <div className="px-6 mt-5">
               <h1 className="text-2xl font-bold">Job Description</h1>
               <p className="text-gray-800 mb-4 font-medium">{job.description}</p>
               <h1 className="text-2xl font-bold">Requirement</h1>
               <p className="text-gray-800 mb-4 font-medium">{job.requirement}</p>
             </div>
-            <div class="px-6 mb-2">
+            <div className="px-6 mb-2">
               <h1 className="text-2xl mb-2 font-bold">Job Summary</h1>
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                 <div>
@@ -137,11 +136,11 @@ const JobDetail = () => {
                 </div>
               </div>
             </div>
-            <div class="px-6 py-4 text-end">
-              <button onClick={handleEditClick} class="bg-yellow-400 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded mr-2">
+            <div className="px-6 py-4 text-end">
+              <button onClick={handleEditClick} className="bg-yellow-400 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded mr-2">
                 Edit Job
               </button>
-              <button onClick={handleDeleteClick} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+              <button onClick={handleDeleteClick} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                 Delete
               </button>
             </div>
@@ -167,7 +166,7 @@ const JobDetail = () => {
             )}
             {job !== null &&
               job.JobApplication?.map((applicant) => (
-                <Link href={`/employer/job/${job.id}/applicant/${applicant.id}`}>
+                <Link href={`/employer/job/${job.id}/applicant/${applicant.id}`} key={applicant.id}>
                   <div className="bg-gray-800 hover:bg-slate-900 rounded-lg border-slate-200 border p-6 flex items-center justify-between">
                     <div className="flex items-center">
                       <div>

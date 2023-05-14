@@ -65,14 +65,13 @@ const Applications = ({ data }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 grid-flow-row justify-start gap-2 mx-6">
           {profile.UserApplication.map((application) => {
             return (
-              <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
+              <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between" key={application.id}>
                 <div className="flex items-center">
                   {application.Company.logo != null && (
                     <Image loader={() => application.Company.logo} className="mr-4 object-cover object-center" src={application.Company.logo} alt="Alternative text" width={60} height={60} />
                   )}
                   {application.Company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
                   <div>
-                    {console.log(application)}
                     <Link href={`/seeker/job/${application.id}`}>
                       <h2 className="text-lg font-semibold text-black hover:text-blue-500">{application.title}</h2>
                     </Link>

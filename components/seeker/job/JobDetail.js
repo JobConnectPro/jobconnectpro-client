@@ -146,23 +146,23 @@ const JobDetail = ({ job }) => {
     <>
       <div className="mt-[22px] pb-9">
         <h1 className="mx-6 mb-3 text-3xl font-bold">Job Detail</h1>
-        <div class="bg-white border border-slate-200 rounded-lg overflow-hidden mx-6">
-          <div class="flex items-center justify-center pt-10">
+        <div className="bg-white border border-slate-200 rounded-lg overflow-hidden mx-6">
+          <div className="flex items-center justify-center pt-10">
             {job.Company.logo != null && <Image loader={() => job.Company.logo} className="object-center" src={job.Company.logo} alt="Profile Picture" width={150} height={150} />}
             {job.Company.logo == null && <Image className="object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={150} height={150} />}
           </div>
-          <div class="px-6 pt-4 pb-3 border-b">
+          <div className="px-6 pt-4 pb-3 border-b">
             <h1 className="text-4xl font-bold text-left mt-8 relative z-10">{job.title}</h1>
-            <p class="text-blue-700 text-lg">{job.Company.company_name}</p>
+            <p className="text-blue-700 text-lg">{job.Company.company_name}</p>
             <p className="text-gray-700  text-lg">{job.location}</p>
           </div>
-          <div class="px-6 mt-5">
+          <div className="px-6 mt-5">
             <h1 className="text-2xl font-bold">Job Description</h1>
             <p className="text-gray-800 mb-4 font-medium">{job.description}</p>
             <h1 className="text-2xl font-bold">Requirement</h1>
             <p className="text-gray-800 mb-4 font-medium">{job.requirement}</p>
           </div>
-          <div class="px-6 mb-2">
+          <div className="px-6 mb-2">
             <h1 className="text-2xl mb-2 font-bold">Job Summary</h1>
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
               <div>
@@ -206,12 +206,12 @@ const JobDetail = ({ job }) => {
               </div>
             </div>
           </div>
-          <div class="px-6 py-4 text-end">
+          <div className="px-6 py-4 text-end">
             <button
               onClick={() => {
                 handleBookmark(job.id);
               }}
-              class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2"
+              className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2"
             >
               Bookmark
             </button>
@@ -219,7 +219,7 @@ const JobDetail = ({ job }) => {
               onClick={() => {
                 handleApplication(job.id);
               }}
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Send Application
             </button>

@@ -8,6 +8,7 @@ import ApplicantStatus from './applicant/ApplicantStatus';
 const ApplicantProfile = () => {
   return (
     <div className="max-w-4xl mx-auto my-8">
+      <ApplicantStatus />
       <div className="p-4 border rounded-lg shadow-md my-5 bg-white">
         <BasicInfomationApplicant />
         <WorkExperienceApplicant />
@@ -15,7 +16,6 @@ const ApplicantProfile = () => {
         <OrganizationApplicant />
         <ProjectApplicant />
         <SkillApplicant />
-        <ApplicantStatus />
       </div>
     </div>
   );

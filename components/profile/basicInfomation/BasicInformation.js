@@ -35,9 +35,9 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
               <div className="basis-full md:basis-1/5 mb-7 md:mb-0">
                 <div className="w-24 h-24 rounded-full overflow-hidden mx-auto">
                   {profile.photo != null && (
-                    <Image loader={() => profile.photo} className="w-full h-full object-cover object-center" src={profile.photo} alt="Alternative text" width={100} height={100} />
+                    <Image loader={() => profile.photo} className="w-full h-full object-cover object-center" src={profile.photo} alt="Profile Picture" width={100} height={100} />
                   )}
-                  {profile.photo == null && <Image className="w-full h-full object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={100} height={100} />}
+                  {profile.photo == null && <Image className="w-full h-full object-cover object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={100} height={100} />}
                 </div>
                 {/* edit button */}
                 <button
