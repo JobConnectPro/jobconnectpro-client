@@ -5,18 +5,19 @@ import OrganizationApplicant from './applicant/Organization';
 import ProjectApplicant from './applicant/Project';
 import SkillApplicant from './applicant/Skill';
 import ApplicantStatus from './applicant/ApplicantStatus';
+import AchievementApplicant from './applicant/Achievement';
+
 const ApplicantProfile = () => {
   return (
-    <div className="max-w-4xl mx-auto my-8">
+    <div className="grid grid-cols-1 mx-6 mt-7 gap-2">
       <ApplicantStatus />
-      <div className="p-4 border rounded-lg shadow-md my-5 bg-white">
-        <BasicInfomationApplicant />
-        <WorkExperienceApplicant />
-        <EducationApplicant />
-        <OrganizationApplicant />
-        <ProjectApplicant />
-        <SkillApplicant />
-      </div>
+      <BasicInfomationApplicant />
+      <WorkExperienceApplicant />
+      <EducationApplicant />
+      <OrganizationApplicant />
+      <AchievementApplicant />
+      <ProjectApplicant />
+      <SkillApplicant />
     </div>
   );
 };
