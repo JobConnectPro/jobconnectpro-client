@@ -1,11 +1,27 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill } from 'react-icons/ri';
-import { MdEmail, MdPeopleAlt, MdContactPhone, MdCalendarMonth, MdLocationOn } from 'react-icons/md';
+import {
+  RiArrowDropDownLine,
+  RiArrowDropUpLine,
+  RiEdit2Fill,
+} from 'react-icons/ri';
+import {
+  MdEmail,
+  MdPeopleAlt,
+  MdContactPhone,
+  MdCalendarMonth,
+  MdLocationOn,
+} from 'react-icons/md';
 import BasicInformationEditForm from './EditForm';
 import BasicInformationUploadForm from './UploadForm';
 
-const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload }) => {
+const BasicInformation = ({
+  profile,
+  isEdit,
+  setIsEdit,
+  isUpload,
+  setIsUpload,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const date = new Date(profile.birthday);
@@ -14,7 +30,7 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
     month: 'long',
     year: 'numeric',
   });
-
+  console.log(profile);
   return (
     <div className="w-full p-4 pt-24">
       <button
@@ -24,7 +40,13 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
         className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600"
       >
         Basic Information
-        <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
+        <div>
+          {isOpen ? (
+            <RiArrowDropDownLine size={40} />
+          ) : (
+            <RiArrowDropUpLine size={40} />
+          )}
+        </div>
       </button>
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-8'}>
         <div className="flex flex-row flex-wrap justify-center md:justify-start items-center mx-10">
@@ -35,9 +57,24 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
               <div className="basis-full md:basis-1/5 mb-7 md:mb-0">
                 <div className="w-24 h-24 rounded-full overflow-hidden mx-auto">
                   {profile.photo != null && (
-                    <Image loader={() => profile.photo} className="w-full h-full object-cover object-center" src={profile.photo} alt="Alternative text" width={100} height={100} />
+                    <Image
+                      loader={() => profile.photo}
+                      className="w-full h-full object-cover object-center"
+                      src={profile.photo}
+                      alt="Alternative text"
+                      width={100}
+                      height={100}
+                    />
                   )}
-                  {profile.photo == null && <Image className="w-full h-full object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={100} height={100} />}
+                  {profile.photo == null && (
+                    <Image
+                      className="w-full h-full object-cover object-center"
+                      src="/img/blank-pp.jpg"
+                      alt="Alternative text"
+                      width={100}
+                      height={100}
+                    />
+                  )}
                 </div>
                 {/* edit button */}
                 <button
@@ -96,7 +133,9 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
                     <span className="mr-2">
                       <MdLocationOn size={18} />
                     </span>
-                    <span className="md:w-1/2 leading-tight">{profile.address}</span>
+                    <span className="md:w-1/2 leading-tight">
+                      {profile.address}
+                    </span>
                   </p>
                 </div>
               </div>
@@ -104,8 +143,15 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
           )}
           {/* end of basic information */}
           {/* form */}
-          {isEdit.basicInformation && !isUpload && <BasicInformationEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
-          {isUpload && !isEdit.basicInformation && <BasicInformationUploadForm isUpload={isUpload} setIsUpload={setIsUpload} />}
+          {isEdit.basicInformation && !isUpload && (
+            <BasicInformationEditForm isEdit={isEdit} setIsEdit={setIsEdit} />
+          )}
+          {isUpload && !isEdit.basicInformation && (
+            <BasicInformationUploadForm
+              isUpload={isUpload}
+              setIsUpload={setIsUpload}
+            />
+          )}
           {/* end of form */}
         </div>
       </div>

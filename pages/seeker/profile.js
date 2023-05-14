@@ -1,7 +1,6 @@
 import Layout from '@/components/layout/Dashboard';
 import SalaryExpectation from '@/components/profile/salaryExpectation/SalaryExpectation';
 import BasicInformation from '@/components/profile/basicInfomation/BasicInformation';
-import WorkExperience from '@/components/profile/WorkExperience';
 import Education from '@/components/profile/education/Education';
 import Summary from '@/components/profile/summary/Summary';
 import Achievement from '@/components/profile/achievement/Achievement';
@@ -59,34 +58,73 @@ const Profile = ({ data }) => {
   }, [isAdd, isEdit, isDelete, isUpload]);
 
   return (
-<<<<<<< HEAD
-    <Layout>
-      <BasicInformation userProfile={profile} />
-      <SalaryExpectation userProfile={profile} />
-      <WorkExperience userProfile={profile} />
-      <Education userProfile={profile} />
-      <UserSkill userProfile={profile} />
-      <Summary userProfile={profile} />
-      <Achievement userProfile={profile} />
-      <Organization userProfile={profile} />
-      <Project userProfile={profile} />
-      <UserSkill userProfile={profile} />
-      <WorkExperience />
-      <Education />
-      <Resume />
-=======
     <Layout profile={profile}>
-      <BasicInformation profile={profile} isEdit={isEdit} setIsEdit={setIsEdit} isUpload={isUpload} setIsUpload={setIsUpload} />
-      <SalaryExpectation profile={profile} isEdit={isEdit} setIsEdit={setIsEdit} />
-      <WorkExperience profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isEdit={isEdit} setIsEdit={setIsEdit} isDelete={isDelete} setIsDelete={setIsDelete} />
-      <Education profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isEdit={isEdit} setIsEdit={setIsEdit} isDelete={isDelete} setIsDelete={setIsDelete} />
-      <UserSkill profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isDelete={isDelete} setIsDelete={setIsDelete} />
+      <BasicInformation
+        profile={profile}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        isUpload={isUpload}
+        setIsUpload={setIsUpload}
+      />
+      <SalaryExpectation
+        profile={profile}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+      />
+      <WorkExperience
+        profile={profile}
+        isAdd={isAdd}
+        setIsAdd={setIsAdd}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        isDelete={isDelete}
+        setIsDelete={setIsDelete}
+      />
+      <Education
+        profile={profile}
+        isAdd={isAdd}
+        setIsAdd={setIsAdd}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        isDelete={isDelete}
+        setIsDelete={setIsDelete}
+      />
+      <UserSkill
+        profile={profile}
+        isAdd={isAdd}
+        setIsAdd={setIsAdd}
+        isDelete={isDelete}
+        setIsDelete={setIsDelete}
+      />
       <Summary profile={profile} isEdit={isEdit} setIsEdit={setIsEdit} />
-      <Achievement profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isEdit={isEdit} setIsEdit={setIsEdit} isDelete={isDelete} setIsDelete={setIsDelete} />
-      <Organization profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isEdit={isEdit} setIsEdit={setIsEdit} isDelete={isDelete} setIsDelete={setIsDelete} />
-      <Project profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isEdit={isEdit} setIsEdit={setIsEdit} isDelete={isDelete} setIsDelete={setIsDelete} />
+      <Achievement
+        profile={profile}
+        isAdd={isAdd}
+        setIsAdd={setIsAdd}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        isDelete={isDelete}
+        setIsDelete={setIsDelete}
+      />
+      <Organization
+        profile={profile}
+        isAdd={isAdd}
+        setIsAdd={setIsAdd}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        isDelete={isDelete}
+        setIsDelete={setIsDelete}
+      />
+      <Project
+        profile={profile}
+        isAdd={isAdd}
+        setIsAdd={setIsAdd}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        isDelete={isDelete}
+        setIsDelete={setIsDelete}
+      />
       <Resume profile={profile} isEdit={isEdit} setIsEdit={setIsEdit} />
->>>>>>> ebc054a02920bfb1a7c7ea9f3431fbab2317edd0
     </Layout>
   );
 };
