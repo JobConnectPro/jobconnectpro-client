@@ -107,8 +107,8 @@ const BasicInformationEditForm = ({ isEdit, setIsEdit }) => {
           </label>
           <select id="gender" name="gender" value={input.gender} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-2 pl-1 pr-3" required>
             <option value="">--Select an option--</option>
-            <option value="Man">Man</option>
-            <option value="Woman">Woman</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
           </select>
         </div>
 

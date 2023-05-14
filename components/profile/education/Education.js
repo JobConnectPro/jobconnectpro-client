@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useState } from 'react';
-import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiAddCircleLine } from 'react-icons/ri';
+import { Fragment, useState } from 'react';
+import { RiArrowDropDownLine, RiAddLine, RiArrowDropUpLine, RiEdit2Fill, RiAddCircleLine } from 'react-icons/ri';
 import { FaTrashAlt } from 'react-icons/fa';
 
 import axios from 'axios';
@@ -46,29 +46,33 @@ const Education = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, setI
 
   return (
     <div className="w-full p-4 pt-0">
-      <button
-        onClick={() => {
-          setIsOpen(!isOpen);
-        }}
-        className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600"
-      >
-        Education
-        <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
-      </button>
+      <div className="w-full flex font-bold text-white">
+        <button
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+          className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600 pl-6"
+        >
+          Education
+          <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
+        </button>
+        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-500">
+          {!isAdd.education && !isEdit.education && (
+            <div
+              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-500 hover:bg-blue-600"
+              onClick={() => {
+                setIsAdd({ ...isAdd, education: true });
+              }}
+            >
+              ADD
+              <RiAddLine size={25} />
+            </div>
+          )}
+        </button>
+      </div>
+
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
-        {/* add button */}
-        {!isAdd.education && !isEdit.education && (
-          <button
-            onClick={() => {
-              setIsAdd({ ...isAdd, education: true });
-            }}
-            className="bg-green-600 hover:bg-green-700 text-black font-bold p-1 rounded-md mx-10 mb-3"
-          >
-            <RiAddCircleLine size={15} />
-          </button>
-        )}
-        {/* end of add button */}
-        <div className="flex flex-row flex-wrap justify-center items-start mx-10">
+        <div className="flex flex-row flex-wrap justify-center items-start mx-10 pt-4">
           {!isAdd.education && !isEdit.education && (
             <>
               {profile.Education.map((education) => {
@@ -77,7 +81,7 @@ const Education = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, setI
                     <div className="basis-1/4 mb-5 flex">
                       <p className="font-bold">{new Date(education.start_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
                       <p className="font-bold">
-                        {''}-{''}
+                        {''} - {''}
                       </p>
                       <p className="font-bold">{new Date(education.end_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
                     </div>
