@@ -5,144 +5,126 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 const CompanyDetailEmployer = ({ res }) => {
-  const company = res;
-  const jobs = company.Jobs;
-  const sector = company.Sector;
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+    const company = res
+    const jobs = company.Jobs
+    const sector = company.Sector
+    const [searchTerm, setSearchTerm] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
+    const router = useRouter();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-  };
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+      };
 
-  const filteredJobs = jobs.filter((job) => {
-    return job.title.toLowerCase().includes(searchTerm.toLowerCase()) || job.location.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+    const filteredJobs = jobs.filter((job) => {
+        return (
+          job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          job.location.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    })
+    
 
-  const handleDelete = async () => {
-    try {
-      setIsDeleting(true);
-      await deleteCompany(company.id);
-      router.push('/employer/companies');
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsDeleting(false);
+    const handleDelete = async () => {
+        try {
+            setIsDeleting(true);
+            await deleteCompany(company.id);
+            router.push('http://localhost:3000/employer/companies');
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
+    const handleUpdate = () => {
+        router.push(`http://localhost:3000/employer/companies/edit/${company.id}`);
     }
-  };
 
-  const handleUpdate = () => {
-    router.push(`/employer/companies/edit/${company.id}`);
-  };
+    const onSubmit = async (data) => {
+        try {
+            const response = await updateLogo(data, company.id);
+            // console.log(response);
+            reset();
+        } catch (error) {
+            console.error(error);
+        }
+        };
 
-  const onSubmit = async (data) => {
-    try {
-      const response = await updateLogo(data, company.id);
-      // console.log(response);
-      reset();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return (
-    <div className="w-full p-4 pt-20">
-      <div class="flex flex-row bg-white">
-        <div class="lg:w-3/4 px-4 py-8">
-          <div>
+    return (
+        <div className='max-w-screen-lg p-8 pt-20 mx-auto'>
+    <div className='rounded-xl overflow-hidden'>
+        <div className='bg-blue-700 p-4 flex justify-between'>
+            <p className='text-lg text-white'>Profile</p>
             <div>
-              <p>{company.company_name}</p>
+                <button className='text-sm bg-teal-600 py-1 px-2 rounded-md hover:bg-teal-700 text-white mr-1' onClick={handleUpdate}>Update</button>
+                <button className='text-sm bg-red-600 py-1 px-2 rounded-md text-white ml-1 hover:bg-red-700' onClick={handleDelete}>Delete</button>
             </div>
-            <div>
-              <p>office address</p>
-              <p>{company.address}</p>
-            </div>
-            <div>
-              <p>sector</p>
-              <p>{sector.sector}</p>
-            </div>
-          </div>
-          <div>
-            <div>
-              <p>website</p>
-              <p>{company.website}</p>
-            </div>
-            <div>
-              <button className="bg-red-600" onClick={handleDelete}>
-                Delete
-              </button>
-              <button className="bg-blue-600" onClick={handleUpdate}>
-                Update
-              </button>
-            </div>
-          </div>
         </div>
-        <div class="lg:1/4 px-4 py-8">
-          <div className="w-24 h-24 bg-slate-600 rounded-md">
-            <img src={company.logo}></img>
-          </div>
-          <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
-              <div className="mb-4">
-                <input
-                  type="file"
-                  id="logo"
-                  name="logo"
-                  {...register('logo', { required: true })}
-                  className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.logo ? 'border-red-500' : ''}`}
-                />
-                {errors.logo && <span className="text-red-500 text-sm">This field is required</span>}
-              </div>
-              <div className="flex items-center justify-center">
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                  Change Logo
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <p>Description</p>
-      <div className="bg-white mt-4 h-48">
-        <p>{company.description}</p>
-      </div>
-      <div class="flex flex-row bg-blue-700 mt-4 p-4">
-        <div>job opening di perusahaan</div>
-        <div>
-          <input type="text" placeholder="find job" onChange={handleSearch}></input>
-        </div>
-      </div>
-      <div class="flex flex-row bg-white">
-        {filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => (
-            <div key={job.id}>
-              <div className="h-24 w-24 bg-slate-600">
-                <img src={company.logo}></img>
-              </div>
-              <div>
+        <div className='flex flex-row bg-white justify-between'>
+            <div className='flex lg:w-3/4 px-4 py-4 mx-5'>
                 <div>
-                  <p>{job.title}</p>
-                  <p>{job.location}</p>
-                  <p>{job.starting_date}</p>
+                    <div className='mb-4'>
+                        <p className='text-2xl font-semibold'>{company.company_name}</p>
+                    </div>
+                    <div className='mb-2 ml-4'>
+                        <p>Office Address</p>
+                        <p>{company.address}</p>
+                    </div>
+                    <div className='mb-2 ml-4'>
+                        <p>Sector</p>
+                        <p>{sector.sector}</p>
+                    </div>
+                    <div className='ml-4'>
+                        <p>Website</p>
+                        <p>{company.website}</p>
+                    </div>
                 </div>
-                <div>
-                  <Link href={`/employer/job/${job.id}`}>Detail</Link>
-                </div>
-              </div>
             </div>
-          ))
-        ) : (
-          <p>No job</p>
-        )}
-      </div>
+            <div className='lg:1/4 px-4 py-8'>
+                <img className='w-44 h-44 rounded-md' src={company.logo ? company.logo : 'https://talentclick.com/wp-content/uploads/2021/08/placeholder-image-300x200.png'}></img>
+            </div>
+        </div>
     </div>
-  );
-};
+    <div className='mt-4 rounded-xl overflow-hidden'>
+        <div className='bg-blue-700 p-4'>
+            <p className='text-lg text-white'>Description</p>
+        </div>
+        <div className='bg-white h-48 px-8 py-5'>
+            <p>{company.description}</p>
+        </div>
+    </div>
+    <div className='mt-4 rounded-xl overflow-hidden'>
+        <div className='flex flex-row bg-blue-700 p-4 justify-between'>
+            <div>
+                <p className='text-lg text-white'>Job opening in Company</p>
+            </div>
+            <div>
+                <input className='w-72 rounded-md' type='text' placeholder='Find job in Company' onChange={handleSearch}></input>
+            </div>
+        </div>
+        <div className='overflow-x-auto bg-white px-8 py-5'>
+        {filteredJobs.length > 0 ? filteredJobs.map((job) => (
+                    <div key={job.id} className='flex mb-4'>
+                        <img src={company.logo ? company.logo : 'https://talentclick.com/wp-content/uploads/2021/08/placeholder-image-300x200.png'} className="w-24 h-24 rounded-xl shadow-sm mr-5"></img>
+                        <div>
+                            <div>
+                                <p className='font-semibold'>{job.title}</p>
+                                <p className="text-gray-700">{job.location}</p>
+                                <p className="text-gray-700">{job.starting_date}</p>
+                            </div>
+                            <div>
+                                <Link className="font-semibold text-blue-500 hover:text-blue-700" href={`http://localhost:3000/jobs/${job.id}`}>Detail</Link>
+                            </div>
+                        </div>
+                    </div>
+               )) : (
+                <p>No job found</p>
+               )}
+        </div>
+    </div>
+</div>
 
-export default CompanyDetailEmployer;
+    )
+}
+export default  CompanyDetailEmployer

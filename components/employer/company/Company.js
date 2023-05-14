@@ -1,7 +1,7 @@
-import CompanyCard from '@/components/employer/company/CompanyCard';
+import CompanyCard from './CompanyCard';
 import { useState, useEffect } from 'react';
 import { getCompanies } from '@/modules/fetchCompanies';
-import CustomPagination from '@/components/employer/company/CustomPagination';
+import CustomPagination from './CustomPagination';
 
 const Company = () => {
     const [companies, setCompanies] = useState();
@@ -37,20 +37,18 @@ const Company = () => {
     };
 
     return (
-        <div className='container mx-auto px-4 pt-24'>
-        <div className='flex justify-between'>
-            <h1 className='text-2xl font-bold'>Companies</h1>
-            <div className='flex'>
+        <div className='container mx-auto px-4 pt-4 h-screen'>
+        <h1 className='text-2xl font-bold'>Companies</h1>
+        <div className='flex justify-center'>
             <input
                 type='text'
                 placeholder='Search company'
-                className='border border-gray-400 px-2 py-1 rounded-l'
+                className='border border-gray-400 px-2 py-1 rounded-l w-2/4'
                 value={searchQuery}
                 onChange={handleSearchQueryChange}
             />
-            </div>
-        </div>
-        <div className='mt-4'>
+        </div> 
+        <div className='mt-4 grid justify-items-center'>
             {companies && companies.map((company) => (
                 <CompanyCard key={company.id} company={company}></CompanyCard>
             ))}
