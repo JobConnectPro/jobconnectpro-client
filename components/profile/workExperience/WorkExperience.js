@@ -70,60 +70,53 @@ const WorkExperience = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete,
           )}
         </button>
       </div>
-      <div className={isOpen ? 'hidden' : ''}>
-        <div className="w-full bg-slate-100 ">
+      <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
+        <div className="flex flex-row flex-wrap justify-center items-start mx-10 pt-4">
           {!isAdd.workExperience && !isEdit.workExperience && (
             <>
-              <table className="table-auto w-full">
-                <tbody>
-                  {profile.WorkExperiences.map((workExperience) => {
-                    return (
-                      <tr className="border-t border-blue-300 font-semibold hover:bg-slate-50" key={workExperience.id}>
-                        <Fragment>
-                          <td className="px-2 py-6">
-                            {new Date(workExperience.start_date).toLocaleDateString('id-ID', {
-                              month: 'long',
-                              year: 'numeric',
-                            })}{' '}
-                            -{' '}
-                            {new Date(workExperience.end_date).toLocaleDateString('id-ID', {
-                              month: 'long',
-                              year: 'numeric',
-                            })}
-                          </td>
-                          <td className="">
-                            {workExperience.job_title} at {workExperience.company}
-                          </td>
-                          <td className="text-right p-2">
-                            {/* edit button */}
-                            <button
-                              onClick={() => {
-                                setIsEdit({ ...isEdit, workExperience: true });
-                                setCurrentId(workExperience.id);
-                              }}
-                              className="bg-yellow-400 hover:bg-yellow-500 text-slate-500 font-bold mx-4 p-1 rounded-md"
-                            >
-                              <RiEdit2Fill size={20} />
-                            </button>
-                            {/* end of edit button */}
-                            {/* delete button */}
-                            <button
-                              onClick={() => {
-                                setIsDelete({ ...isDelete, workExperience: true });
-                                handleDelete(workExperience.id);
-                              }}
-                              className="bg-red-500 hover:bg-red-700 text-slate-300 font-bold p-1 rounded-md"
-                            >
-                              <FaTrashAlt size={20} />
-                            </button>
-                            {/* end of delete button */}
-                          </td>
-                        </Fragment>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              {profile.WorkExperiences.map((workExperience) => {
+                return (
+                  <Fragment key={workExperience.id}>
+                    <div className="basis-1/4 mb-5 flex">
+                      <p className="font-bold">{new Date(workExperience.start_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
+                      <p className="font-bold">
+                        {''}-{''}
+                      </p>
+                      <p className="font-bold">{new Date(workExperience.end_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
+                    </div>
+                    <div className="basis-1/2 mb-5">
+                      <p className="font-bold text-lg">{workExperience.job_title}</p>
+                      <p className="font-bold text-slate-500">{workExperience.company}</p>
+                      <p className="text-sm text-slate-500">{workExperience.job_level}</p>
+                      <p className="text-justify">{workExperience.description}</p>
+                    </div>
+                    <div className="basis-1/4 mb-5 text-center">
+                      {/* edit button */}
+                      <button
+                        onClick={() => {
+                          setIsEdit({ ...isEdit, workExperience: true });
+                          setCurrentId(workExperience.id);
+                        }}
+                        className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
+                      >
+                        <RiEdit2Fill size={15} />
+                      </button>
+                      {/* end of edit button */}
+                      {/* delete button */}
+                      <button
+                        onClick={() => {
+                          setIsDelete({ ...isDelete, workExperience: true });
+                          handleDelete(workExperience.id);
+                        }}
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded-md ml-2"
+                      >
+                        <FaTrashAlt size={15} />
+                      </button>
+                      {/* end of delete button */}
+                    </div>
+                  </Fragment>
+                );
+              })}
             </>
           )}
           {isAdd.workExperience && !isEdit.workExperience && <WorkExperienceForm isAdd={isAdd} setIsAdd={setIsAdd} currentId={currentId} setCurrentId={setCurrentId} />}
