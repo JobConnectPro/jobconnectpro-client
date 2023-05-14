@@ -1,18 +1,23 @@
+import { useRouter } from 'next/router';
+import { getCompanyDetail } from '@/modules/fetchCompanies';
+import CompanyUpdate from '@/components/employer/company/CompanyUpdate';
 import Layout from '@/components/layout/Dashboard';
-import JobList from '@/components/employer/job/JobList';
 
-const Jobs = () => {
+const CompanyEdit = ({ data }) => {
   return (
     <Layout>
-      <JobList />
+      <CompanyUpdate res={data} />
     </Layout>
   );
 };
 
-export default Jobs;
+export default CompanyEdit;
 
 export const getServerSideProps = async (context) => {
+  const { companyId } = context.query;
   const { role, token } = context.req.cookies;
+
+  const data = await getCompanyDetail(companyId, context);
 
   if (!token) {
     return {
@@ -43,7 +48,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      role,
+      data,
     },
   };
 };

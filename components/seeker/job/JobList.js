@@ -16,36 +16,12 @@ const JobList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-<<<<<<< HEAD
-      const res = await getJobsList(
-        searchQuery,
-        currentPage,
-        perPage,
-        locationFilter,
-        typeFilter,
-        experienceFilter
-      );
-      setJobs(res);
-      setTotalPages(res.totalPages);
-    };
-    fetchData();
-  }, [
-    searchQuery,
-    currentPage,
-    perPage,
-    locationFilter,
-    typeFilter,
-    experienceFilter,
-  ]);
-  console.log(jobs);
-=======
       const res = await getJobsList(searchQuery, currentPage, perPage, locationFilter, typeFilter, experienceFilter);
       setJobs(res.data);
       setTotalPages(res.totalPages);
     };
     fetchData();
   }, [searchQuery, currentPage, perPage, locationFilter, typeFilter, experienceFilter]);
->>>>>>> db74b19925596a2f3eea108afe1ae4c643fb1ba3
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -105,38 +81,15 @@ const JobList = () => {
     return true;
   });
 
-  console.log(locationFilter);
-  console.log(experienceFilter);
-
   return (
     <div className="max-w-2xl mx-auto mb-5">
       <h1 className="text-3xl font-bold text-center mt-8 mb-4">Jobs</h1>
       {/* SearchBar */}
-<<<<<<< HEAD
-      <div className="mb-4">
-        <input
-          type="text"
-          className="border-gray-400 border-2 py-2 px-4 w-full rounded-md"
-          placeholder="Search jobs by title..."
-          value={searchQuery}
-          onChange={handleSearch}
-        />
-      </div>
-      {/* Filter */}
-      <div className="flex justify-between mb-4">
-        <div className="w-1/3">
-          <select
-            className="border p-1 rounded"
-            value={locationFilter}
-            onChange={handleLocationChange}
-          >
-=======
-     
+
       {/* Filter */}
       <div className="flex justify-between mb-4">
         <div className="w-1/3">
           <select className="border p-1 rounded" value={locationFilter} onChange={handleLocationChange}>
->>>>>>> db74b19925596a2f3eea108afe1ae4c643fb1ba3
             <option value="">Location (All)</option>
             {locations.map((location) => (
               <option key={location} value={location}>

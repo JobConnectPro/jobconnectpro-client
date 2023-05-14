@@ -1,15 +1,15 @@
 import Layout from '@/components/layout/Dashboard';
-import JobList from '@/components/employer/job/JobList';
+import Company from '@/components/employer/company/Company';
 
-const Jobs = () => {
+const Companies = () => {
   return (
     <Layout>
-      <JobList />
+      <Company />
     </Layout>
   );
 };
 
-export default Jobs;
+export default Companies;
 
 export const getServerSideProps = async (context) => {
   const { role, token } = context.req.cookies;
@@ -23,7 +23,7 @@ export const getServerSideProps = async (context) => {
     };
   }
 
-  if (role !== 'Employer') {
+  if (role !== 'Seeker') {
     if (role === 'Admin') {
       return {
         redirect: {
@@ -31,10 +31,10 @@ export const getServerSideProps = async (context) => {
           permanent: false,
         },
       };
-    } else if (role === 'Seeker') {
+    } else if (role === 'Employer') {
       return {
         redirect: {
-          destination: '/seeker/profile',
+          destination: '/employer/profile',
           permanent: false,
         },
       };

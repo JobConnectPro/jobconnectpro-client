@@ -1,5 +1,5 @@
 import Layout from '@/components/layout/Dashboard';
-import JobList from '@/components/employer/job/JobList';
+import JobList from '@/components/seeker/job/JobList';
 
 const Jobs = () => {
   return (
@@ -23,7 +23,7 @@ export const getServerSideProps = async (context) => {
     };
   }
 
-  if (role !== 'Employer') {
+  if (role !== 'Seeker') {
     if (role === 'Admin') {
       return {
         redirect: {
@@ -31,10 +31,10 @@ export const getServerSideProps = async (context) => {
           permanent: false,
         },
       };
-    } else if (role === 'Seeker') {
+    } else if (role === 'Employer') {
       return {
         redirect: {
-          destination: '/seeker/profile',
+          destination: '/employer/profile',
           permanent: false,
         },
       };

@@ -1,18 +1,22 @@
+import { getCompanyDetail } from '@/modules/fetchCompanies';
+import CompanyDetailEmployer from '@/components/employer/company/CompanyDetailEmployer';
 import Layout from '@/components/layout/Dashboard';
-import JobList from '@/components/employer/job/JobList';
 
-const Jobs = () => {
+const CompanyDetails = ({ data }) => {
   return (
     <Layout>
-      <JobList />
+      <CompanyDetailEmployer res={data} />
     </Layout>
   );
 };
 
-export default Jobs;
+export default CompanyDetails;
 
 export const getServerSideProps = async (context) => {
+  const { companyId } = context.query;
   const { role, token } = context.req.cookies;
+
+  const data = await getCompanyDetail(companyId, context);
 
   if (!token) {
     return {
@@ -43,7 +47,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      role,
+      data,
     },
   };
 };

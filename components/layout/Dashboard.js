@@ -3,19 +3,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Logo from '../Logo';
 import { CgProfile } from 'react-icons/cg';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { IoMdNotificationsOutline } from 'react-icons/io';
-import {
-  AiOutlineSearch,
-  AiOutlineAppstore,
-  AiOutlineMessage,
-} from 'react-icons/ai';
-import {
-  RiArrowDropDownLine,
-  RiLogoutBoxRLine,
-  RiSettings4Line,
-  RiBookmarkFill,
-} from 'react-icons/ri';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import Cookies from 'js-cookie';
 import { RiLogoutBoxLine } from 'react-icons/ri';
@@ -160,8 +147,9 @@ const Dashboard = ({ children }) => {
           </div>
         </div>
         {/* end of navbar */}
+
+        {/* sidebar */}
         <div className="flex flex-row flex-nowrap">
-          {/* sidebar */}
           <div
             className={
               isHide
@@ -170,119 +158,13 @@ const Dashboard = ({ children }) => {
             }
           >
             <nav className="flex flex-col gap-4">
-              <Link
-                href={'/job-board'}
-                className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-              >
+              {/* <Link href={'/job-board'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
                 <AiOutlineSearch size={20} />
                 Job Board
-              </Link>
-              {/* admin */}
-              {role == 'Admin' && (
-                <Link
-                  href={'/admin/profile'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <CgProfile size={20} />
-                  Profile
-                </Link>
-              )}
-              {role == 'Admin' && (
-                <Link
-                  href={'/master/attainment'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <CgProfile size={20} />
-                  Attainment
-                </Link>
-              )}
-              {role == 'Admin' && (
-                <Link
-                  href={'/master/category'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <CgProfile size={20} />
-                  Category
-                </Link>
-              )}
-              {role == 'Admin' && (
-                <Link
-                  href={'/master/sector'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <CgProfile size={20} />
-                  Sector
-                </Link>
-              )}
-              {role == 'Admin' && (
-                <Link
-                  href={'/master/skill'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <CgProfile size={20} />
-                  Skill
-                </Link>
-              )}
-              {/* end of admin */}
-
-              {/* employer */}
-              {role == 'Employer' && (
-                <Link
-                  href={'/employer/profile'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <CgProfile size={20} />
-                  Profile
-                </Link>
-              )}
-              {role == 'Employer' && (
-                <Link
-                  href={'/employer/job'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <AiOutlineSearch size={20} />
-                  Job
-                </Link>
-              )}
-              {/* end of employer */}
-
-              {/* seeker */}
-              {role == 'Seeker' && (
-                <Link
-                  href={'/seeker/profile'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <CgProfile size={20} />
-                  Profile
-                </Link>
-              )}
-              {role == 'Seeker' && (
-                <Link
-                  href={'/seeker/applications'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <AiOutlineAppstore size={20} />
-                  Applications
-                </Link>
-              )}
-              {role == 'Seeker' && (
-                <Link
-                  href={'/seeker/bookmarks'}
-                  className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-                >
-                  <RiBookmarkFill size={20} />
-                  Bookmark
-                </Link>
-              )}
-              {/* end of seeker */}
-
-              <Link
-                href={'/messages'}
-                className="flex gap-2 items-center cursor-pointer hover:text-blue-700"
-              >
-                <AiOutlineMessage size={20} />
-                Messages
-              </Link>
+              </Link> */}
+              {role == 'Admin' && <SidebarAdmin />}
+              {role == 'Employer' && <SidebarEmployer />}
+              {role == 'Seeker' && <SidebarSeeker />}
             </nav>
           </div>
           {/* end of sidebar */}

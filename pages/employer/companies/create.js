@@ -1,15 +1,15 @@
 import Layout from '@/components/layout/Dashboard';
-import JobList from '@/components/employer/job/JobList';
+import AddCompanyForm from '@/components/employer/company/AddCompanyForm';
 
-const Jobs = () => {
+const CompanyCreate = () => {
   return (
     <Layout>
-      <JobList />
+      <AddCompanyForm />
     </Layout>
   );
 };
 
-export default Jobs;
+export default CompanyCreate;
 
 export const getServerSideProps = async (context) => {
   const { role, token } = context.req.cookies;
