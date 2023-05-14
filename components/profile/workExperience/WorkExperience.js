@@ -50,15 +50,12 @@ const WorkExperience = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete,
         <button
           onClick={() => {
             setIsOpen(!isOpen);
-            // setOpen(false);
           }}
-          className="w-10/12 flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600"
+          className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600 pl-6"
         >
           Work Experience
           <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
         </button>
-
-        {/* add button */}
         <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-500">
           {!isAdd.workExperience && !isEdit.workExperience && (
             <div
@@ -72,7 +69,6 @@ const WorkExperience = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete,
             </div>
           )}
         </button>
-        {/* end of add button */}
       </div>
       <div className={isOpen ? 'hidden' : ''}>
         <div className="w-full bg-slate-100 ">
