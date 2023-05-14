@@ -1,29 +1,24 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
 const JobPostCard = ({ job }) => {
-  console.log(job);
   return (
-    <div className="p-4 border rounded-lg shadow-md my-5">
-      <h2 className="text-lg font-bold">{job.title}</h2>
-      <p className="text-gray-500">{job.location}</p>
-      <div className="mt-4 flex justify-between">
-        <p className="mt-2 text-gray-600">{job.description}</p>
-      </div>
-      <div className="flex justify-between my-4">
-        <div className=" flex items-center justify-center">
-          <span className="px-2 py-1 text-sm font-medium text-white bg-blue-500 rounded-2xl ">{job.type}</span>
-          <span className="px-2 py-1 text-sm font-medium text-gray-500 border rounded-md">Minimum Experience :{job.minimum_experience} tahun</span>
-          {job.minimum_salary && (
-            <span className="px-2 py-1 text-sm font-medium text-white bg-green-600 border rounded-md">
-              Rp.{job.minimum_salary} - Rp.{job.maximum_salary}
-            </span>
-          )}
-        </div>
-        <div className="flex  ">
+    <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
+      <div className="flex items-center basis-4/5">
+        {job.Company.logo != null && <Image loader={() => job.Company.logo} className="mr-4 object-cover object-center" src={job.Company.logo} alt="Alternative text" width={60} height={60} />}
+        {job.Company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
+        <div className="">
           <Link href={`/employer/job/${job.id}`}>
-            <button className=" py-2 px-4  rounded-md  bg-blue-500 text-white">Detail</button>
+            <h2 className="text-xl font-bold hover:underline hover:text-blue-700">{job.title}</h2>
           </Link>
+          <p className="text-blue-500 font-bold mb-1">{job.Company.company_name}</p>
+          <p className="text-gray-600">{job.location}</p>
         </div>
+      </div>
+      <div className="flex flex-col basis-1/5 justify-center">
+        <span className="px-2 py-1 text-sm text-center mb-1 text-white bg-blue-700 rounded-md">{job.type}</span>
+        <span className="px-2 py-1 text-sm text-center text-gray-500 border rounded-md">Min: {job.minimum_experience} tahun</span>
       </div>
     </div>
   );

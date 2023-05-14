@@ -17,7 +17,7 @@ const JobCard = ({ job }) => {
         </div>
       </div>
       <div className="flex flex-col basis-1/5 justify-center">
-        <span className="px-2 py-1 text-sm text-center text-white bg-blue-700 rounded-md">{job.type}</span>
+        <span className="px-2 py-1 text-sm text-center mb-1 text-white bg-blue-700 rounded-md">{job.type}</span>
         <span className="px-2 py-1 text-sm text-center text-gray-500 border rounded-md">Min: {job.minimum_experience} tahun</span>
       </div>
     </div>
