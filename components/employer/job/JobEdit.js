@@ -17,7 +17,7 @@ const JobEdit = ({ job }) => {
     categoryIds: [],
     minimum_salary: job.minimum_salary,
     maximum_salary: job.maximum_salary,
-    starting_date: job.starting_date,
+    starting_date: new Date(job.starting_date).toISOString().split('T')[0],
     minimum_experience: job.minimum_experience,
     status: job.status,
   });
@@ -31,13 +31,9 @@ const JobEdit = ({ job }) => {
     }
   };
 
-  console.log(categoryOptions);
-
   useEffect(() => {
     fetchCategories();
   }, []);
-
-  // Rest of the code...
 
   const handleCategorySelect = (e) => {
     const { options } = e.target;
@@ -61,8 +57,6 @@ const JobEdit = ({ job }) => {
     }));
   };
 
-  console.log(job.id);
-
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -75,7 +69,6 @@ const JobEdit = ({ job }) => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(response.body);
       const data = await response.json();
       if (response.ok) {
         toast.success(`${data.message}`, {
@@ -89,7 +82,6 @@ const JobEdit = ({ job }) => {
           theme: 'light',
         });
         router.push('/employer/job');
-        console.log(data);
       } else {
         toast.error(`${data.message}`, {
           position: 'top-center',
@@ -103,7 +95,6 @@ const JobEdit = ({ job }) => {
         });
       }
     } catch (error) {
-      //   console.log(`Ini Error Dari Edit : ${error}`);
       toast.error(`${error.message}`, {
         position: 'top-center',
         autoClose: 3000,
@@ -118,85 +109,122 @@ const JobEdit = ({ job }) => {
   };
 
   return (
-    <form onSubmit={handleEditSubmit}>
-      <div className="mb-4 my-10">
-        <label className="block text-gray-700 font-semibold mb-2">Title</label>
-        <input className="w-full px-4 py-2 border rounded-md" type="text" name="title" value={formData.title} onChange={handleInputChange} />
-      </div>
+    <div className="mt-[22px]">
+      <h1 className="mx-6 mb-4 text-3xl font-bold">Edit Job</h1>
+      <form onSubmit={handleEditSubmit} className="space-y-4 mx-6 mb-10">
+        <div className="">
+          <label className="">
+            Title<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <input className="w-full px-4 py-2 border rounded-md" type="text" name="title" value={formData.title} onChange={handleInputChange} required />
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Location</label>
-        <input className="w-full px-4 py-2 border rounded-md" type="text" name="location" value={formData.location} onChange={handleInputChange} />
-      </div>
+        <div className="">
+          <label className="">
+            Location<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <input className="w-full px-4 py-2 border rounded-md" type="text" name="location" value={formData.location} onChange={handleInputChange} required />
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Description</label>
-        <textarea className="w-full px-4 py-2 border rounded-md" name="description" value={formData.description} onChange={handleInputChange}></textarea>
-      </div>
+        <div className="">
+          <label className="">
+            Description<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            required
+            className="w-full border border-gray-300 rounded-md p-2"
+            cols="4"
+            rows="8"
+          ></textarea>
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Categories</label>
-        <select className="w-full px-4 py-2 border rounded-md" name="categoryIds" value={formData.categoryIds} onChange={handleCategorySelect} multiple>
-          {categoryOptions.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.category}
-            </option>
-          ))}
-        </select>
-      </div>
+        <div className="">
+          <label className="">
+            Categories<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <select className="w-full px-4 py-2 border rounded-md" name="categoryIds" value={formData.categoryIds} onChange={handleCategorySelect} required multiple>
+            {categoryOptions.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.category}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Requirement</label>
-        <textarea className="w-full px-4 py-2 border rounded-md" name="requirement" value={formData.requirement} onChange={handleInputChange}></textarea>
-      </div>
+        <div className="">
+          <label className="">
+            Requirement<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <textarea className="w-full px-4 py-2 border rounded-md" name="requirement" value={formData.requirement} onChange={handleInputChange} cols="4" rows="8" required></textarea>
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Job Level</label>
-        <input className="w-full px-4 py-2 border rounded-md" type="text" name="job_level" value={formData.job_level} onChange={handleInputChange} />
-      </div>
+        <div className="">
+          <label className="">
+            Job Level<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <select id="job_level" name="job_level" value={formData.job_level} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2">
+            <option value="">-- Select Type --</option>
+            <option value="Internship/Ojt">Internship/Ojt</option>
+            <option value="Entry-Level/Junior">Entry-Level/Junior</option>
+            <option value="Associate/Supervisor">Associate/Supervisor</option>
+            <option value="Associate/Supervisor">Mid-Senior-Level/Manager</option>
+            <option value="Associate/Supervisor">Director/Executive</option>
+          </select>
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Type</label>
-        <input className="w-full px-4 py-2 border rounded-md" type="text" name="type" value={formData.type} onChange={handleInputChange} />
-      </div>
+        <div className="">
+          <label className="">
+            Type<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <input className="w-full px-4 py-2 border rounded-md" type="text" name="type" value={formData.type} onChange={handleInputChange} required />
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Minimum Salary</label>
-        <input className="w-full px-4 py-2 border rounded-md" type="number" name="minimum_salary" value={formData.minimum_salary} onChange={handleInputChange} />
-      </div>
+        <div className="">
+          <label className="">Minimum Salary</label>
+          <input className="w-full px-4 py-2 border rounded-md" type="number" name="minimum_salary" value={formData.minimum_salary} onChange={handleInputChange} required />
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Maximum Salary</label>
-        <input className="w-full px-4 py-2 border rounded-md" type="number" name="maximum_salary" value={formData.maximum_salary} onChange={handleInputChange} />
-      </div>
+        <div className="">
+          <label className="">Maximum Salary</label>
+          <input className="w-full px-4 py-2 border rounded-md" type="number" name="maximum_salary" value={formData.maximum_salary} onChange={handleInputChange} required />
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Starting Date</label>
-        <input className="w-full px-4 py-2 border rounded-md" type="date" name="starting_date" value={formData.starting_date} onChange={handleInputChange} />
-      </div>
+        <div className="">
+          <label className="">Starting Date</label>
+          <input className="w-full px-4 py-2 border rounded-md" type="date" name="starting_date" value={formData.starting_date} onChange={handleInputChange} required />
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Minimum Experience</label>
-        <input className="w-full px-4 py-2 border rounded-md" type="number" name="minimum_experience" value={formData.minimum_experience} onChange={handleInputChange} />
-      </div>
+        <div className="">
+          <label className="">
+            Minimum Experience<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <input className="w-full px-4 py-2 border rounded-md" type="number" name="minimum_experience" value={formData.minimum_experience} onChange={handleInputChange} required />
+        </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Status</label>
-        <select className="w-full px-4 py-2 border rounded-md" name="status" value={formData.status} onChange={handleInputChange}>
-          <option value="1">Open</option>
-          <option value="0">Closed</option>
-        </select>
-      </div>
+        <div className="">
+          <label className="">
+            Status<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <select className="w-full px-4 py-2 border rounded-md" name="status" value={formData.status} onChange={handleInputChange} required>
+            <option value="1">Open</option>
+            <option value="0">Closed</option>
+          </select>
+        </div>
 
-      <div className="flex justify-end">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" type="button" onClick={handleEditSubmit}>
-          Save
-        </button>
-        <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" type="button" onClick={() => router.push('/jobs')}>
-          Cancel
-        </button>
-      </div>
-    </form>
+        <div className="flex justify-end">
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" type="button" onClick={handleEditSubmit}>
+            Submit
+          </button>
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" type="button" onClick={() => router.push('/employer/job')}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

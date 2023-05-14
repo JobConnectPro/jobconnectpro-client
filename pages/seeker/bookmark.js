@@ -66,7 +66,7 @@ const Bookmarks = ({ data }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 grid-flow-row justify-start gap-2 mx-6">
           {profile.UserBookmark.map((bookmark) => {
             return (
-              <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
+              <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between" key={bookmark.id}>
                 <div className="flex items-center">
                   {bookmark.Company.logo != null && (
                     <Image loader={() => bookmark.Company.logo} className="mr-4 object-cover object-center" src={bookmark.Company.logo} alt="Alternative text" width={60} height={60} />

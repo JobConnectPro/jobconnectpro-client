@@ -28,6 +28,10 @@ const SidebarAdmin = () => {
         <GiSkills size={20} />
         Skill
       </Link>
+      <Link href={'/admin/master/user'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+        <CgProfile size={20} />
+        User
+      </Link>
     </>
   );
 };

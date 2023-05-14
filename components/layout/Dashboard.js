@@ -132,7 +132,7 @@ const Dashboard = ({ children, profile }) => {
         <div className="flex flex-row flex-nowrap">
           <div
             className={
-              isHide ? "hidden" : "h-screen w-[200px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200"
+              isHide ? "hidden" : "h-screen w-[208px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200"
             }
           >
             <nav className="flex flex-col gap-4">

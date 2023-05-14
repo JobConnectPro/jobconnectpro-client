@@ -180,7 +180,7 @@ const EducationForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd, setI
           <select id="attainment_id" name="attainment_id" value={input.attainment_id} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md">
             <option value="">--Select an Option--</option>
             {attainments.map((attainment) => {
-              return <option value={attainment.id}>{attainment.attainment}</option>;
+              return <option value={attainment.id} key={attainment.id}>{attainment.attainment}</option>;
             })}
           </select>
         </div>

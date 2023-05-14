@@ -13,11 +13,11 @@ export default function JobCreate() {
     categoryIds: [],
     requirement: '',
     job_level: '',
-    minimum_salary: '',
-    maximum_salary: '',
+    minimum_salary: null,
+    maximum_salary: null,
     type: '',
     location: '',
-    starting_date: '',
+    starting_date: null,
     minimum_experience: '',
   });
   const [categoryOptions, setCategoryOptions] = useState([]);
@@ -136,19 +136,19 @@ export default function JobCreate() {
   }, []);
 
   return (
-    <div className="w-1/2 mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Create Jobs</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="mt-[22px]">
+      <h1 className="mx-6 mb-4 text-3xl font-bold">Create Job</h1>
+      <form onSubmit={handleSubmit} className="space-y-4 mx-6 mb-10">
         <div>
-          <label htmlFor="title" className="block font-bold">
-            Title:
+          <label htmlFor="title" className="">
+            Title<span class="required text-red-600 text-lg">*</span>
           </label>
           <input type="text" id="title" name="title" value={formData.title} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2" />
         </div>
 
         <div>
-          <label htmlFor="company_id" className="block font-bold">
-            Company:
+          <label htmlFor="company_id" className="">
+            Company<span class="required text-red-600 text-lg">*</span>
           </label>
           <select id="company_id" name="company_id" value={formData.company_id} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2">
             <option value="">Select a company</option>
@@ -161,15 +161,23 @@ export default function JobCreate() {
         </div>
 
         <div>
-          <label htmlFor="description" className="block font-bold">
-            Description:
+          <label htmlFor="description" className="">
+            Description<span class="required text-red-600 text-lg">*</span>
           </label>
-          <input type="text" id="description" name="description" value={formData.description} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2" />
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            required
+            className="w-full border border-gray-300 rounded-md p-2"
+            cols="4"
+            rows="8"
+          ></textarea>
         </div>
-
         <div>
-          <label htmlFor="categoryIds" className="block font-bold">
-            Categories:
+          <label htmlFor="categoryIds" className="">
+            Categories<span class="required text-red-600 text-lg">*</span>
           </label>
           <select id="categoryIds" name="categoryIds" value={formData.categoryIds} onChange={handleCategorySelect} multiple required className="w-full border border-gray-300 rounded-md p-2">
             {categoryOptions.map((category) => (
@@ -181,53 +189,52 @@ export default function JobCreate() {
         </div>
 
         <div>
-          <label htmlFor="requirement" className="block font-bold">
-            Requirement:
+          <label htmlFor="requirement" className="">
+            Requirement<span class="required text-red-600 text-lg">*</span>
           </label>
-          <textarea id="requirement" name="requirement" value={formData.requirement} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2"></textarea>
+          <textarea
+            id="requirement"
+            name="requirement"
+            value={formData.requirement}
+            onChange={handleInputChange}
+            required
+            className="w-full border border-gray-300 rounded-md p-2"
+            cols="4"
+            rows="8"
+          ></textarea>
         </div>
 
         <div>
-          <label htmlFor="job_level" className="block font-bold">
-            Job Level:
+          <label htmlFor="job_level" className="">
+            Job Level<span class="required text-red-600 text-lg">*</span>
           </label>
-          <input type="text" id="job_level" name="job_level" value={formData.job_level} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2" />
+          <select id="job_level" name="job_level" value={formData.job_level} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2">
+            <option value="">-- Select Type --</option>
+            <option value="Internship/Ojt">Internship/Ojt</option>
+            <option value="Entry-Level/Junior">Entry-Level/Junior</option>
+            <option value="Associate/Supervisor">Associate/Supervisor</option>
+            <option value="Associate/Supervisor">Mid-Senior-Level/Manager</option>
+            <option value="Associate/Supervisor">Director/Executive</option>
+          </select>
         </div>
-
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="minimum_salary" className="block font-bold">
-              Minimum Salary:
+            <label htmlFor="minimum_salary" className="">
+              Minimum Salary
             </label>
-            <input
-              type="number"
-              id="minimum_salary"
-              name="minimum_salary"
-              value={formData.minimum_salary}
-              onChange={handleInputChange}
-              required
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
+            <input type="number" id="minimum_salary" name="minimum_salary" value={formData.minimum_salary} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
           </div>
           <div>
-            <label htmlFor="maximum_salary" className="block font-bold">
-              Maximum Salary:
+            <label htmlFor="maximum_salary" className="">
+              Maximum Salary
             </label>
-            <input
-              type="number"
-              id="maximum_salary"
-              name="maximum_salary"
-              value={formData.maximum_salary}
-              onChange={handleInputChange}
-              required
-              className="w-full border border-gray-300 rounded-md p-2"
-            />
+            <input type="number" id="maximum_salary" name="maximum_salary" value={formData.maximum_salary} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
           </div>
         </div>
 
         <div>
-          <label htmlFor="type" className="block font-bold">
-            Type:
+          <label htmlFor="type" className="">
+            Type<span class="required text-red-600 text-lg">*</span>
           </label>
           <select id="type" name="type" value={formData.type} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2">
             <option value="">-- Select Type --</option>
@@ -237,22 +244,22 @@ export default function JobCreate() {
         </div>
 
         <div>
-          <label htmlFor="location" className="block font-bold">
-            Location:
+          <label htmlFor="location" className="">
+            Location<span class="required text-red-600 text-lg">*</span>
           </label>
-          <input type="text" id="location" name="location" value={formData.location} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2" />
+          <input type="text" id="location" name="location" value={formData.location} onChange={handleInputChange} required maxLength="255" className="w-full border border-gray-300 rounded-md p-2" />
         </div>
 
         <div>
-          <label htmlFor="starting_date" className="block font-bold">
-            Starting Date:
+          <label htmlFor="starting_date" className="">
+            Starting Date
           </label>
-          <input type="date" id="starting_date" name="starting_date" value={formData.starting_date} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2" />
+          <input type="date" id="starting_date" name="starting_date" value={formData.starting_date} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
         </div>
 
         <div>
-          <label htmlFor="minimum_experience" className="block font-bold">
-            Minimum Experience:
+          <label htmlFor="minimum_experience" className="">
+            Minimum Experience<span class="required text-red-600 text-lg">*</span>
           </label>
           <input
             type="number"
@@ -264,7 +271,6 @@ export default function JobCreate() {
             className="w-full border border-gray-300 rounded-md p-2"
           />
         </div>
-
         <button type="submit" className="w-full bg-green-500 text-white font-bold rounded-md py-2">
           Create
         </button>

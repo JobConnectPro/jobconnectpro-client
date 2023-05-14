@@ -2,10 +2,7 @@ BsFillMortarboardFill;
 import { useState, useEffect, Fragment } from 'react';
 import { useRouter } from 'next/router';
 import { getApplicant } from '@/modules/fetch';
-import { BsFillBriefcaseFill, BsFillMortarboardFill } from 'react-icons/bs';
-import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiAddCircleLine } from 'react-icons/ri';
-
-import Image from 'next/image';
+import { BsFillMortarboardFill } from 'react-icons/bs';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
@@ -75,24 +72,23 @@ const ApplicantStatus = () => {
 
   return (
     <>
-      <div>
-        <div className="flex mt-5">
-          <BsFillMortarboardFill size={30} />
-          <p className="ml-2 text-lg">Application Status</p>
+      <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">
+        <div className="px-6 py-4">
+          <div className="flex">
+            <BsFillMortarboardFill size={30} />
+            <p className="ml-2 text-lg">Application Status</p>
+          </div>
         </div>
-        <div>
+        <div className="px-6 pt-4 pb-2">
           {!isEdit && (
-            <div className="flex flex-row flex-wrap justify-center items-center gap-2">
+            <div className="inline-block align-middle">
               {applicant.UserApplication?.map((application) => {
                 return (
-                  <div className="basis-1/4" key={application.id}>
-                    <div className="flex flex-row border-solid border-2 border-slate-400 rounded-md p-4">
-                      <div className="basis-full">
-                        <p className="font-bold text-lg">{application.Application.status}</p>
-                        <p className="text-sm text-slate-500">{application.Application.description}</p>
-                      </div>
+                  <Fragment key={application.id}>
+                    <div>
+                      <p className="font-bold text-blue-700 text-xl">{application.Application.status}</p>
+                      <p className="text-gray-700 text-base mb-8">{application.Application.description}</p>
                     </div>
-                    {/* edit button */}
                     <button
                       onClick={() => {
                         setIsEdit(true);
@@ -101,12 +97,11 @@ const ApplicantStatus = () => {
                           description: application.Application.description,
                         });
                       }}
-                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
+                      className="bg-yellow-400 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded mb-5"
                     >
-                      <RiEdit2Fill size={15} />
+                      Edit Application Status
                     </button>
-                    {/* end of edit button */}
-                  </div>
+                  </Fragment>
                 );
               })}
             </div>
@@ -162,6 +157,10 @@ const ApplicantStatus = () => {
             </form>
           )}
         </div>
+      </div>
+
+      <div>
+        <div>{!isEdit && <div className="flex flex-row flex-wrap justify-center items-center gap-2"></div>}</div>
       </div>
     </>
   );
