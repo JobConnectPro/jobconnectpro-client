@@ -16,9 +16,9 @@ const CompanyDetail = ({ res }) => {
   });
 
   return (
-    <div className="max-w-screen-lg p-8 pt-20 mx-auto">
-      <div className="rounded-xl overflow-hidden">
-        <div className="bg-blue-700 p-4">
+    <div className="max-w-screen-lg p-8 pt-10 mx-auto">
+      <div className="rounded-sm overflow-hidden">
+        <div className="bg-blue-500 p-4">
           <p className="text-lg text-white">Profile</p>
         </div>
         <div className="flex flex-row bg-white justify-between">
@@ -46,16 +46,16 @@ const CompanyDetail = ({ res }) => {
           </div>
         </div>
       </div>
-      <div className="mt-4 rounded-xl overflow-hidden">
-        <div className="bg-blue-700 p-4">
+      <div className="mt-4 rounded-sm overflow-hidden">
+        <div className="bg-blue-500 p-4">
           <p className="text-lg text-white">Description</p>
         </div>
         <div className="bg-white h-48 px-8 py-5">
           <p>{company.description}</p>
         </div>
       </div>
-      <div className="mt-4 rounded-xl overflow-hidden">
-        <div className="flex flex-row bg-blue-700 p-4 justify-between">
+      <div className="mt-4 rounded-sm overflow-hidden">
+        <div className="flex flex-row bg-blue-500 p-4 justify-between">
           <div>
             <p className="text-lg text-white">Job opening in Company</p>
           </div>

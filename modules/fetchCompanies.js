@@ -55,6 +55,15 @@ const getSectors = async () => {
     }
 }
 
+const getCompanyUpdate = async (id) => {
+  try {
+      const response = await instance.get(`/companies/${id}`)
+      return(response.data)
+  } catch (error) {
+      throw new Error(error.response.data.message || 'Something went wrong');
+  }
+}
+
 const addCompany = async (data) => {
     const { sector_id, company_name, address, description, website, logo } = data;
     try {
@@ -130,4 +139,4 @@ const updateLogo = async (data, id) => {
     }
   };
 
-export {getCompanies, getCompanyDetail, getCompaniesEmployer, getSectors, addCompany, deleteCompany, updateCompany, updateLogo}
+export {getCompanies, getCompanyDetail, getCompaniesEmployer, getSectors, addCompany, deleteCompany, updateCompany, updateLogo, getCompanyUpdate}

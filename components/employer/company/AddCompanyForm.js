@@ -29,10 +29,10 @@ const AddCompanyForm = () => {
         };
 
     return (
-        <div className="container mx-auto px-4 pt-24 h-screen">
+        <div className="container mx-auto px-4 pt-4 h-screen">
             <h1 className='text-2xl font-bold'>Create Company</h1>
             <div className="flex items-center justify-center">
-                <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
+                <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md p-5 bg-white shadow-md rounded-md">
                     <div className="mb-4">
                         <label htmlFor="company_name" className="block text-gray-700 font-bold mb-2">
                             Company Name
