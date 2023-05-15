@@ -80,11 +80,11 @@ const Employers = ({ data }) => {
                     {employer.photo == null && <Image className="w-full h-full object-cover object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={100} height={100} />}
                   </div>
                 </div>
-                <div className="px-6 py-4">
+                <div className="px-6 pt-2 pb-7">
                   <Link href={`/seeker/employer/${employer.id}`}>
-                    <div className="font-bold text-lg text-black hover:text-blue-500 mb-1">{employer.name}</div>
+                    <div className="text-lg font-semibold text-black hover:text-blue-900 mb-1">{employer.name}</div>
                   </Link>
-                  <div className="text-sm text-gray-500">Recruiter in:</div>
+                  <div className="text-gray-500 text-sm">Recruiter in:</div>
                   <div className="flex flex-col">
                     {employer.Companies.map((company) => {
                       return (
@@ -103,7 +103,7 @@ const Employers = ({ data }) => {
                             <Image className="inline-block rounded-full ring-2 ring-white object-cover object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={40} height={40} />
                           )}
                           <Link href={`/seeker/companies/${company.id}`}>
-                            <div className="inline-block pl-2 text-sm text-gray-700 hover:text-blue-500">{company.company_name}</div>
+                            <div className="inline-block pl-2 text-sm text-blue-500 hover:text-blue-900">{company.company_name}</div>
                           </Link>
                         </div>
                       );

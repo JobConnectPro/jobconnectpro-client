@@ -4,12 +4,26 @@ import Image from 'next/image';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
-import { RiHeartFill } from 'react-icons/ri';
 import Link from 'next/link';
 
 const Bookmarks = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
   const [isDelete, setIsDelete] = useState(false);
+
+  const diffForHumans = (date) => {
+    const now = new Date();
+    const newDate = new Date(date);
+    const diffInMs = Math.abs(now - newDate);
+    const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInDays === 0) {
+      return 'today';
+    } else if (diffInDays === 1) {
+      return 'yesterday';
+    } else {
+      return `${diffInDays} days ago`;
+    }
+  };
 
   useEffect(() => {
     if (isDelete === false) {
@@ -18,6 +32,7 @@ const Bookmarks = ({ data }) => {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
+          console.log(res.data);
           setProfile({ ...res.data });
         })
         .catch((error) => {
@@ -74,9 +89,15 @@ const Bookmarks = ({ data }) => {
                   {bookmark.Company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
                   <div>
                     <Link href={`/seeker/job/${bookmark.id}`}>
-                      <h2 className="text-lg font-semibold text-black hover:text-blue-500">{bookmark.title}</h2>
+                      <h2 className="text-lg font-semibold text-black hover:text-blue-900">{bookmark.title}</h2>
                     </Link>
-                    <p className="text-blue-500">{bookmark.Company.company_name}</p>
+                    <Link href={`/seeker/companies/${bookmark.Company.id}`}>
+                      <p className="text-blue-500 hover:text-blue-900">{bookmark.Company.company_name}</p>
+                    </Link>
+                    <p className="text-gray-500 text-sm mb-3">
+                      {bookmark.location} &#x2022; {bookmark.type}
+                    </p>
+                    <p className="text-gray-500 text-xs">Posted {diffForHumans(bookmark.createdAt)}</p>
                   </div>
                 </div>
                 <button

@@ -10,6 +10,20 @@ import Image from 'next/image';
 const JobDetail = ({ job }) => {
   const router = useRouter();
   const [role, setRole] = useState('');
+  const diffForHumans = (date) => {
+    const now = new Date();
+    const newDate = new Date(date);
+    const diffInMs = Math.abs(now - newDate);
+    const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInDays === 0) {
+      return 'today';
+    } else if (diffInDays === 1) {
+      return 'yesterday';
+    } else {
+      return `${diffInDays} days ago`;
+    }
+  };
   useEffect(() => {
     setRole(Cookies.get('role'));
   }, [role]);
@@ -154,7 +168,10 @@ const JobDetail = ({ job }) => {
           <div className="px-6 pt-4 pb-3 border-b">
             <h1 className="text-4xl font-bold text-left mt-8 relative z-10">{job.title}</h1>
             <p className="text-blue-700 text-lg">{job.Company.company_name}</p>
-            <p className="text-gray-700  text-lg">{job.location}</p>
+            <p className="text-gray-700 text-lg mb-3">
+              {job.location} &#x2022; {job.type}
+            </p>
+            <p className="text-gray-500 text-sm">Posted {diffForHumans(job.createdAt)}</p>
           </div>
           <div className="px-6 mt-5">
             <h1 className="text-2xl font-bold">Job Description</h1>
@@ -197,7 +214,7 @@ const JobDetail = ({ job }) => {
                 <h1 className="text-lg text-gray-500">ADDRESS</h1>
                 <p className="text-blue-700">{job.Company.address}</p>
               </div>
-              <div className='col-span-2'>
+              <div className="col-span-2">
                 <h1 className="text-lg text-gray-500">SALARY</h1>
                 <p className="text-blue-700">
                   {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(job.minimum_salary)} -{' '}
