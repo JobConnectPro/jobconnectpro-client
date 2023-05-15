@@ -1,27 +1,33 @@
-import Link from "next/link"
-import Cookies from "js-cookie"
+import Link from 'next/link';
+import Cookies from 'js-cookie';
+import Image from 'next/image';
 
-const CompanyCard = ({company, children}) => {
-    const role = Cookies.get("role")
+const CompanyCard = ({ company, children }) => {
+  const role = Cookies.get('role');
 
-    return (
-            <div className="m-5 flex bg-white p-5 rounded-lg shadow-md lg: w-2/4 sm:w-2/4">
-                <div className="w-24 h-24 rounded-xl mr-4">
-                    <img src={company.logo ? company.logo : 'https://talentclick.com/wp-content/uploads/2021/08/placeholder-image-300x200.png'} className="w-24 h-24 rounded-xl shadow-sm"></img>
-                </div>
-                <div>
-                    <p className="text-xl font-semibold">{company.company_name}</p>
-                    <p className="text-gray-700">{company.address}</p>
-                    <p className="text-gray-700">{company.Sector.sector}</p>
-                    {role == "Seeker" ? (
-                        <Link className="font-semibold text-blue-500 hover:text-blue-700" href={`http://localhost:3000/seeker/companies/${company.id}`}>Detail</Link>
-                    ) : (
-                        <Link className="font-semibold text-blue-500 hover:text-blue-700" href={`http://localhost:3000/employer/companies/${company.id}`}>Detail</Link>
-                    )}
-                </div>
-                {children}
-            </div>
-    )
-}
+  return (
+    <>
+      <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
+        <div className="flex items-center">
+          {company.logo != null && <Image loader={() => company.logo} className="mr-4 object-cover object-center" src={company.logo} alt="Alternative text" width={60} height={60} />}
+          {company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
+          <div className="">
+            {role == 'Seeker' ? (
+              <Link href={`/seeker/companies/${company.id}`}>
+                <h2 className="text-xl font-bold hover:underline hover:text-blue-700">{company.company_name}</h2>
+              </Link>
+            ) : (
+              <Link href={`/employer/companies/${company.id}`}>
+                <h2 className="text-xl font-bold hover:underline hover:text-blue-700">{company.company_name}</h2>
+              </Link>
+            )}
+            <p className="text-blue-500 mb-2">{company.Sector.sector}</p>
+            <p className="text-gray-600">{company.address}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default CompanyCard
+export default CompanyCard;
