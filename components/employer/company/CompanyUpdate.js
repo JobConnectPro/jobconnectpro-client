@@ -30,10 +30,10 @@ const CompanyUpdate  = ({res}) => {
         };
         
     return (
-        <div className="container mx-auto px-4 pt-24 h-screen">
+        <div className="container mx-auto px-4 pt-4 h-screen">
             <h1 className='text-2xl font-bold'>Update Company</h1>
             <div className="flex items-center justify-center">
-                <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
+                <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md rounded-md border-blue-500 bg-white shadow-md p-5">
                     <div className="mb-4">
                         <label htmlFor="company_name" className="block text-gray-700 font-bold mb-2">
                             Company Name
@@ -100,12 +100,21 @@ const CompanyUpdate  = ({res}) => {
                             type="text"
                             id="website"
                             name="website"
+                            defaultValue={prevCompany?.website}
                             {...register('website', { required: true })}
                             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.website ? 'border-red-500' : ''}`}
                         />
                         {errors.website && <span className="text-red-500 text-sm">This field is required</span>}
                     </div>
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center space-x-4">
+                        <button
+                        onClick={() => {
+                            router.push(`http://localhost:3000/employer/companies/${prevCompany.id}`)
+                        }}
+                            className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        >
+                            Cancel
+                        </button>
                         <button
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
