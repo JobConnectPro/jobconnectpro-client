@@ -1,10 +1,10 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 const AttainmentForm = () => {
   const [input, setInput] = useState({
-    attainment: "",
+    attainment: '',
   });
   const [attainment, setAttainment] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
@@ -15,7 +15,7 @@ const AttainmentForm = () => {
   useEffect(() => {
     axios
       .get(`http://localhost:8000/attainments`, {
-        headers: { authorization: "Bearer " + Cookies.get("token") },
+        headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {
         setAttainment([...res.data]);
@@ -35,13 +35,13 @@ const AttainmentForm = () => {
     event.preventDefault();
     if (currentId === 0) {
       axios
-        .post("http://localhost:8000/attainments", input, {
-          headers: { authorization: "Bearer " + Cookies.get("token") },
+        .post('http://localhost:8000/attainments', input, {
+          headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
           setIsAdd(false);
           setCurrentId(0);
-          setInput({ attainment: "" });
+          setInput({ attainment: '' });
           setAttainment([...attainment, res.data]);
         })
         .catch((error) => {
@@ -50,12 +50,12 @@ const AttainmentForm = () => {
     } else {
       axios
         .put(`http://localhost:8000/attainments/${currentId}`, input, {
-          headers: { authorization: "Bearer " + Cookies.get("token") },
+          headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
           setIsEdit(false);
           setCurrentId(0);
-          setInput({ attainment: "" });
+          setInput({ attainment: '' });
         })
         .catch((error) => {
           console.log(error);
@@ -72,7 +72,7 @@ const AttainmentForm = () => {
   const handleDelete = (id) => {
     axios
       .delete(`http://localhost:8000/attainments/${id}`, {
-        headers: { authorization: "Bearer " + Cookies.get("token") },
+        headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {
         setIsDelete(false);
@@ -84,32 +84,27 @@ const AttainmentForm = () => {
   };
 
   return (
-    <div className="w-full p-4">
-      <h1 className="lg:w-1/2 md:w-2/3 sm:w-full mb-4 text-lg mx-auto text-center text-blue-700 p-1 border-2 border-blue-500 rounded-md">
-        All Data Attainment
-      </h1>
-      <div className="lg:w-1/2 md:w-2/3 sm:w-full mx-auto pb-4 rounded-md bg-white shadow-xl">
+    <div className="mt-[22px] h-screen">
+      <h1 className="mx-6 mb-4 text-3xl font-bold">Attainment</h1>
+      <div className="mx-6 pb-4 rounded-md bg-white border border-slate-200">
+        <div className="flex justify-between items-center py-2 px-2 bg-blue-500 text-white text-md font-semibold rounded-t-md">
+          <p>Attainment</p>
+        </div>
+      </div>
+
+      <div className="mx-6 pb-4 rounded-md bg-white border border-slate-200">
         <div className="flex justify-between items-center mx-auto py-2 px-2 bg-blue-500 text-white text-md font-semibold rounded-t-md">
           <p className="w-2/3 border-r border-white">Attainment</p>
           <p>Action</p>
         </div>
         {attainment.map((cat) => (
-          <div
-            key={cat.id}
-            className="flex justify-between items-center text-sm bg-white border-b border-gray-300 mx-2 py-2 hover:bg-blue-50"
-          >
+          <div key={cat.id} className="flex justify-between items-center text-sm bg-white border-b border-gray-300 mx-2 py-2 hover:bg-blue-50">
             <p className="w-2/3">{cat.attainment}</p>
             <div className="space-x-2 font-semibold ">
-              <button
-                className="text-slate-500 border border-red-300 hover:bg-red-400 w-14 hover:text-white py-1 rounded"
-                onClick={() => handleDelete(cat.id)}
-              >
+              <button className="text-slate-500 border border-red-300 hover:bg-red-400 w-14 hover:text-white py-1 rounded" onClick={() => handleDelete(cat.id)}>
                 Delete
               </button>
-              <button
-                className="text-slate-500 border border-yellow-300 hover:bg-yellow-400 w-14 hover:text-white py-1 rounded"
-                onClick={() => handleEdit(cat.id)}
-              >
+              <button className="text-slate-500 border border-yellow-300 hover:bg-yellow-400 w-14 hover:text-white py-1 rounded" onClick={() => handleEdit(cat.id)}>
                 Edit
               </button>
             </div>
@@ -136,7 +131,7 @@ const AttainmentForm = () => {
                   }
                   setCurrentId(0);
                   setInput({
-                    attainment: "",
+                    attainment: '',
                   });
                 }}
               >
