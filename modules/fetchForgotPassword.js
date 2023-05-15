@@ -20,4 +20,16 @@ const userResetPassword = async (password, token) => {
   }
 };
 
-export { userForgotPassword, userResetPassword };
+const userChangePassword = async (currentPassword, newPassword) => {
+  try {
+    const response = await instance.put('/users/password', {
+      currentPassword,
+      newPassword,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || 'Something went wrong');
+  }
+};
+
+export { userForgotPassword, userResetPassword, userChangePassword };
