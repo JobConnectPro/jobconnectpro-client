@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { RiBookmarkFill, RiSendPlaneFill } from 'react-icons/ri';
 import axios from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const JobDetail = ({ job }) => {
   const router = useRouter();
@@ -167,11 +168,13 @@ const JobDetail = ({ job }) => {
           </div>
           <div className="px-6 pt-4 pb-3 border-b">
             <h1 className="text-4xl font-bold text-left mt-8 relative z-10">{job.title}</h1>
-            <p className="text-blue-700 text-lg">{job.Company.company_name}</p>
+            <Link href={`/seeker/companies/${job.Company.id}`}>
+              <p className="text-blue-700 text-lg hover:text-blue-900">{job.Company.company_name}</p>
+            </Link>
             <p className="text-gray-700 text-lg mb-3">
               {job.location} &#x2022; {job.type}
             </p>
-            <p className="text-gray-500 text-sm">Posted {diffForHumans(job.createdAt)}</p>
+            <p className="text-gray-500 text-sm mb-2">Posted {diffForHumans(job.createdAt)}</p>
           </div>
           <div className="px-6 mt-5">
             <h1 className="text-2xl font-bold">Job Description</h1>
@@ -223,12 +226,12 @@ const JobDetail = ({ job }) => {
               </div>
             </div>
           </div>
-          <div className="px-6 py-4 text-end">
+          <div className="px-6 py-4 text-end border-b">
             <button
               onClick={() => {
                 handleBookmark(job.id);
               }}
-              className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2"
+              className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2 mb-3"
             >
               Bookmark
             </button>
@@ -240,6 +243,10 @@ const JobDetail = ({ job }) => {
             >
               Send Application
             </button>
+          </div>
+          <div className="px-6 mb-6 mt-5">
+            <h1 className="text-2xl font-bold">About {job.Company.company_name}</h1>
+            <p className="text-gray-800 mb-4 font-medium">{job.Company.description}</p>
           </div>
         </div>
       </div>

@@ -25,6 +25,21 @@ const JobDetail = () => {
     setIsEditFormOpen(true);
   };
 
+  const diffForHumans = (date) => {
+    const now = new Date();
+    const newDate = new Date(date);
+    const diffInMs = Math.abs(now - newDate);
+    const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInDays === 0) {
+      return 'today';
+    } else if (diffInDays === 1) {
+      return 'yesterday';
+    } else {
+      return `${diffInDays} days ago`;
+    }
+  };
+
   useEffect(() => {
     setDisplay(true);
     const fetchData = async () => {
@@ -34,7 +49,7 @@ const JobDetail = () => {
     };
     fetchData();
   }, [jobId]);
-  
+
   const handleDeleteClick = async () => {
     try {
       const response = await fetch(`http://localhost:8000/jobs/${job.id}`, {
@@ -95,8 +110,13 @@ const JobDetail = () => {
             </div>
             <div className="px-6 pt-4 pb-3 border-b">
               <h1 className="text-4xl font-bold text-left mt-8 relative z-10">{job.title}</h1>
-              <p className="text-blue-700 text-lg">{job.Company?.company_name}</p>
-              <p className="text-gray-700  text-lg">{job.location}</p>
+              <Link href={`/employer/companies/${job.Company?.id}`}>
+                <p className="text-blue-700 text-lg hover:text-blue-900">{job.Company?.company_name}</p>
+              </Link>
+              <p className="text-gray-700 text-lg mb-3">
+                {job.location} &#x2022; {job.type}
+              </p>
+              <p className="text-gray-500 text-sm mb-2">Posted {diffForHumans(job.createdAt)}</p>
             </div>
             <div className="px-6 mt-5">
               <h1 className="text-2xl font-bold">Job Description</h1>
