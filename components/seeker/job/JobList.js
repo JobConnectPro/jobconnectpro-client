@@ -139,7 +139,7 @@ const JobList = () => {
           </select>
         </div>
       </div>
-      <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-2 mx-6">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-6">
         {jobs.map((job) => (
           <JobCard job={job} key={job.id} />
         ))}

@@ -73,9 +73,14 @@ const Applications = ({ data }) => {
                   {application.Company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
                   <div>
                     <Link href={`/seeker/job/${application.id}`}>
-                      <h2 className="text-lg font-semibold text-black hover:text-blue-500">{application.title}</h2>
+                      <h2 className="text-lg font-semibold text-black hover:text-blue-900">{application.title}</h2>
                     </Link>
-                    <p className="text-blue-500 mb-3">{application.Company.company_name}</p>
+                    <Link href={`/seeker/companies/${application.Company.id}`}>
+                      <p className="text-blue-500 hover:text-blue-900">{application.Company.company_name}</p>
+                    </Link>
+                    <p className="text-gray-500 text-sm mb-3">
+                      {application.location} &#x2022; {application.type}
+                    </p>
                     <p className="text-green-500 text-sm">{application.Application.status}</p>
                   </div>
                 </div>
