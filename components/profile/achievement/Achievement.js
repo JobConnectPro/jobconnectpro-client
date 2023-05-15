@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiAddCircleLine } from 'react-icons/ri';
+import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiAddLine } from 'react-icons/ri';
 import { FaTrashAlt } from 'react-icons/fa';
 
 import axios from 'axios';
@@ -46,29 +46,33 @@ const Achievement = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, se
 
   return (
     <div className="w-full p-4 pt-0">
-      <button
-        onClick={() => {
-          setIsOpen(!isOpen);
-        }}
-        className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600"
-      >
-        Achievement
-        <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
-      </button>
+      <div className="w-full flex font-bold text-white">
+        <button
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+          className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600 pl-6"
+        >
+          Achievement
+          <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
+        </button>
+        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-500">
+          {!isAdd.achievement && !isEdit.achievement && (
+            <div
+              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-500 hover:bg-blue-600"
+              onClick={() => {
+                setIsAdd({ ...isAdd, achievement: true });
+              }}
+            >
+              ADD
+              <RiAddLine size={25} />
+            </div>
+          )}
+        </button>
+      </div>
+
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
-        {/* add button */}
-        {!isAdd.achievement && !isEdit.achievement && (
-          <button
-            onClick={() => {
-              setIsAdd({ ...isAdd, achievement: true });
-            }}
-            className="bg-green-600 hover:bg-green-700 text-black font-bold p-1 rounded-md mx-10 mb-3"
-          >
-            <RiAddCircleLine size={15} />
-          </button>
-        )}
-        {/* end of add button */}
-        <div className="flex flex-row flex-wrap justify-center items-start mx-10">
+        <div className="flex flex-row flex-wrap justify-center items-start mx-10 pt-4">
           {!isAdd.achievement && !isEdit.achievement && (
             <>
               {profile.Achievements.map((achievement) => {

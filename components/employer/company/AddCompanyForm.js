@@ -29,8 +29,9 @@ const AddCompanyForm = () => {
         };
 
     return (
-        <div className="container mx-auto px-4 pt-24">
-            <div className="flex items-center justify-center h-screen">
+        <div className="container mx-auto px-4 pt-24 h-screen">
+            <h1 className='text-2xl font-bold'>Create Company</h1>
+            <div className="flex items-center justify-center">
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
                     <div className="mb-4">
                         <label htmlFor="company_name" className="block text-gray-700 font-bold mb-2">
@@ -108,7 +109,7 @@ const AddCompanyForm = () => {
                             id="logo"
                             name="logo"
                             {...register('logo', { required: true })}
-                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.website ? 'border-red-500' : ''}`}
+                            className={`shadow appearance-none border rounded w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.website ? 'border-red-500' : ''}`}
                         />
                         {errors.website && <span className="text-red-500 text-sm">This field is required</span>}
                     </div>
