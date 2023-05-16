@@ -84,31 +84,36 @@ const EmployerDetails = ({ data }) => {
             </div>
           </div>
           <div className="basis-full lg:basis-1/2">
-            <div className="grid grid-cols-1 grid-flow-row justify-start gap-2 lg:ml-3">
-              {employer.Jobs.map((job) => {
-                return (
-                  <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between" key={job.id}>
-                    <div className="flex items-center">
-                      {job.Company.logo != null && (
-                        <Image loader={() => job.Company.logo} className="mr-4 object-cover object-center" src={job.Company.logo} alt="Alternative text" width={60} height={60} />
-                      )}
-                      {job.Company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
-                      <div>
-                        <Link href={`/seeker/job/${job.id}`}>
-                          <h2 className="text-lg font-semibold text-black hover:text-blue-900">{job.title}</h2>
-                        </Link>
-                        <Link href={`/seeker/companies/${job.Company.id}`}>
-                          <p className="text-blue-500 hover:text-blue-900">{job.Company.company_name}</p>
-                        </Link>
-                        <p className="text-gray-500 text-sm mb-3">
-                          {job.location} &#x2022; {job.type}
-                        </p>
-                        <p className="text-gray-500 text-xs">Posted {diffForHumans(job.createdAt)}</p>
+            <div className="rounded-lg overflow-hidden border border-slate-200 ml-0 lg:ml-2">
+              <div className="bg-blue-700 p-4">
+                <p className="text-lg text-white ml-3">JOB POST</p>
+              </div>
+              <div className="grid grid-cols-1 gap-2 bg-white px-4 py-4">
+                {employer.Jobs.map((job) => {
+                  return (
+                    <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between" key={job.id}>
+                      <div className="flex items-center">
+                        {job.Company.logo != null && (
+                          <Image loader={() => job.Company.logo} className="mr-4 object-cover object-center" src={job.Company.logo} alt="Alternative text" width={60} height={60} />
+                        )}
+                        {job.Company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
+                        <div>
+                          <Link href={`/seeker/job/${job.id}`}>
+                            <h2 className="text-lg font-semibold text-black hover:text-blue-900">{job.title}</h2>
+                          </Link>
+                          <Link href={`/seeker/companies/${job.Company.id}`}>
+                            <p className="text-blue-500 hover:text-blue-900">{job.Company.company_name}</p>
+                          </Link>
+                          <p className="text-gray-500 text-sm mb-3">
+                            {job.location} &#x2022; {job.type}
+                          </p>
+                          <p className="text-gray-500 text-xs">Posted {diffForHumans(job.createdAt)}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
