@@ -1,47 +1,81 @@
-import React from "react";
-import { FaDribbbleSquare, FaFacebookSquare, FaGithubSquare, FaInstagram, FaTwitterSquare } from "react-icons/fa";
-import Logo from "../Logo";
+import React from 'react';
+import {
+  FaDribbbleSquare,
+  FaFacebookSquare,
+  FaGithubSquare,
+  FaInstagram,
+  FaTwitterSquare,
+} from 'react-icons/fa';
+import Logo from '../Logo';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <div className="w-full p-4 bg-slate-200 mx-auto py-8 grid lg:grid-cols-3 gap-24 text-gray-500">
-      <div>
+    <div className="w-full pt-24 pb-20 px-8 bg-slate-200 mx-auto   text-gray-500">
+      <div className="mb-9">
         <Logo />
-        <p className="py-5">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id odit ullam iste repellat consequatur libero
-          reiciendis, blanditiis accusantium.
-        </p>
-        <div className="flex justify-between md:w-[75%]">
-          <FaFacebookSquare size={30} />
-          <FaInstagram size={30} />
-          <FaTwitterSquare size={30} />
-          <FaGithubSquare size={30} />
-          <FaDribbbleSquare size={30} />
-        </div>
       </div>
-      <div className="lg:col-span-2 flex justify-between mt-5">
-        <div>
-          <h6 className="font-medium text-gray-400">Candidates</h6>
-          <ul>
-            <li className="py-2 text-sm">Sign UP</li>
-            <li className="text-sm">Job Board</li>
-          </ul>
+
+      <div className="flex justify-between flex-wrap mt-5">
+        <div className="flex flex-col flex-1 ">
+          <p className=" font-bold text-2xl leading-10 text-black">
+            The best way <br></br> to candidates find jobs and <br></br>
+            companies to hire talents
+          </p>
+          <div className="flex justify-between md:w-[50%] mt-6">
+            <FaFacebookSquare size={30} />
+            <FaInstagram size={30} />
+            <FaTwitterSquare size={30} />
+            <FaGithubSquare size={30} />
+            <FaDribbbleSquare size={30} />
+          </div>
         </div>
-        <div>
-          <h6 className="font-medium text-gray-400">Employers</h6>
-          <ul>
-            <li className="py-2 text-sm">Start Hiring</li>
-            <li className="text-sm">Employer Brnding</li>
-            <li className="py-2 text-sm">Blog</li>
-          </ul>
-        </div>
-        <div>
-          <h6 className="font-medium text-gray-400">About</h6>
-          <ul>
-            <li className="py-2 text-sm">About</li>
-            <li className="text-sm">Careers</li>
-            <li className="py-2 text-sm">Contac Us</li>
-          </ul>
+        <div className="flex flex-wrap flex-1  ">
+          <div className="flex-1">
+            <h3 className="font-bold text-blue-500 mb-6 text-lg">Candidates</h3>
+            <ul className="text-black">
+              <Link href="/signup/seeker">
+                <li className="text-base hover:text-blue-500">Sign Up</li>
+              </Link>
+              <Link href="/job-board">
+                <li className="text-base mt-3 hover:text-blue-500">
+                  Job Board
+                </li>
+              </Link>
+            </ul>
+          </div>
+          <div className="flex-1">
+            <h3 className="font-bold text-lg text-blue-500 mb-6">Employers</h3>
+            <ul className="text-black">
+              <Link href="#">
+                <li className="text-base  hover:text-blue-500">Start Hiring</li>
+              </Link>
+              <Link href="#">
+                <li className="text-base mt-3  hover:text-blue-500">
+                  Employer Branding
+                </li>
+              </Link>
+              <Link href="#">
+                <li className="text-base mt-3  hover:text-blue-500">Blog</li>
+              </Link>
+            </ul>
+          </div>
+          <div className="flex-1">
+            <h6 className="font-bold text-blue-500 text-lg mb-6">About</h6>
+            <ul className="text-black">
+              <Link href="#">
+                <li className="text-base  hover:text-blue-500">About</li>
+              </Link>
+              <Link href="#">
+                <li className="text-base mt-3  hover:text-blue-500">Careers</li>
+              </Link>
+              <Link href="#">
+                <li className="text-base mt-3  hover:text-blue-500">
+                  Contact Us
+                </li>
+              </Link>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
