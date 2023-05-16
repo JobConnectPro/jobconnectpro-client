@@ -12,6 +12,21 @@ const Employers = ({ data }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [perPage, setPerPage] = useState(10);
 
+  const diffForHumans = (date) => {
+    const now = new Date();
+    const newDate = new Date(date);
+    const diffInMs = Math.abs(now - newDate);
+    const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInDays === 0) {
+      return 'today';
+    } else if (diffInDays === 1) {
+      return 'yesterday';
+    } else {
+      return `${diffInDays} days ago`;
+    }
+  };
+
   useEffect(() => {
     axios
       .get('http://localhost:8000/users/employer', {
@@ -72,8 +87,8 @@ const Employers = ({ data }) => {
           {employers.map((employer) => {
             return (
               <div className="bg-white rounded-lg border-slate-200 border overflow-hidden pt-4" key={employer.id}>
-                <div className="flex items-center justify-center h-28 bg-white">
-                  <div className="w-24 h-24 rounded-full overflow-hidden mx-auto">
+                <div className="flex items-center justify-center h-36 bg-white">
+                  <div className="w-28 h-28 rounded-full overflow-hidden mx-auto">
                     {employer.photo != null && (
                       <Image loader={() => employer.photo} className="w-full h-full object-cover object-center" src={employer.photo} alt="Profile Picture" width={100} height={100} />
                     )}
@@ -82,25 +97,17 @@ const Employers = ({ data }) => {
                 </div>
                 <div className="px-6 pt-2 pb-7">
                   <Link href={`/seeker/employer/${employer.id}`}>
-                    <div className="text-lg font-semibold text-black hover:text-blue-900 mb-1">{employer.name}</div>
+                    <div className="text-lg font-semibold text-black hover:text-blue-900">{employer.name}</div>
                   </Link>
-                  <div className="text-gray-500 text-sm">Recruiter in:</div>
+                  <div className="text-gray-500 text-sm mb-3">Registered {diffForHumans(employer.createdAt)}</div>
+                  <div className="text-gray-600 text-sm">Recruiter in:</div>
                   <div className="flex flex-col">
                     {employer.Companies.map((company) => {
                       return (
-                        <div className="mt-1" key={company.id}>
-                          {company.logo != null && (
-                            <Image
-                              loader={() => company.logo}
-                              className="inline-block rounded-full ring-2 ring-white object-cover object-center"
-                              src={company.logo}
-                              alt="Company Logo"
-                              width={40}
-                              height={40}
-                            />
-                          )}
+                        <div className="mt-2" key={company.id}>
+                          {company.logo != null && <Image loader={() => company.logo} className="inline-block" src={company.logo} alt="Company Logo" width={40} height={40} />}
                           {company.logo == null && (
-                            <Image className="inline-block rounded-full ring-2 ring-white object-cover object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={40} height={40} />
+                            <Image className="inline-block" src="/img/blank-pp.jpg" alt="Company Logo" width={40} height={40} />
                           )}
                           <Link href={`/seeker/companies/${company.id}`}>
                             <div className="inline-block pl-2 text-sm text-blue-500 hover:text-blue-900">{company.company_name}</div>
