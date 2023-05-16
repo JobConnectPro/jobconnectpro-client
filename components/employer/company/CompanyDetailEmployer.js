@@ -4,166 +4,187 @@ import { deleteCompany, updateLogo } from '@/modules/fetchCompanies';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { getCompanyUpdate } from '@/modules/fetchCompanies';
+import Image from 'next/image';
 
 const CompanyDetailEmployer = ({ res }) => {
-    const [company, setCompany] = useState(res)
-    const jobs = company.Jobs
-    const sector = company.Sector
-    const [searchTerm, setSearchTerm] = useState("");
-    const [isDelete, setIsDelete] = useState(false);
-    const router = useRouter();
-    const [isUpload, setIsUpload] = useState(false)
-    const [isLogo, setIsLogo] = useState(false)
-    const { register, handleSubmit, formState: { errors } } = useForm();
+  const [company, setCompany] = useState(res);
+  const jobs = company.Jobs;
+  const sector = company.Sector;
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isDelete, setIsDelete] = useState(false);
+  const router = useRouter();
+  const [isUpload, setIsUpload] = useState(false);
+  const [isLogo, setIsLogo] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    const handleSearch = (event) => {
-        setSearchTerm(event.target.value);
-      };
+  const diffForHumans = (date) => {
+    const now = new Date();
+    const newDate = new Date(date);
+    const diffInMs = Math.abs(now - newDate);
+    const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
 
-    const filteredJobs = jobs.filter((job) => {
-        return (
-          job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          job.location.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    })
-    
-    const handleDelete = async () => {
-        try {
-            await deleteCompany(company.id);
-            router.push('http://localhost:3000/employer/companies');
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setIsDelete(false);
-        }
-    };
-
-    const handleUpdate = () => {
-        router.push(`http://localhost:3000/employer/companies/edit/${company.id}`);
+    if (diffInDays === 0) {
+      return 'today';
+    } else if (diffInDays === 1) {
+      return 'yesterday';
+    } else {
+      return `${diffInDays} days ago`;
     }
+  };
 
-    const onSubmit = async (data) => {
-        try {
-            const response = await updateLogo(data, company.id);
-            setIsLogo(false)
-            const fetchNewCompany = await getCompanyUpdate(company.id)
-            setCompany(fetchNewCompany)
-        } catch (error) {
-            console.error(error);
-        }
-    };
-        
-    return (
-        <div className='max-w-screen-lg p-8 pt-10 mx-auto'>
-    <div className='rounded-sm overflow-hidden'>
-        <div className='bg-blue-500 p-4 flex justify-between'>
-            <p className='text-lg text-white'>Profile</p>
-            <div>
-                <button className='text-lg  hover:text-green-300 text-white mr-4' onClick={() => { setIsUpload(true); setIsDelete(false); }}>Update</button>
-                <button className='text-lg  text-white hover:text-red-400' onClick={() => {
-                    setIsDelete(true); setIsUpload(false); setIsLogo(false);
-                }}>Delete</button>
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredJobs = jobs.filter((job) => {
+    return job.title.toLowerCase().includes(searchTerm.toLowerCase()) || job.location.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  const handleDelete = async () => {
+    try {
+      await deleteCompany(company.id);
+      router.push('http://localhost:3000/employer/companies');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsDelete(false);
+    }
+  };
+
+  const handleUpdate = () => {
+    router.push(`http://localhost:3000/employer/companies/edit/${company.id}`);
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await updateLogo(data, company.id);
+      setIsLogo(false);
+      const fetchNewCompany = await getCompanyUpdate(company.id);
+      setCompany(fetchNewCompany);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      <div className="mt-[22px] pb-9">
+        <div className="mx-6">
+          <div className="rounded-lg overflow-hidden border border-slate-200">
+            <div className="bg-blue-700 p-4 flex justify-between items-center">
+              <p className="text-lg text-white ml-3">PROFILE</p>
+              <div>
+                <button
+                  className="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-5 rounded mr-2"
+                  onClick={() => {
+                    setIsLogo(true);
+                    setIsUpload(false);
+                  }}
+                >
+                  Upload
+                </button>
+                <button className="bg-yellow-400 hover:bg-yellow-500 text-black text-sm font-bold py-2 px-5 rounded mr-2" onClick={handleUpdate}>
+                  Edit
+                </button>
+                <button className="bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2 px-5 rounded" onClick={handleDelete}>
+                  Delete
+                </button>
+              </div>
             </div>
-        </div>
-        {isDelete == true && (
-            <div className='bg-blue-500 my-2 py-4'>
-            <p className='flex justify-center text-lg text-white'>
-                Are you sure, delete this company?</p>
-            <div className='flex justify-center text-lg space-x-4 mt-4'>
-                <button className='hover:bg-blue-200 px-2 hover:text-white text-blue-500 bg-white rounded-md' onClick={() => {
-                    setIsDelete(false)
-                }}>Cancel</button>
-                <button className='hover:bg-red-400 px-2 hover:text-white text-red-400 bg-white rounded-md' onClick={handleDelete}>Sure !</button>
-            </div>
-        </div>
-        )}
-        {isUpload == true &&(
-            <div className='bg-blue-500 my-2 pb-4'>
-                <span onClick={() => {setIsUpload(false)}} className='text-xl font-semibold hover: cursor-pointer mr-2 mt-1 text-white flex justify-end'>X</span>
-            <div className='flex justify-center text-lg space-x-4'>
-                <button className='hover:bg-blue-200 px-2 hover:text-white text-blue-500 bg-white rounded-md' onClick={handleUpdate}>Update Data</button>
-                <button className='hover:bg-red-400 px-2 hover:text-white text-red-400 bg-white rounded-md' onClick={() => { setIsLogo(true); setIsUpload(false); }}>Update Logo</button>
-            </div>
-        </div>
-        )}
-        {isLogo == true && (
-                <form onSubmit={handleSubmit(onSubmit)} className='bg-blue-500 my-2 py-4 flex justify-center space-x-4'>
-                    <input
-                        className='bg-white p-1 rounded-sm'
-                        type="file"
-                        id="logo"
-                        name="logo"
-                        {...register('logo', { required: true })}></input>
-                    <div className='text-lg space-x-4 my-auto'>
-                        <button className='hover:bg-blue-200 px-2 hover:text-white text-blue-500 bg-white rounded-md' type='submit'>Update</button>
-                        <button className='hover:bg-red-400 px-2 hover:text-white text-red-400 bg-white rounded-md' onClick={() => { setIsLogo(false) }}>Cancel</button>
-                    </div>
+            <div className="grid grid-cols-1 justify-items-center md:justify-items-start lg:grid-cols-4 gap-5 bg-white px-8 py-8">
+              {isLogo == true && (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <input className="bg-white border py-3 px-4 rounded-lg" type="file" id="logo" name="logo" {...register('logo', { required: true })}></input>
+                  <div className="space-x-4 my-auto">
+                    <button className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700" type="submit">
+                      Update
+                    </button>
+                    <button
+                      className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
+                      onClick={() => {
+                        setIsLogo(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </form>
-        )}
-        <div className='flex flex-row bg-white justify-between'>
-            <div className='flex lg:w-3/4 px-4 py-4 mx-5'>
-                <div>
-                    <div className='mb-4'>
-                        <p className='text-2xl font-semibold'>{company.company_name}</p>
+              )}
+              {!isLogo && (
+                <div className="col-span-1 lg:col-span-3 order-last lg:order-first flex flex-col">
+                  <div>
+                    <p className="text-3xl font-bold">{company.company_name}</p>
+                    <p className="text-gray-600 text-sm mb-4">Registered {diffForHumans(company.createdAt)}</p>
+                    <p className="text-gray-800 mb-5">{company.description}</p>
+                  </div>
+                  <div className="flex flex-row flex-wrap justify-start">
+                    <div className="basis-auto mr-4 mb-4">
+                      <p className="text-gray-600 uppercase">Office Address</p>
+                      <p className="text-blue-700">{company.address}</p>
                     </div>
-                    <div className='mb-2 ml-4'>
-                        <p>Office Address</p>
-                        <p>{company.address}</p>
+                    <div className="basis-auto mr-4 mb-4">
+                      <p className="text-gray-600 uppercase">Sector</p>
+                      <p className="text-blue-700">{sector.sector}</p>
                     </div>
-                    <div className='mb-2 ml-4'>
-                        <p>Sector</p>
-                        <p>{sector.sector}</p>
+                    <div className="basis-auto mr-4 mb-4">
+                      <p className="text-gray-600 uppercase">Website</p>
+                      <p className="text-blue-700">{company.website}</p>
                     </div>
-                    <div className='ml-4'>
-                        <p>Website</p>
-                        <p>{company.website}</p>
+                    <div className="basis-auto mr-4 mb-4">
+                      <p className="text-gray-600 uppercase">PIC</p>
+                      <p className="text-blue-700">{company.User.name}</p>
                     </div>
+                  </div>
                 </div>
+              )}
+              {!isLogo && (
+                <div className="col-span-1 lg:col-span-1 self-center border rounded-lg p-4">
+                  {company.logo != null && <Image loader={() => company.logo} className="object-center" src={company.logo} alt="Company Logo" width={180} height={180} />}
+                  {company.logo == null && <Image className="object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={180} height={180} />}
+                </div>
+              )}
             </div>
-            <div className='lg:1/4 px-4 py-8'>
-                <img className='w-44 h-44 rounded-md' src={company.logo ? company.logo : 'https://talentclick.com/wp-content/uploads/2021/08/placeholder-image-300x200.png'}></img>
+          </div>
+          <div className="rounded-lg overflow-hidden border border-slate-200 mt-3">
+            <div className="bg-blue-700 p-4 flex justify-between items-center">
+              <p className="text-lg text-white ml-3">JOB OPENING IN COMPANY</p>
+              <input className="w-72 rounded-md py-2 pl-2" type="text" placeholder="Find job in company..." onChange={handleSearch}></input>
             </div>
-        </div>
-    </div>
-    <div className='mt-4 rounded-sm overflow-hidden'>
-        <div className='bg-blue-500 p-4'>
-            <p className='text-lg text-white'>Description</p>
-        </div>
-        <div className='bg-white h-48 px-8 py-5'>
-            <p>{company.description}</p>
-        </div>
-    </div>
-    <div className='mt-4 rounded-sm overflow-hidden'>
-        <div className='flex flex-row bg-blue-500 p-4 justify-between'>
-            <div>
-                <p className='text-lg text-white'>Job opening in Company</p>
-            </div>
-            <div>
-                <input className='w-72 rounded-md' type='text' placeholder='Find job in Company' onChange={handleSearch}></input>
-            </div>
-        </div>
-        <div className='overflow-x-auto bg-white px-8 py-5'>
-        {filteredJobs.length > 0 ? filteredJobs.map((job) => (
-                    <div key={job.id} className='flex mb-4'>
-                        <img src={company.logo ? company.logo : 'https://talentclick.com/wp-content/uploads/2021/08/placeholder-image-300x200.png'} className="w-24 h-24 rounded-xl shadow-sm mr-5"></img>
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 bg-white px-8 py-8">
+              {filteredJobs.length > 0 ? (
+                filteredJobs.map((job) => (
+                  <>
+                    <div key={job.id} className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
+                      <div className="flex items-center">
+                        {company.logo != null && <Image loader={() => company.logo} className="mr-4 object-cover object-center" src={company.logo} alt="Alternative text" width={60} height={60} />}
+                        {company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
                         <div>
-                            <div>
-                                <p className='font-semibold'>{job.title}</p>
-                                <p className="text-gray-700">{job.location}</p>
-                                <p className="text-gray-700">{job.starting_date}</p>
-                            </div>
-                            <div>
-                                <Link className="font-semibold text-blue-500 hover:text-blue-700" href={`http://localhost:3000/jobs/${job.id}`}>Detail</Link>
-                            </div>
-                        </div>
-                    </div>
-               )) : (
-                <p>No job found</p>
-               )}
-        </div>
-    </div>
-</div>
+                          <Link href={`/seeker/job/${job.id}`}>
+                            <h2 className="text-lg font-semibold text-black hover:text-blue-900">{job.title}</h2>
+                          </Link>
+                          <p className="text-blue-500 hover:text-blue-900">{company.company_name}</p>
 
-    )
-}
-export default  CompanyDetailEmployer
+                          <p className="text-gray-500 text-sm mb-3">
+                            {job.location} &#x2022; {job.type}
+                          </p>
+                          <p className="text-gray-500 text-xs">Posted {diffForHumans(job.createdAt)}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ))
+              ) : (
+                <p>No job found</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+export default CompanyDetailEmployer;
