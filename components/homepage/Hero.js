@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
     <div className="flex">
-      <div className="w-full p-4 mx-auto grid md:grid-cols-2">
+      <div className="w-full py-4 px-8 mx-auto grid md:grid-cols-2">
         <div className="flex flex-col justify-center">
           <h1 className="md:text-6xl sm:text-4xl text-2xl font-bold text-slate-500 py-4">
             Find the best
