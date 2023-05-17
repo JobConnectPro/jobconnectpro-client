@@ -46,19 +46,19 @@ const UserSkill = ({ profile, isAdd, setIsAdd, isDelete, setIsDelete }) => {
 
   return (
     <div className="w-full p-4 pt-0">
-      <div className="w-full flex font-bold text-white">
+      <div className="w-full flex text-white">
         <button
           onClick={() => {
             setIsOpen(!isOpen);
           }}
-          className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600 pl-6"
+          className="w-full flex items-center justify-between p-2 bg-blue-700 hover:bg-blue-600 pl-6 uppercase text-lg rounded-tl-lg"
         >
           Skill <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
         </button>
-        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-500">
+        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-700">
           {!isAdd.skill && (
             <div
-              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-500 hover:bg-blue-600"
+              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-700 hover:bg-blue-600"
               onClick={() => {
                 setIsAdd({ ...isAdd, skill: true });
               }}
@@ -70,30 +70,27 @@ const UserSkill = ({ profile, isAdd, setIsAdd, isDelete, setIsDelete }) => {
         </button>
       </div>
 
-      <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
-        <div className="flex flex-row flex-wrap justify-center items-center gap-2">
+      <div className={isOpen ? 'hidden' : 'w-full bg-white py-4 rounded-b-lg'}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-center mx-10 items-start">
           {!isAdd.skill && (
             <>
               {profile.UserSkilled.map((project) => {
                 return (
-                  <div className="basis-1/4" key={project.id}>
-                    <div className="flex flex-row border-solid border-2 border-slate-400 rounded-md p-4">
-                      <div className="basis-full">
-                        <p className="font-bold text-lg">{project.skill}</p>
-                        <p className="text-sm text-slate-500">{project.UserSkill.level}</p>
+                  <div key={project.id}>
+                    <div className="grid grid-cols-2 border border-gray-200 rounded-lg p-4">
+                      <div>
+                        <p className="text-lg">{project.skill}</p>
+                        <p className="text-sm text-gray-500">{project.UserSkill.level}</p>
                       </div>
-                      <div className="basis-1/5 self-center text-center">
-                        {/* delete button */}
+                      <div className="self-center text-end">
                         <button
                           onClick={() => {
                             setIsDelete({ ...isDelete, skill: true });
                             handleDelete(project.id);
                           }}
-                          className="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded-md"
                         >
-                          <FaTrashAlt size={15} />
+                          <FaTrashAlt size={18} className="text-gray-400 hover:text-blue-900" />{' '}
                         </button>
-                        {/* end of delete button */}
                       </div>
                     </div>
                   </div>

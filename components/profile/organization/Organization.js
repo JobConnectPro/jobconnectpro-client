@@ -46,20 +46,20 @@ const Organization = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, s
 
   return (
     <div className="w-full p-4 pt-0">
-      <div className="w-full flex font-bold text-white">
+      <div className="w-full flex text-white">
         <button
           onClick={() => {
             setIsOpen(!isOpen);
           }}
-          className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600 pl-6"
+          className="w-full flex items-center justify-between p-2 bg-blue-700 hover:bg-blue-600 pl-6 uppercase text-lg rounded-tl-lg"
         >
           Organization
           <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
         </button>
-        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-500">
+        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-700">
           {!isAdd.organization && !isEdit.organization && (
             <div
-              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-500 hover:bg-blue-600"
+              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-700 hover:bg-blue-600"
               onClick={() => {
                 setIsAdd({ ...isAdd, organization: true });
               }}
@@ -70,50 +70,44 @@ const Organization = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, s
           )}
         </button>
       </div>
-      <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
-        <div className="flex flex-row flex-wrap justify-center items-start mx-10 pt-4">
+      <div className={isOpen ? 'hidden' : 'w-full bg-white rounded-b-lg'}>
+        <div className="grid grid-cols-1 justify-center items-start">
           {!isAdd.organization && !isEdit.organization && (
             <>
               {profile.Organizations.map((organization) => {
                 return (
-                  <Fragment key={organization.id}>
-                    <div className="basis-1/4 mb-5 flex">
-                      <p className="font-bold">{new Date(organization.start_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
-                      <p className="font-bold">
+                  <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-10 border-b" key={organization.id}>
+                    <div className="flex">
+                      <p className="text-gray-400">{new Date(organization.start_date).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}</p>
+                      <p className="text-gray-400 mx-1">
                         {''}-{''}
                       </p>
-                      <p className="font-bold">{new Date(organization.end_date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
+                      <p className="text-gray-400">{new Date(organization.end_date).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}</p>
                     </div>
-                    <div className="basis-1/2 mb-5">
-                      <p className="font-bold text-lg">{organization.organization}</p>
-                      <p className="font-bold text-slate-500">{organization.role}</p>
-                      <p className="text-justify">{organization.description}</p>
+                    <div className="col-span-1 lg:col-span-2">
+                      <p className="text-lg">{organization.organization}</p>
+                      <p className="text-gray-700">{organization.role}</p>
+                      <p className="text-justify text-gray-500">{organization.description}</p>
                     </div>
-                    <div className="basis-1/4 mb-5 text-center">
-                      {/* edit button */}
-                      <button
-                        onClick={() => {
-                          setIsEdit({ ...isEdit, organization: true });
-                          setCurrentId(organization.id);
-                        }}
-                        className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
-                      >
-                        <RiEdit2Fill size={15} />
-                      </button>
-                      {/* end of edit button */}
-                      {/* delete button */}
+                    <div className="order-first text-end lg:order-last space-x-2">
                       <button
                         onClick={() => {
                           setIsDelete({ ...isDelete, organization: true });
                           handleDelete(organization.id);
                         }}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded-md ml-2"
                       >
-                        <FaTrashAlt size={15} />
+                        <FaTrashAlt size={18} className="text-gray-400 hover:text-blue-900" />{' '}
                       </button>
-                      {/* end of delete button */}
+                      <button
+                        onClick={() => {
+                          setIsEdit({ ...isEdit, organization: true });
+                          setCurrentId(organization.id);
+                        }}
+                      >
+                        <RiEdit2Fill size={18} className="text-blue-700 hover:text-blue-900" />{' '}
+                      </button>
                     </div>
-                  </Fragment>
+                  </div>
                 );
               })}
             </>
