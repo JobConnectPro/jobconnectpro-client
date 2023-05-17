@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiUpload2Fill } from 'react-icons/ri';
+import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiUpload2Fill, Ri24HoursLine } from 'react-icons/ri';
 import { MdEmail, MdPeopleAlt, MdContactPhone, MdCalendarMonth, MdLocationOn } from 'react-icons/md';
 import BasicInformationEditForm from './EditForm';
 import BasicInformationUploadForm from './UploadForm';
@@ -15,22 +15,37 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
     year: 'numeric',
   });
 
+  const diffForHumans = (date) => {
+    const now = new Date();
+    const newDate = new Date(date);
+    const diffInMs = Math.abs(now - newDate);
+    const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInDays === 0) {
+      return 'today';
+    } else if (diffInDays === 1) {
+      return 'yesterday';
+    } else {
+      return `${diffInDays} days ago`;
+    }
+  };
+
   return (
     <div className="w-full p-4 pt-6">
-      <div className="w-full flex font-bold text-white">
+      <div className="w-full flex text-white">
         <button
           onClick={() => {
             setIsOpen(!isOpen);
           }}
-          className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600 pl-6"
+          className="w-full flex items-center justify-between p-2 bg-blue-700 hover:bg-blue-600 pl-6 uppercase text-lg rounded-tl-lg"
         >
           Basic Information
           <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
         </button>
-        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-500">
+        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-700">
           {!isEdit.basicInformation && (
             <div
-              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-500 hover:bg-blue-600"
+              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-700 hover:bg-blue-600"
               onClick={() => {
                 setIsEdit({ ...isEdit, basicInformation: true });
               }}
@@ -40,10 +55,10 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
             </div>
           )}
         </button>
-        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-500">
+        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-700">
           {!isEdit.basicInformation && (
             <div
-              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-500 hover:bg-blue-600"
+              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-700 hover:bg-blue-600"
               onClick={() => {
                 setIsUpload(true);
               }}
@@ -56,55 +71,60 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
       </div>
 
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-8 rounded-b-lg'}>
-        <div className="flex flex-row flex-wrap justify-center md:justify-start items-center mx-6">
-          {/* basic information */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-2 items-center">
           {!isEdit.basicInformation && !isUpload && (
             <>
-              {/* profile pict */}
-              <div className="basis-full md:basis-1/4 mb-7 md:mb-0">
-                <div className="w-24 h-24 rounded-full overflow-hidden mx-auto">
+              <div>
+                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto">
                   {profile.photo != null && (
-                    <Image loader={() => profile.photo} className="w-full h-full object-cover object-center" src={profile.photo} alt="Profile Picture" width={100} height={100} />
+                    <Image loader={() => profile.photo} className="w-full h-full object-cover object-center" src={profile.photo} alt="Profile Picture" width={150} height={150} />
                   )}
-                  {profile.photo == null && <Image className="w-full h-full object-cover object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={100} height={100} />}
+                  {profile.photo == null && <Image className="w-full h-full object-cover object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={150} height={150} />}
                 </div>
               </div>
-              {/* end of profile pict */}
-              <div className="basis-full md:basis-3/5 flex flex-col flex-wrap">
-                <div>
-                  <h1 className="font-semibold text-sm md:text-2xl">{profile.name}</h1>
-                </div>
-                <div className="space-y-1">
-                  <p className="flex items-center">
-                    <span className="mr-2">
-                      <MdEmail size={18} />
-                    </span>
-                    <span>{profile.email}</span>
-                  </p>
-                  <p className="flex items-center">
-                    <span className="mr-2">
-                      <MdPeopleAlt size={18} />
-                    </span>
-                    <span>{profile.gender}</span>
-                  </p>
-                  <p className="flex items-center">
-                    <span className="mr-2">
-                      <MdContactPhone size={18} />
-                    </span>
-                    <span>{profile.phone}</span>
-                  </p>
-                  <p className="flex items-center">
-                    <span className="mr-2">
-                      <MdCalendarMonth size={18} />
-                    </span>
-                    <span>{birthday}</span>
-                  </p>
-                  <p className="flex">
-                    <span className="mr-2">
-                      <MdLocationOn size={18} />
-                    </span>
-                    <span className="md:w-1/2 leading-tight">{profile.address}</span>
-                  </p>
+              <div className="col-span-1 lg:col-span-3 mx-10 mt-5 lg:mx-0 lg:mt-0">
+                <h1 className="text-2xl mb-2">{profile.name}</h1>
+                <div className="grid grid-cols-1 lg:grid-cols-7 gap-1">
+                  <div className="space-y-1 col-span-1 lg:col-span-2">
+                    <p className="flex items-center">
+                      <span className="mr-2">
+                        <MdEmail size={18} className='text-gray-700' />
+                      </span>
+                      <span className="text-gray-500">{profile.email}</span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="mr-2">
+                        <MdPeopleAlt size={18} className='text-gray-700' />
+                      </span>
+                      <span className="text-gray-500">{profile.gender}</span>
+                    </p>
+                    <p className="flex items-center">
+                      <span className="mr-2">
+                        <MdContactPhone size={18} className='text-gray-700' />
+                      </span>
+                      <span className="text-gray-500">{profile.phone}</span>
+                    </p>
+                  </div>
+                  <div className="space-y-1 col-span-1 lg:col-span-5">
+                    <p className="flex items-center">
+                      <span className="mr-2">
+                        <MdCalendarMonth size={18} className='text-gray-700' />
+                      </span>
+                      <span className="text-gray-500">{birthday}</span>
+                    </p>
+                    <p className="flex">
+                      <span className="mr-2">
+                        <MdLocationOn size={18} className='text-gray-700' />
+                      </span>
+                      <span className="text-gray-500">{profile.address}</span>
+                    </p>
+                    <p className="flex">
+                      <span className="mr-2">
+                        <Ri24HoursLine size={18} className='text-gray-700' />
+                      </span>
+                      <span className="text-gray-500">Registered {diffForHumans(profile.createdAt)}</span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </>

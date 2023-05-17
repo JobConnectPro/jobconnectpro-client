@@ -46,20 +46,20 @@ const Achievement = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, se
 
   return (
     <div className="w-full p-4 pt-0">
-      <div className="w-full flex font-bold text-white">
+      <div className="w-full flex text-white">
         <button
           onClick={() => {
             setIsOpen(!isOpen);
           }}
-          className="w-full flex items-center justify-between p-2 bg-blue-500 hover:bg-blue-600 pl-6"
+          className="w-full flex items-center justify-between p-2 bg-blue-700 hover:bg-blue-600 pl-6 uppercase text-lg rounded-tl-lg"
         >
           Achievement
           <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
         </button>
-        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-500">
+        <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-700">
           {!isAdd.achievement && !isEdit.achievement && (
             <div
-              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-500 hover:bg-blue-600"
+              className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-700 hover:bg-blue-600"
               onClick={() => {
                 setIsAdd({ ...isAdd, achievement: true });
               }}
@@ -71,46 +71,40 @@ const Achievement = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, se
         </button>
       </div>
 
-      <div className={isOpen ? 'hidden' : 'w-full bg-white py-4'}>
-        <div className="flex flex-row flex-wrap justify-center items-start mx-10 pt-4">
+      <div className={isOpen ? 'hidden' : 'w-full bg-white rounded-b-lg'}>
+        <div className="grid grid-cols-1 justify-center items-start">
           {!isAdd.achievement && !isEdit.achievement && (
             <>
               {profile.Achievements.map((achievement) => {
                 return (
-                  <Fragment key={achievement.id}>
-                    <div className="basis-1/4 mb-5">
-                      <p className="font-bold">{new Date(achievement.date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
+                  <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-10 border-b" key={achievement.id}>
+                    <div>
+                      <p className="text-gray-400">{new Date(achievement.date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
                     </div>
-                    <div className="basis-1/2 mb-5">
-                      <p className="font-bold text-lg">{achievement.title}</p>
-                      <p className="font-bold text-slate-500">{achievement.issuer}</p>
-                      <p className="text-justify">{achievement.description}</p>
+                    <div className="col-span-1 lg:col-span-2">
+                      <p className="text-lg">{achievement.title}</p>
+                      <p className="text-gray-700">{achievement.issuer}</p>
+                      <p className="text-justify text-gray-500">{achievement.description}</p>
                     </div>
-                    <div className="basis-1/4 mb-5 text-center">
-                      {/* edit button */}
-                      <button
-                        onClick={() => {
-                          setIsEdit({ ...isEdit, achievement: true });
-                          setCurrentId(achievement.id);
-                        }}
-                        className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold p-1 rounded-md ml-2"
-                      >
-                        <RiEdit2Fill size={15} />
-                      </button>
-                      {/* end of edit button */}
-                      {/* delete button */}
+                    <div className="order-first text-end lg:order-last space-x-2">
                       <button
                         onClick={() => {
                           setIsDelete({ ...isDelete, achievement: true });
                           handleDelete(achievement.id);
                         }}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold p-1 rounded-md ml-2"
                       >
-                        <FaTrashAlt size={15} />
+                        <FaTrashAlt size={18} className="text-gray-400 hover:text-blue-900" />{' '}
                       </button>
-                      {/* end of delete button */}
+                      <button
+                        onClick={() => {
+                          setIsEdit({ ...isEdit, achievement: true });
+                          setCurrentId(achievement.id);
+                        }}
+                      >
+                        <RiEdit2Fill size={18} className="text-blue-700 hover:text-blue-900" />{' '}
+                      </button>
                     </div>
-                  </Fragment>
+                  </div>
                 );
               })}
             </>
