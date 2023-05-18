@@ -34,22 +34,22 @@ const Resume = ({ profile, isEdit, setIsEdit }) => {
         </button>
       </div>
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-7 rounded-b-lg'}>
-        <div className="flex flex-row flex-wrap justify-start items-center mx-10">
+        <div className="flex flex-row flex-wrap justify-start items-center mx-6">
           {!isEdit.resume && (
             <>
               <p className="text-justify text-gray-500 mb-3">
                 Note: Your profile is the first thing recruiters see and not your uploaded resume, so make sure your JobConnect profile is as complete and detailed as your uploaded resume.
               </p>
               <button className="bg-blue-500 text-white py-4 px-5 rounded-lg flex items-center space-x-2">
-                <RiEyeFill size={20} /> 
+                <RiEyeFill size={20} />
                 <a href={profile.resume} target="_blank">
                   Resume Preview
                 </a>
               </button>
             </>
           )}
-          {isEdit.resume && <ResumeEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
         </div>
+        {isEdit.resume && <ResumeEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
       </div>
     </div>
   );

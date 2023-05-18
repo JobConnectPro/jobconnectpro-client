@@ -33,7 +33,7 @@ const SalaryExpectation = ({ profile, isEdit, setIsEdit }) => {
       </div>
 
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-8 rounded-b-lg'}>
-        <div className="flex flex-row flex-wrap justify-start items-center mx-10">
+        <div className="flex flex-row flex-wrap justify-start items-center mx-6">
           {!isEdit.salary && (
             <>
               <p className="bg-gray-400 text-sm text-white py-2 px-3 rounded-full mr-3">
@@ -41,12 +41,12 @@ const SalaryExpectation = ({ profile, isEdit, setIsEdit }) => {
               </p>
               <p className="text-gray-500">
                 {' '}
-                I expect <span className="text-black font-bold">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(profile.salary_expectation)}</span> per month
+                I expect <span className="text-black font-bold">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(profile.salary_expectation)}</span> {profile.salary_frequency}
               </p>
             </>
           )}
-          {isEdit.salary && <SalaryExpectationEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
         </div>
+        {isEdit.salary && <SalaryExpectationEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
       </div>
     </div>
   );

@@ -46,11 +46,11 @@ const BasicInformationUploadForm = ({ isUpload, setIsUpload }) => {
   };
 
   return (
-    <div className="w-full text-end">
+    <div className="col-span-4 mx-6">
       <form className="space-y-3" onSubmit={handleSubmit}>
-        <div className="flex items-center mx-auto justify-center">
+        <div className="grid items-center mx-auto">
           <label htmlFor="photo" className="mr-2 basis-36">
-            Photo:
+            Photo<span className="required text-red-600 text-lg">*</span>
           </label>
           <input
             type="file"
@@ -59,24 +59,23 @@ const BasicInformationUploadForm = ({ isUpload, setIsUpload }) => {
             onChange={(event) => {
               setFile(event.target.files[0]);
             }}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md"
+            accept=".jpg, .png"
             required
           />
         </div>
-        <div>
-          <div className="flex justify-center text-center gap-4">
-            <button
-              onClick={() => {
-                setIsUpload(false);
-              }}
-              className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
-            >
-              Cancel
-            </button>
-            <button type="submit" className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
-              Submit
-            </button>
-          </div>
+        <div className="flex justify-center text-center space-x-2 pt-4">
+          <button
+            onClick={() => {
+              setIsUpload(false);
+            }}
+            className="bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
+          >
+            Cancel
+          </button>
+          <button type="submit" className="bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
+            Submit
+          </button>
         </div>
       </form>
     </div>

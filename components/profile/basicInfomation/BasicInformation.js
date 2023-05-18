@@ -43,7 +43,7 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
           <div>{isOpen ? <RiArrowDropDownLine size={40} /> : <RiArrowDropUpLine size={40} />}</div>
         </button>
         <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-700">
-          {!isEdit.basicInformation && (
+          {!isEdit.basicInformation && !isUpload && (
             <div
               className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-700 hover:bg-blue-600"
               onClick={() => {
@@ -56,7 +56,7 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
           )}
         </button>
         <button className="w-2/12 flex items-center text-center border-l border-slate-300 bg-blue-700">
-          {!isEdit.basicInformation && (
+          {!isEdit.basicInformation && !isUpload && (
             <div
               className="w-[100%] h-full flex p-2 justify-between items-center text-end bg-blue-700 hover:bg-blue-600"
               onClick={() => {
@@ -88,19 +88,19 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
                   <div className="space-y-1 col-span-1 lg:col-span-2">
                     <p className="flex items-center">
                       <span className="mr-2">
-                        <MdEmail size={18} className='text-gray-700' />
+                        <MdEmail size={18} className="text-gray-700" />
                       </span>
                       <span className="text-gray-500">{profile.email}</span>
                     </p>
                     <p className="flex items-center">
                       <span className="mr-2">
-                        <MdPeopleAlt size={18} className='text-gray-700' />
+                        <MdPeopleAlt size={18} className="text-gray-700" />
                       </span>
                       <span className="text-gray-500">{profile.gender}</span>
                     </p>
                     <p className="flex items-center">
                       <span className="mr-2">
-                        <MdContactPhone size={18} className='text-gray-700' />
+                        <MdContactPhone size={18} className="text-gray-700" />
                       </span>
                       <span className="text-gray-500">{profile.phone}</span>
                     </p>
@@ -108,19 +108,19 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
                   <div className="space-y-1 col-span-1 lg:col-span-5">
                     <p className="flex items-center">
                       <span className="mr-2">
-                        <MdCalendarMonth size={18} className='text-gray-700' />
+                        <MdCalendarMonth size={18} className="text-gray-700" />
                       </span>
                       <span className="text-gray-500">{birthday}</span>
                     </p>
                     <p className="flex">
                       <span className="mr-2">
-                        <MdLocationOn size={18} className='text-gray-700' />
+                        <MdLocationOn size={18} className="text-gray-700" />
                       </span>
                       <span className="text-gray-500">{profile.address}</span>
                     </p>
                     <p className="flex">
                       <span className="mr-2">
-                        <Ri24HoursLine size={18} className='text-gray-700' />
+                        <Ri24HoursLine size={18} className="text-gray-700" />
                       </span>
                       <span className="text-gray-500">Registered {diffForHumans(profile.createdAt)}</span>
                     </p>
@@ -129,11 +129,8 @@ const BasicInformation = ({ profile, isEdit, setIsEdit, isUpload, setIsUpload })
               </div>
             </>
           )}
-          {/* end of basic information */}
-          {/* form */}
           {isEdit.basicInformation && !isUpload && <BasicInformationEditForm isEdit={isEdit} setIsEdit={setIsEdit} />}
           {isUpload && !isEdit.basicInformation && <BasicInformationUploadForm isUpload={isUpload} setIsUpload={setIsUpload} />}
-          {/* end of form */}
         </div>
       </div>
     </div>

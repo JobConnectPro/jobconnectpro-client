@@ -34,7 +34,7 @@ const Summary = ({ profile, isEdit, setIsEdit }) => {
         </button>
       </div>
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-7 rounded-b-lg'}>
-        <div className="grid grid-cols-1 items-center mx-10">
+        <div className="grid grid-cols-1 items-center mx-6">
           {!isEdit.summary && (
             <>
               <p className="text-justify text-gray-500">{profile.summary}</p>

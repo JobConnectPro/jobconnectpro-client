@@ -85,60 +85,58 @@ const BasicInformationEditForm = ({ isEdit, setIsEdit }) => {
   };
 
   return (
-    <div className="w-full text-end">
+    <div className="col-span-4 mx-6">
       <form className="space-y-3" onSubmit={handleSubmit}>
-        <div className="flex items-center mx-auto justify-center">
+        <div className="grid items-center mx-auto">
           <label htmlFor="name" className="mr-2 basis-36">
-            Name:
+            Name<span className="required text-red-600 text-lg">*</span>
           </label>
-          <input type="text" id="name" name="name" value={input.name} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
+          <input type="text" id="name" name="name" value={input.name} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md" required maxLength={255} />
         </div>
 
-        <div className="flex items-center mx-auto justify-center">
+        <div className="grid items-center mx-auto">
           <label htmlFor="birthday" className="mr-2 basis-36">
-            Birthday:
+            Birthday<span className="required text-red-600 text-lg">*</span>
           </label>
-          <input type="date" id="birthday" value={input.birthday} onChange={handleChange} name="birthday" className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
+          <input type="date" id="birthday" value={input.birthday} onChange={handleChange} name="birthday" className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md" required />
         </div>
 
-        <div className="flex items-center mx-auto justify-center">
+        <div className="grid items-center mx-auto">
           <label htmlFor="gender" className="mr-2 basis-36">
-            Gender:
+            Gender<span className="required text-red-600 text-lg">*</span>
           </label>
-          <select id="gender" name="gender" value={input.gender} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-2 pl-1 pr-3" required>
+          <select id="gender" name="gender" value={input.gender} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-3 pl-1 pr-3" required>
             <option value="">--Select an option--</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
         </div>
 
-        <div className="flex items-center mx-auto justify-center">
+        <div className="grid items-center mx-auto">
           <label htmlFor="phone" className="mr-2 basis-36">
-            Mobile Number:
+            Mobile Number<span className="required text-red-600 text-lg">*</span>
           </label>
-          <input type="text" id="phone" name="phone" value={input.phone} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
+          <input type="number" id="phone" name="phone" value={input.phone} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md" required />
         </div>
 
-        <div className="flex items-center mx-auto justify-center">
+        <div className="grid items-center mx-auto">
           <label htmlFor="address" className="mr-2 basis-36">
-            Address:
+            Address
           </label>
-          <input type="text" id="address" name="address" value={input.address} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
+          <input type="text" id="address" name="address" value={input.address} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md" maxLength={255} />
         </div>
-        <div>
-          <div className="flex justify-center text-center gap-4">
-            <button
-              onClick={() => {
-                setIsEdit({ ...isEdit, basicInformation: false });
-              }}
-              className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
-            >
-              Cancel
-            </button>
-            <button type="submit" className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
-              Submit
-            </button>
-          </div>
+        <div className="flex justify-center text-center space-x-2 pt-4">
+          <button
+            onClick={() => {
+              setIsEdit({ ...isEdit, basicInformation: false });
+            }}
+            className="bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
+          >
+            Cancel
+          </button>
+          <button type="submit" className="bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
+            Submit
+          </button>
         </div>
       </form>
     </div>

@@ -145,93 +145,105 @@ const WorkExperienceForm = ({ isEdit, setIsEdit, currentId, setCurrentId, isAdd,
   };
 
   return (
-    <div className="w-full text-end">
-      <form className="space-y-2 p-4" onSubmit={handleSubmit}>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="project_name" className="mr-2 text-start basis-36">
-            Job Title:
-          </label>
-          <input type="text" id="job_title" name="job_title" value={input.job_title} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="role" className="mr-2 text-start basis-36">
-            Company:
-          </label>
-          <input type="text" id="company" name="company" value={input.company} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="start_date" className="mr-2 text-start basis-36">
-            Start Date:
-          </label>
-          <input type="date" id="start_date" name="start_date" value={input.start_date} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="end_date" className="mr-2 text-start basis-36">
-            End Date:
-          </label>
-          <input type="date" id="end_date" name="end_date" value={input.end_date} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="description" className="mr-2 text-start basis-36 self-start">
-            Description:
-          </label>
-          <textarea id="description" name="description" value={input.description} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full" required rows="5" />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="role" className="mr-2 text-start basis-36">
-            Job Level:
-          </label>
-          <input type="text" id="job_level" name="job_level" value={input.job_level} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="role" className="mr-2 text-start basis-36">
-            Salary:
-          </label>
-          <input type="number" id="salary" name="salary" value={input.salary} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md" required />
-        </div>
-        <div className="flex items-center mx-auto justify-center">
-          <label htmlFor="role" className="mr-2 text-start basis-36">
-            Salary Freuency:
+    <div className="col-span-4 mx-6 py-8">
+      <form className="space-y-3" onSubmit={handleSubmit}>
+        <div className="grid items-center mx-auto">
+          <label htmlFor="project_name" className="mr-2 basis-36">
+            Job Title<span className="required text-red-600 text-lg">*</span>
           </label>
           <input
             type="text"
-            id="salary_frequency"
-            name="salary_frequency"
-            value={input.salary_frequency}
+            id="job_title"
+            name="job_title"
+            value={input.job_title}
             onChange={handleChange}
-            className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md"
+            className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md"
             required
+            maxLength={255}
           />
         </div>
-        <div>
-          <div className="flex justify-center text-center gap-4">
-            <button
-              onClick={() => {
-                if (isEdit) {
-                  setIsEdit({ ...isEdit, workExperience: false });
-                } else {
-                  setIsAdd({ ...isAdd, workExperience: false });
-                }
-                setCurrentId(0);
-                setInput({
-                  job_title: '',
-                  company: '',
-                  start_date: '',
-                  end_date: '',
-                  description: '',
-                  job_level: '',
-                  salary: '',
-                  salary_frequency: '',
-                });
-              }}
-              className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
-            >
-              Cancel
-            </button>
-            <button type="submit" className="my-4 bg-blue-500 p-2 px-4 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
-              Submit
-            </button>
-          </div>
+        <div className="grid items-center mx-auto">
+          <label htmlFor="role" className="mr-2 basis-36">
+            Company<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <input type="text" id="company" name="company" value={input.company} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md" required maxLength={255} />
+        </div>
+        <div className="grid items-center mx-auto">
+          <label htmlFor="start_date" className="mr-2 basis-36">
+            Start Date<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <input type="date" id="start_date" name="start_date" value={input.start_date} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md" required />
+        </div>
+        <div className="grid items-center mx-auto">
+          <label htmlFor="end_date" className="mr-2 basis-36">
+            End Date<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <input type="date" id="end_date" name="end_date" value={input.end_date} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md" required />
+        </div>
+        <div className="grid items-center mx-auto">
+          <label htmlFor="description" className="mr-2 basis-36 self-start">
+            Description
+          </label>
+          <textarea id="description" name="description" value={input.description} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full" rows="5" maxLength={255} />
+        </div>
+        <div className="grid items-center mx-auto">
+          <label htmlFor="role" className="mr-2 basis-36">
+            Job Level<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <select id="job_level" name="job_level" value={input.job_level} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md" required>
+            <option value="">-- Select Type --</option>
+            <option value="Internship/Ojt">Internship/Ojt</option>
+            <option value="Entry-Level/Junior">Entry-Level/Junior</option>
+            <option value="Associate/Supervisor">Associate/Supervisor</option>
+            <option value="Associate/Supervisor">Mid-Senior-Level/Manager</option>
+            <option value="Associate/Supervisor">Director/Executive</option>
+          </select>
+        </div>
+        <div className="grid items-center mx-auto">
+          <label htmlFor="role" className="mr-2 basis-36">
+            Salary<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <input type="number" id="salary" name="salary" value={input.salary} onChange={handleChange} className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md" required />
+        </div>
+        <div className="grid items-center mx-auto">
+          <label htmlFor="salary_frequency" className="mr-2 basis-36">
+            Salary Frequency<span className="required text-red-600 text-lg">*</span>
+          </label>
+          <select id="salary_frequency" name="salary_frequency" value={input.salary_frequency} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-3 pl-1 pr-3" required>
+            <option value="">--Select an option--</option>
+            <option value="per year">per year</option>
+            <option value="per month">per month</option>
+            <option value="per day">per day</option>
+            <option value="per hour">per hour</option>
+          </select>
+        </div>
+        <div className="flex justify-center text-center space-x-2 pt-4">
+          <button
+            onClick={() => {
+              if (isEdit) {
+                setIsEdit({ ...isEdit, workExperience: false });
+              } else {
+                setIsAdd({ ...isAdd, workExperience: false });
+              }
+              setCurrentId(0);
+              setInput({
+                job_title: '',
+                company: '',
+                start_date: '',
+                end_date: '',
+                description: '',
+                job_level: '',
+                salary: '',
+                salary_frequency: '',
+              });
+            }}
+            className="bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
+          >
+            Cancel
+          </button>
+          <button type="submit" className="bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
+            Submit
+          </button>
         </div>
       </form>
     </div>
