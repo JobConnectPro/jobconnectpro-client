@@ -107,54 +107,56 @@ const ApplicantStatus = () => {
             </div>
           )}
           {isEdit && (
-            <form className="space-y-3" onSubmit={handleSubmit}>
-              <div className="flex items-center mx-auto justify-center">
-                <label htmlFor="status" className="mr-2 basis-36">
-                  Status:
-                </label>
-                <select id="status" name="status" value={input.status} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-2 pl-1 pr-3" required>
-                  <option value="">--Select an option--</option>
-                  <option value="Application being reviewed">Application being reviewed</option>
-                  <option value="For Interview">For Interview</option>
-                  <option value="You requested for a reschedule">You requested for a reschedule</option>
-                  <option value="You declined the interview">You declined the interview</option>
-                  <option value="Application rejected">Application rejected</option>
-                </select>
-              </div>
-              <div className="flex items-center mx-auto justify-center">
-                <label htmlFor="description" className="mr-2 basis-36">
-                  Description:
-                </label>
-                <textarea
-                  id="description"
-                  name="description"
-                  value={input.description}
-                  onChange={handleChange}
-                  className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full"
-                  required
-                  rows="5"
-                />
-              </div>
-              <div>
-                <div className="flex justify-center text-center gap-4">
-                  <button
-                    onClick={() => {
-                      setIsEdit(false);
-                      setInput({
-                        status: '',
-                        description: '',
-                      });
-                    }}
-                    className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
-                  >
-                    Cancel
-                  </button>
-                  <button type="submit" className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
-                    Submit
-                  </button>
+            <div>
+              <form className="space-y-3" onSubmit={handleSubmit}>
+                <div className="grid items-center mx-auto">
+                  <label htmlFor="status" className="mr-2 basis-36">
+                    Status<span className="required text-red-600 text-lg">*</span>
+                  </label>
+                  <select id="status" name="status" value={input.status} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-3 pl-1 pr-3" required>
+                    <option value="">--Select an option--</option>
+                    <option value="Application being reviewed">Application being reviewed</option>
+                    <option value="For Interview">For Interview</option>
+                    <option value="You requested for a reschedule">You requested for a reschedule</option>
+                    <option value="You declined the interview">You declined the interview</option>
+                    <option value="Application rejected">Application rejected</option>
+                  </select>
                 </div>
-              </div>
-            </form>
+                <div className="grid items-center mx-auto">
+                  <label htmlFor="description" className="mr-2 basis-36">
+                    Description<span className="required text-red-600 text-lg">*</span>
+                  </label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    value={input.description}
+                    onChange={handleChange}
+                    className="basis-1/2 border border-gray-300 px-2 py-1 rounded-md w-full"
+                    required
+                    rows="5"
+                  />
+                </div>
+                <div>
+                  <div className="flex justify-center text-center space-x-2 pt-4 py-4">
+                    <button
+                      onClick={() => {
+                        setIsEdit(false);
+                        setInput({
+                          status: '',
+                          description: '',
+                        });
+                      }}
+                      className="bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           )}
         </div>
       </div>

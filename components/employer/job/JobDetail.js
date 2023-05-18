@@ -62,39 +62,39 @@ const JobDetail = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success(`${data.message}`, {
-          position: 'top-center',
-          autoClose: 1000,
+          position: 'top-right',
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: 'colored',
         });
         router.push('/employer/job');
       } else {
         toast.error(`${data.message}`, {
-          position: 'top-center',
-          autoClose: 1000,
+          position: 'top-right',
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: 'colored',
         });
       }
     } catch (error) {
       console.log(`Error while deleting job: ${error}`);
       toast.error(`${error.message}`, {
-        position: 'top-center',
-        autoClose: 1000,
+        position: 'top-right',
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: 'colored',
       });
     }
   };
@@ -102,7 +102,12 @@ const JobDetail = () => {
     <div className="mt-[22px] pb-9">
       {!isEditFormOpen && (
         <>
-          <h1 className="mx-6 mb-3 text-3xl font-bold">My Job Detail & Applicant</h1>
+          <h1 className="mx-6 mb-3 text-3xl font-bold">
+            My Job Detail &{' '}
+            <span className="text-blue-700 hover:text-blue-500 cursor-pointer">
+              <a href="#applicant"> Applicant</a>
+            </span>
+          </h1>
           <div className="bg-white border border-slate-200 rounded-lg overflow-hidden mx-6">
             <div className="flex items-center justify-center pt-10">
               {job.Company?.logo != null && <Image loader={() => job.Company?.logo} className="object-center" src={job.Company?.logo} alt="Profile Picture" width={150} height={150} />}
@@ -169,38 +174,51 @@ const JobDetail = () => {
       )}
       {!isEditFormOpen && (
         <>
-          <h1 className="mx-6 mt-6 mb-2 text-2xl font-bold">Applicant</h1>
-          <div className="grid grid-cols-1 lg:grid-cols-3 grid-flow-row justify-start gap-2 mx-6">
-            {display && (
-              <>
-                <div role="status" className="max-w-sm animate-pulse">
-                  <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4" />
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5" />
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5" />
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5" />
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]" />
-                  <span className="sr-only">Loading...</span>
-                </div>
-              </>
-            )}
-            {job !== null &&
-              job.JobApplication?.map((applicant) => (
-                <Link href={`/employer/job/${job.id}/applicant/${applicant.id}`} key={applicant.id}>
-                  <div className="bg-gray-800 hover:bg-slate-900 rounded-lg border-slate-200 border p-6 flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div>
-                        <h2 className="text-lg font-semibold text-white">{applicant.name}</h2>
-                        <p className="text-blue-500">{applicant.email}</p>
-                        <p className="text-yellow-500 text-sm mb-3">
-                          <span className="text-yellow-500">Salary Expectation: </span> {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(applicant.salary_expectation)}
-                        </p>
-                        <p className="text-green-500 text-sm">{applicant.Application?.status}</p>
+          <div className="rounded-lg overflow-hidden border border-slate-200 mt-3 mx-6" id="applicant">
+            <div className="bg-blue-700 p-4 flex justify-between items-center">
+              <p className="text-lg text-white ml-3">APPLICANT</p>
+            </div>
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 bg-white px-8 py-8">
+              {display && (
+                <>
+                  <div role="status" className="max-w-sm animate-pulse">
+                    <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4" />
+                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5" />
+                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5" />
+                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5" />
+                    <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]" />
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </>
+              )}
+              {job !== null &&
+                job.JobApplication?.map((applicant) => (
+                  <Link href={`/employer/job/${job.id}/applicant/${applicant.id}`} key={applicant.id}>
+                    <div className="bg-white hover:bg-gray-300 rounded-lg border-gray-300 border p-6 flex items-center justify-between">
+                      <div className="flex items-center">
+                        <div>
+                          <h2 className="text-blue-700 text-lg">{applicant.name}</h2>
+                          <p className="mb-3 text-gray-600">{applicant.email}</p>
+                          <p className="text-sm text-gray-500">
+                            Salary Expectation: {applicant.privacy === 'Public' && new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(applicant.salary_expectation)}
+                            {applicant.privacy !== 'Public' && <span className="text-red-500">Private</span>}
+                          </p>
+                          <p className="text-sm mb-3 text-gray-500">
+                            Applied On:{' '}
+                            {new Date(applicant.Application?.createdAt).toLocaleDateString('id-ID', {
+                              day: 'numeric',
+                              month: 'long',
+                              year: 'numeric',
+                            })}
+                          </p>
+                          <p className="text-green-500">{applicant.Application?.status}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+            </div>
           </div>
         </>
       )}
