@@ -78,23 +78,25 @@ const CompanyDetail = ({ res }) => {
             {filteredJobs.length > 0 ? (
               filteredJobs.map((job) => (
                 <>
-                  <div key={job.id} className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
-                    <div className="flex items-center">
-                      {company.logo != null && <Image loader={() => company.logo} className="mr-4 object-cover object-center" src={company.logo} alt="Alternative text" width={60} height={60} />}
-                      {company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
-                      <div>
-                        <Link href={`/seeker/job/${job.id}`}>
-                          <h2 className="text-lg font-semibold text-black hover:text-blue-900">{job.title}</h2>
-                        </Link>
-                        <p className="text-blue-500 hover:text-blue-900">{company.company_name}</p>
+                  {job.status === '1' && (
+                    <div key={job.id} className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
+                      <div className="flex items-center">
+                        {company.logo != null && <Image loader={() => company.logo} className="mr-4 object-cover object-center" src={company.logo} alt="Alternative text" width={60} height={60} />}
+                        {company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
+                        <div>
+                          <Link href={`/seeker/job/${job.id}`}>
+                            <h2 className="text-lg font-semibold text-black hover:text-blue-900">{job.title}</h2>
+                          </Link>
+                          <p className="text-blue-500 hover:text-blue-900">{company.company_name}</p>
 
-                        <p className="text-gray-500 text-sm mb-3">
-                          {job.location} &#x2022; {job.type}
-                        </p>
-                        <p className="text-gray-500 text-xs">Posted {diffForHumans(job.createdAt)}</p>
+                          <p className="text-gray-500 text-sm mb-3">
+                            {job.location} &#x2022; {job.type}
+                          </p>
+                          <p className="text-gray-500 text-xs">Posted {diffForHumans(job.createdAt)}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </>
               ))
             ) : (

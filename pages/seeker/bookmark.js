@@ -97,7 +97,7 @@ const Bookmarks = ({ data }) => {
                     <p className="text-gray-500 text-sm mb-3">
                       {bookmark.location} &#x2022; {bookmark.type}
                     </p>
-                    <p className="text-gray-500 text-xs">Posted {diffForHumans(bookmark.createdAt)}</p>
+                    <p className="text-gray-500 text-xs">{bookmark.status === '1' ? <span className='text-green-500'>Active</span> : <span className='text-red-500'>Inactive</span>} &#x2022; Posted {diffForHumans(bookmark.createdAt)}</p>
                   </div>
                 </div>
                 <button
