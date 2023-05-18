@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { getSectors, addCompany } from '@/modules/fetchCompanies';
+import { toast } from 'react-toastify';
 
 const AddCompanyForm = () => {
   const [sectors, setSectors] = useState([]);
@@ -24,11 +25,29 @@ const AddCompanyForm = () => {
   const onSubmit = async (data) => {
     try {
       const response = await addCompany(data);
-      // console.log(response);
-      // reset();
+      toast.success(response.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
       router.push('http://localhost:3000/employer/companies');
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     }
   };
 

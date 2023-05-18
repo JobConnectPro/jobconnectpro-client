@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { getSectors, updateCompany } from '@/modules/fetchCompanies';
+import { toast } from 'react-toastify';
 
 const CompanyUpdate = ({ res }) => {
   const prevCompany = res;
@@ -25,11 +26,30 @@ const CompanyUpdate = ({ res }) => {
   const onSubmit = async (data) => {
     try {
       const response = await updateCompany(data, prevCompany.id);
-      console.log(response);
+      toast.success(response.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
       // reset();
       router.push(`http://localhost:3000/employer/companies/${prevCompany.id}`);
     } catch (error) {
       console.error(error);
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     }
   };
 

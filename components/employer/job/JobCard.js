@@ -32,7 +32,7 @@ const JobPostCard = ({ job }) => {
           <p className="text-gray-500 text-sm mb-3">
             {job.location} &#x2022; {job.type}
           </p>
-          <p className="text-gray-500 text-xs">Posted {diffForHumans(job.createdAt)}</p>
+          <p className="text-gray-500 text-xs">{job.status === '1' ? <span className='text-green-500'>Active</span> : <span className='text-red-500'>Inactive</span>} &#x2022; Posted {diffForHumans(job.createdAt)}</p>
         </div>
       </div>
     </div>

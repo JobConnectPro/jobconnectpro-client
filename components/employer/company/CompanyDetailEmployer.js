@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { getCompanyUpdate } from '@/modules/fetchCompanies';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 const CompanyDetailEmployer = ({ res }) => {
   const [company, setCompany] = useState(res);
@@ -46,10 +47,30 @@ const CompanyDetailEmployer = ({ res }) => {
 
   const handleDelete = async () => {
     try {
-      await deleteCompany(company.id);
+      const response = await deleteCompany(company.id);
+      toast.success(response.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
       router.push('http://localhost:3000/employer/companies');
     } catch (error) {
       console.log(error);
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     } finally {
       setIsDelete(false);
     }
@@ -65,8 +86,28 @@ const CompanyDetailEmployer = ({ res }) => {
       setIsLogo(false);
       const fetchNewCompany = await getCompanyUpdate(company.id);
       setCompany(fetchNewCompany);
+      toast.success(response.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     } catch (error) {
       console.error(error);
+      toast.success(response.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     }
   };
 
@@ -97,22 +138,37 @@ const CompanyDetailEmployer = ({ res }) => {
             </div>
             <div className="grid grid-cols-1 justify-items-center md:justify-items-start lg:grid-cols-4 gap-5 bg-white px-8 py-8">
               {isLogo == true && (
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <input className="bg-white border py-3 px-4 rounded-lg" type="file" id="logo" name="logo" {...register('logo', { required: true })}></input>
-                  <div className="space-x-4 my-auto">
-                    <button className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700" type="submit">
-                      Update
-                    </button>
-                    <button
-                      className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
-                      onClick={() => {
-                        setIsLogo(false);
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
+                <div className="col-span-4 items-center mx-auto w-full">
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="grid items-center">
+                      <label htmlFor="photo" className="mr-2 basis-36">
+                        Company Logo<span className="required text-red-600 text-lg">*</span>
+                      </label>
+                      <input
+                        required
+                        accept=".jpg, .png"
+                        className="basis-1/2 border border-gray-300 px-2 py-2 rounded-md"
+                        type="file"
+                        id="logo"
+                        name="logo"
+                        {...register('logo', { required: true })}
+                      ></input>
+                      <div className="flex justify-center text-center space-x-2 pt-4">
+                        <button className="bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700" type="submit">
+                          Update
+                        </button>
+                        <button
+                          className="bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
+                          onClick={() => {
+                            setIsLogo(false);
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               )}
               {!isLogo && (
                 <div className="col-span-1 lg:col-span-3 order-last lg:order-first flex flex-col">
@@ -163,15 +219,16 @@ const CompanyDetailEmployer = ({ res }) => {
                         {company.logo != null && <Image loader={() => company.logo} className="mr-4 object-cover object-center" src={company.logo} alt="Alternative text" width={60} height={60} />}
                         {company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
                         <div>
-                          <Link href={`/seeker/job/${job.id}`}>
+                          <Link href={`/employer/job/${job.id}`}>
                             <h2 className="text-lg font-semibold text-black hover:text-blue-900">{job.title}</h2>
                           </Link>
-                          <p className="text-blue-500 hover:text-blue-900">{company.company_name}</p>
-
+                          <p className="text-blue-500">{company.company_name}</p>
                           <p className="text-gray-500 text-sm mb-3">
                             {job.location} &#x2022; {job.type}
                           </p>
-                          <p className="text-gray-500 text-xs">Posted {diffForHumans(job.createdAt)}</p>
+                          <p className="text-gray-500 text-xs">
+                            {job.status === '1' ? <span className="text-green-500">Active</span> : <span className="text-red-500">Inactive</span>} &#x2022; Posted {diffForHumans(job.createdAt)}
+                          </p>
                         </div>
                       </div>
                     </div>

@@ -72,38 +72,38 @@ const JobEdit = ({ job }) => {
       const data = await response.json();
       if (response.ok) {
         toast.success(`${data.message}`, {
-          position: 'top-center',
-          autoClose: 3000,
+          position: 'top-right',
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: 'colored',
         });
         router.push('/employer/job');
       } else {
         toast.error(`${data.message}`, {
-          position: 'top-center',
-          autoClose: 3000,
+          position: 'top-right',
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: 'colored',
         });
       }
     } catch (error) {
       toast.error(`${error.message}`, {
-        position: 'top-center',
-        autoClose: 3000,
+        position: 'top-right',
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: 'colored',
       });
     }
   };
