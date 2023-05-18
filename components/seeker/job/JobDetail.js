@@ -227,22 +227,26 @@ const JobDetail = ({ job }) => {
             </div>
           </div>
           <div className="px-6 py-4 text-end border-b">
-            <button
-              onClick={() => {
-                handleBookmark(job.id);
-              }}
-              className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2 mb-3"
-            >
-              Bookmark
-            </button>
-            <button
-              onClick={() => {
-                handleApplication(job.id);
-              }}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Send Application
-            </button>
+            {job.status === '1' && (
+              <>
+                <button
+                  onClick={() => {
+                    handleBookmark(job.id);
+                  }}
+                  className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2 mb-3"
+                >
+                  Bookmark
+                </button>
+                <button
+                  onClick={() => {
+                    handleApplication(job.id);
+                  }}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Send Application
+                </button>
+              </>
+            )}
           </div>
           <div className="px-6 mb-6 mt-5">
             <h1 className="text-2xl font-bold">About {job.Company.company_name}</h1>

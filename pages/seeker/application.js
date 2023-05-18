@@ -25,6 +25,21 @@ const Applications = ({ data }) => {
     }
   }, [isDelete]);
 
+  const diffForHumans = (date) => {
+    const now = new Date();
+    const newDate = new Date(date);
+    const diffInMs = Math.abs(now - newDate);
+    const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInDays === 0) {
+      return 'today';
+    } else if (diffInDays === 1) {
+      return 'yesterday';
+    } else {
+      return `${diffInDays} days ago`;
+    }
+  };
+
   const handleDelete = (applicationId) => {
     axios
       .delete(`http://localhost:8000/users/job-application/${applicationId}`, {
@@ -81,9 +96,11 @@ const Applications = ({ data }) => {
                     <p className="text-gray-500 text-sm mb-3">
                       {application.location} &#x2022; {application.type}
                     </p>
+                    <p className="text-gray-500 text-xs mb-3">{application.status === '1' ? <span className='text-green-500'>Active</span> : <span className='text-red-500'>Inactive</span>} &#x2022; Posted {diffForHumans(application.createdAt)}</p>
                     <p className="text-green-500 text-sm">{application.Application.status}</p>
                   </div>
                 </div>
+
                 {application.Application.status === 'Application being reviewed' && (
                   <button
                     onClick={() => {
