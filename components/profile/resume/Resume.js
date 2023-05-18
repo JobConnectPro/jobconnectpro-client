@@ -42,8 +42,7 @@ const Resume = ({ profile, isEdit, setIsEdit }) => {
               </p>
               <a href={profile.resume} target="_blank">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white py-4 px-5 rounded-lg flex items-center space-x-2">
-                  <RiEyeFill size={20} />
-                  Resume Preview
+                  <RiEyeFill size={20} /> <span> Resume Preview</span>{' '}
                 </button>
               </a>
             </>
