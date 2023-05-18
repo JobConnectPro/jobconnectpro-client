@@ -72,7 +72,7 @@ const CompanyDetail = ({ res }) => {
         <div className="rounded-lg overflow-hidden border border-slate-200 mt-3">
           <div className="bg-blue-700 p-4 flex justify-between items-center">
             <p className="text-lg text-white ml-3">JOB OPENING IN COMPANY</p>
-            <input className="w-72 rounded-md py-2 pl-2" type="text" placeholder="Find job in ompany..." onChange={handleSearch}></input>
+            <input className="w-72 rounded-md py-2 pl-2" type="text" placeholder="Find job in company..." onChange={handleSearch}></input>
           </div>
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 bg-white px-8 py-8">
             {filteredJobs.length > 0 ? (
