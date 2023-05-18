@@ -77,7 +77,7 @@ const Education = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, setI
             <>
               {profile.Education.map((education) => {
                 return (
-                  <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-10 border-b" key={education.id}>
+                  <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-6 border-b" key={education.id}>
                     <div className="flex">
                       <p className="text-gray-400">{new Date(education.start_date).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}</p>
                       <p className="text-gray-400 mx-1">

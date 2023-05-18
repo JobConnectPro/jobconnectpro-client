@@ -54,7 +54,7 @@ const SkillAddForm = ({ isAdd, setIsAdd }) => {
       })
       .catch((error) => {
         console.log(error);
-        toast.error(error, {
+        toast.error(error.response.data.message, {
           position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
@@ -68,13 +68,13 @@ const SkillAddForm = ({ isAdd, setIsAdd }) => {
   };
 
   return (
-    <div className="w-full text-end">
+    <div className="col-span-4 py-4">
       <form className="space-y-3" onSubmit={handleSubmit}>
-        <div className="flex items-center mx-auto justify-center">
+        <div className="grid items-center mx-auto">
           <label htmlFor="skill_id" className="mr-2 basis-36">
-            Skill:
+            Skill<span className="required text-red-600 text-lg">*</span>
           </label>
-          <select id="skill_id" name="skill_id" value={input.skill_id} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-2 pl-1 pr-3" required>
+          <select id="skill_id" name="skill_id" value={input.skill_id} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-3 pl-1 pr-3" required>
             <option value="">--Select an option--</option>
             {skills.map((skill) => {
               return (
@@ -85,11 +85,11 @@ const SkillAddForm = ({ isAdd, setIsAdd }) => {
             })}
           </select>
         </div>
-        <div className="flex items-center mx-auto justify-center">
+        <div className="grid items-center mx-auto">
           <label htmlFor="level" className="mr-2 basis-36">
-            Level:
+            Level<span className="required text-red-600 text-lg">*</span>
           </label>
-          <select id="level" name="level" value={input.level} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-2 pl-1 pr-3" required>
+          <select id="level" name="level" value={input.level} onChange={handleChange} className="basis-1/2 border border-gray-300 rounded-md py-3 pl-1 pr-3" required>
             <option value="">--Select an option--</option>
             <option value="Basic">Basic</option>
             <option value="Novice">Novice</option>
@@ -99,7 +99,7 @@ const SkillAddForm = ({ isAdd, setIsAdd }) => {
           </select>
         </div>
         <div>
-          <div className="flex justify-center text-center gap-4">
+          <div className="flex justify-center text-center space-x-2 pt-4">
             <button
               onClick={() => {
                 setIsAdd({ ...isAdd, skill: false });
@@ -108,11 +108,11 @@ const SkillAddForm = ({ isAdd, setIsAdd }) => {
                   level: '',
                 });
               }}
-              className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
+              className="bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
             >
               Cancel
             </button>
-            <button type="submit" className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
+            <button type="submit" className="bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
               Submit
             </button>
           </div>

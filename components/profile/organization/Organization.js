@@ -76,7 +76,7 @@ const Organization = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, s
             <>
               {profile.Organizations.map((organization) => {
                 return (
-                  <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-10 border-b" key={organization.id}>
+                  <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-6 border-b" key={organization.id}>
                     <div className="flex">
                       <p className="text-gray-400">{new Date(organization.start_date).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}</p>
                       <p className="text-gray-400 mx-1">

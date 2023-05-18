@@ -77,24 +77,24 @@ const SummaryEditForm = ({ isEdit, setIsEdit }) => {
   };
 
   return (
-    <div className="w-full">
+    <div>
       <form className="space-y-3" onSubmit={handleSubmit}>
-        <div className="flex flex-col mx-10">
+        <div className="grid items-center mx-auto">
           <label htmlFor="summary" className="mr-2">
-            Summary:
+            Summary<span className="required text-red-600 text-lg">*</span>
           </label>
-          <textarea id="summary" name="summary" value={input.summary} onChange={handleChange} className="border border-gray-300 px-2 py-1 rounded-md w-full" required rows="10" cols="30" />
+          <textarea id="summary" name="summary" value={input.summary} onChange={handleChange} className="border border-gray-300 px-2 py-1 rounded-md w-full" required maxLength={10000} rows="10" cols="30" />
         </div>
-        <div className="flex justify-center text-center gap-4">
+        <div className="flex justify-center text-center space-x-2 pt-4">
           <button
             onClick={() => {
               setIsEdit({ ...isEdit, summary: false });
             }}
-            className="my-4 bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
+            className="bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
           >
             Cancel
           </button>
-          <button type="submit" className="my-4 bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
+          <button type="submit" className="bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
             Submit
           </button>
         </div>

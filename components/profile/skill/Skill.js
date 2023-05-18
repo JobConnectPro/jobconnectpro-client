@@ -71,7 +71,7 @@ const UserSkill = ({ profile, isAdd, setIsAdd, isDelete, setIsDelete }) => {
       </div>
 
       <div className={isOpen ? 'hidden' : 'w-full bg-white py-4 rounded-b-lg'}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-center mx-10 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-center mx-6 items-start">
           {!isAdd.skill && (
             <>
               {profile.UserSkilled.map((project) => {
