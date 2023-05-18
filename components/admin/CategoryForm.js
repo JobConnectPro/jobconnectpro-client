@@ -1,10 +1,13 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import { RiEdit2Fill } from 'react-icons/ri';
+import { FaTrashAlt } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const CategoryForm = () => {
   const [input, setInput] = useState({
-    category: "",
+    category: '',
   });
   const [category, setCategory] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
@@ -15,7 +18,7 @@ const CategoryForm = () => {
   useEffect(() => {
     axios
       .get(`http://localhost:8000/categories`, {
-        headers: { authorization: "Bearer " + Cookies.get("token") },
+        headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {
         setCategory([...res.data]);
@@ -35,30 +38,70 @@ const CategoryForm = () => {
     event.preventDefault();
     if (currentId === 0) {
       axios
-        .post("http://localhost:8000/categories", input, {
-          headers: { authorization: "Bearer " + Cookies.get("token") },
+        .post('http://localhost:8000/categories', input, {
+          headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
+          toast.success(res.data.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
           setIsAdd(false);
           setCurrentId(0);
-          setInput({ category: "" });
+          setInput({ category: '' });
           setCategory([...category, res.data]);
         })
         .catch((error) => {
           console.log(error);
+          toast.error(error.response.data.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
         });
     } else {
       axios
         .put(`http://localhost:8000/categories/${currentId}`, input, {
-          headers: { authorization: "Bearer " + Cookies.get("token") },
+          headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
+          toast.success(res.data.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
           setIsEdit(false);
           setCurrentId(0);
-          setInput({ category: "" });
+          setInput({ category: '' });
         })
         .catch((error) => {
           console.log(error);
+          toast.error(error.response.data.message, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
         });
     }
   };
@@ -72,82 +115,106 @@ const CategoryForm = () => {
   const handleDelete = (id) => {
     axios
       .delete(`http://localhost:8000/categories/${id}`, {
-        headers: { authorization: "Bearer " + Cookies.get("token") },
+        headers: { authorization: 'Bearer ' + Cookies.get('token') },
       })
       .then((res) => {
+        toast.success(res.data.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
         setIsDelete(false);
         setCategory(category.filter((cat) => cat.id !== id));
       })
       .catch((error) => {
         console.log(error);
+        toast.error(error.response.data.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       });
   };
 
   return (
-    <div className="w-full p-4">
-      <h1 className="lg:w-1/2 md:w-2/3 sm:w-full mb-4 text-lg mx-auto text-center text-blue-700 p-1 border-2 border-blue-500 rounded-md">
-        All Data Categories
-      </h1>
-      <div className="lg:w-1/2 md:w-2/3 sm:w-full mx-auto pb-4 rounded-md bg-white shadow-xl">
-        <div className="flex justify-between items-center mx-auto py-2 px-2 bg-blue-500 text-white text-md font-semibold rounded-t-md">
-          <p className="w-2/3 border-r border-white">Category</p>
-          <p>Action</p>
+    <div className="mt-[22px] h-screen">
+      <h1 className="mx-6 mb-4 text-3xl font-bold">Category</h1>
+      <div className="mx-6 rounded-md bg-white border border-slate-200">
+        <div className="flex justify-between items-center mx-auto py-3 pl-6 bg-blue-700 text-white text-md font-semibold rounded-t-md">
+          <p className="border-white">Category</p>
         </div>
-        {category.map((cat) => (
-          <div
-            key={cat.id}
-            className="flex justify-between items-center text-sm bg-white border-b border-gray-300 mx-2 py-2 hover:bg-blue-50"
-          >
-            <p className="w-2/3">{cat.category}</p>
-            <div className="space-x-2 font-semibold ">
-              <button
-                className="text-slate-500 border border-red-300 hover:bg-red-400 w-14 hover:text-white py-1 rounded"
-                onClick={() => handleDelete(cat.id)}
-              >
-                Delete
-              </button>
-              <button
-                className="text-slate-500 border border-yellow-300 hover:bg-yellow-400 w-14 hover:text-white py-1 rounded"
-                onClick={() => handleEdit(cat.id)}
-              >
-                Edit
-              </button>
+        <div className="relative overflow-x-auto mx-6 my-6">
+          <form onSubmit={handleSubmit} className="mb-6">
+            <div className="flex items-center flex-wrap justify-center text-sm">
+              <input
+                className="flex-grow border border-gray-300 rounded-md px-2 py-3 mr-2 mb-4 md:mb-0 lg:mb-0 focus:outline-none focus:border-blue-500"
+                type="text"
+                name="category"
+                placeholder="Category Form"
+                value={input.category}
+                onChange={handleChange}
+                required
+              />
+              <div className="space-x-2 font-semibold">
+                <button
+                  className="bg-white py-3 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
+                  onClick={() => {
+                    if (isEdit) {
+                      setIsEdit(false);
+                    } else {
+                      setIsAdd(false);
+                    }
+                    setCurrentId(0);
+                    setInput({
+                      category: '',
+                    });
+                  }}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="bg-blue-500 py-3 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700">
+                  Save
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-        <form onSubmit={handleSubmit} className="mt-4 px-2">
-          <div className="flex items-center text-sm">
-            <input
-              className="flex-grow border-2 border-gray-300 rounded-md p-2 mr-2 focus:outline-none focus:border-blue-500"
-              type="text"
-              name="category"
-              placeholder="Add new category"
-              value={input.category}
-              onChange={handleChange}
-            />
-            <div className="space-x-2 p-0 font-semibold">
-              <button
-                className="bg-gray-400 w-14 hover:bg-gray-500 text-white py-1 rounded"
-                onClick={() => {
-                  if (isEdit) {
-                    setIsEdit(false);
-                  } else {
-                    setIsAdd(false);
-                  }
-                  setCurrentId(0);
-                  setInput({
-                    category: "",
-                  });
-                }}
-              >
-                Cancel
-              </button>
-              <button className="w-14 bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded" type="submit">
-                Save
-              </button>
-            </div>
-          </div>
-        </form>
+          </form>
+          <table className="w-full divide-y divide-gray-200 border">
+            <thead>
+              <tr>
+                <th className="px-6 py-3 text-left text-sm text-gray-400 uppercase tracking-wider">Category</th>
+                <th className="px-6 py-3 text-center text-sm text-gray-400 uppercase tracking-wider">Action</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {category.map((cat) => (
+                <>
+                  <tr key={cat.id}>
+                    <td className="px-6 py-2">{cat.category}</td>
+                    <td className="px-6 py-2 text-center">
+                      {' '}
+                      <button onClick={() => handleDelete(cat.id)} className="mr-2">
+                        <FaTrashAlt size={18} className="text-gray-400 hover:text-blue-900" />{' '}
+                      </button>
+                      <button onClick={() => handleEdit(cat.id)}>
+                        <RiEdit2Fill size={18} className="text-blue-700 hover:text-blue-900" />{' '}
+                      </button>
+                    </td>
+                  </tr>
+                </>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
