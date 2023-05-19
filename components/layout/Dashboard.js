@@ -3,12 +3,7 @@ import { useState } from 'react';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import Logo from '../Logo';
-import {
-  RiArrowDropDownLine,
-  RiLogoutBoxRLine,
-  RiSettings4Line,
-  RiAlignJustify,
-} from 'react-icons/ri';
+import { RiArrowDropDownLine, RiLogoutBoxRLine, RiSettings4Line, RiAlignJustify } from 'react-icons/ri';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
@@ -58,6 +53,7 @@ const Dashboard = ({ children, profile }) => {
                       <Menu.Button className="flex items-center  text-sm font-bold focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">
                         <span className="sr-only">Open user menu</span>
                         {/* <p>{!profile.name !== null && profile.name?.split(' ')[0]}</p> */}
+                        <CgProfile size={20} />
                         <RiArrowDropDownLine size={30} />
                       </Menu.Button>
                     </div>
@@ -73,13 +69,7 @@ const Dashboard = ({ children, profile }) => {
                       <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                         <Menu.Item>
                           {({ active }) => (
-                            <Link
-                              href="/seeker/profile"
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
+                            <Link href="/seeker/profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                               <div className="flex">
                                 <CgProfile size={20} />
                                 <p className=" ml-2">Profile</p>
@@ -89,13 +79,7 @@ const Dashboard = ({ children, profile }) => {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <Link
-                              href="/change-password"
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
+                            <Link href="/change-password" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
                               <div className="flex">
                                 <RiSettings4Line size={20} />
                                 <p className=" ml-2">Change Password</p>
@@ -107,10 +91,7 @@ const Dashboard = ({ children, profile }) => {
                           {({ active }) => (
                             <Link
                               href="/"
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
+                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                               onClick={() => {
                                 Cookies.remove('token');
                                 Cookies.remove('role');
@@ -135,16 +116,8 @@ const Dashboard = ({ children, profile }) => {
 
         {/* sidebar */}
         <div className="flex flex-row flex-nowrap">
-          <div
-            className={
-              isHide ? "hidden" : "h-screen w-[208px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200"
-            }
-          >
+          <div className={isHide ? 'hidden' : 'h-full w-[208px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200'}>
             <nav className="flex flex-col gap-4">
-              {/* <Link href={'/job-board'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
-                <AiOutlineSearch size={20} />
-                Job Board
-              </Link> */}
               {role == 'Admin' && <SidebarAdmin />}
               {role == 'Employer' && <SidebarEmployer />}
               {role == 'Seeker' && <SidebarSeeker />}
@@ -153,9 +126,7 @@ const Dashboard = ({ children, profile }) => {
           {/* end of sidebar */}
 
           {/* main content */}
-          <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-52'}>
-            {children}
-          </div>
+          <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-52'}>{children}</div>
           {/* main content */}
         </div>
       </div>

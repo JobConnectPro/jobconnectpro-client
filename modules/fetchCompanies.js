@@ -33,7 +33,7 @@ const getCompanyDetail = async (id, context) => {
 
 const getCompaniesEmployer = async (company_name) => {
     try {
-        const userId = await Cookies.get('user_id');
+        const userId = await Cookies.get('id');
         if (company_name) {
             const response = await instance.get(`/companies/user/${userId}?company_name=${company_name}`)
             return(response.data)
