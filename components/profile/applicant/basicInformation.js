@@ -76,7 +76,7 @@ const BasicInfomationApplicant = () => {
           </div>
           <div className="col-span-1 self-end items-end justify-self-end mt-5 lg:mt-0">
             <a href={applicant.resume} target="_blank">
-              <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-4 px-5 rounded-lg flex items-center space-x-2">Applicant Resume</button>
+              <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-4 px-5 rounded flex items-center space-x-2">Applicant Resume</button>
             </a>
           </div>
         </div>

@@ -44,7 +44,7 @@ const CompanyEmployer = () => {
                 </div>
               </form>
               <Link href="/employer/companies/create" className="justify-self-end">
-                <button className="bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-5 rounded">Add Company</button>
+                <button className="bg-blue-500 hover:bg-blue-900 text-white font-bold py-2 px-6 rounded">Add Company</button>
               </Link>
             </div>
           </div>
