@@ -44,49 +44,33 @@ const Company = () => {
       <div className="mb-5 h-screen">
         <div className="w-full bg-blue-700 sticky top-16">
           <div className="mx-6">
-            <div className="py-4 gap-2 border-b border-slate-200">
+            <div className="py-4 gap-2">
               <form onSubmit={handleSubmit} className="flex">
-                <div className="flex">
-                  <div className="relative flex-grow">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
-                    <input
-                      type="search"
-                      value={searchInput}
-                      id="default-search"
-                      name="search"
-                      className="block w-full px-4 py-2 text-gray-900 rounded-lg"
-                      placeholder="Search jobs by title.."
-                      onChange={handleSearchInputChange}
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 text-white bg-blue-500 rounded-lg ml-3 hover:bg-green-400"
-                  >
-                    Search
-                  </button>
+                <div className="relative flex-grow">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
+                  <input
+                    type="search"
+                    value={searchInput}
+                    id="default-search"
+                    name="search"
+                    className="block w-full px-4 py-2 text-gray-900 rounded-lg"
+                    placeholder="Search company by title..."
+                    onChange={handleSearchInputChange}
+                  />
                 </div>
+                <button type="submit" className="px-4 py-2 text-white bg-blue-500 rounded-lg ml-3 hover:bg-green-400">
+                  Search
+                </button>
               </form>
             </div>
           </div>
         </div>
         <h1 className="text-3xl font-bold mx-6 my-4">Company</h1>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-6">
-          {companies.length > 0 ? (
-            companies.map((company) => (
-              <CompanyCard key={company.id} company={company}></CompanyCard>
-            ))
-          ) : (
-            <p>No companies found</p>
-          )}
+          {companies.length > 0 ? companies.map((company) => <CompanyCard key={company.id} company={company}></CompanyCard>) : <p>No companies found</p>}
         </div>
         <div className="mt-8 mx-6">
-          <CustomPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            totalItems={totalItems}
-            onPageChange={handlePageChange}
-          />
+          <CustomPagination currentPage={currentPage} totalPages={totalPages} totalItems={totalItems} onPageChange={handlePageChange} />
         </div>
       </div>
     </>
