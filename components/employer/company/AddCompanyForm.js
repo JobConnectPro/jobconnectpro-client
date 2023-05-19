@@ -137,9 +137,9 @@ const AddCompanyForm = () => {
           />
           {errors.website && <span className="text-red-500 text-sm">This field is required</span>}
         </div>
-        <div className="flex items-center justify-center">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">
-            Create
+        <div className="flex justify-end">
+          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
+            Submit
           </button>
         </div>
       </form>

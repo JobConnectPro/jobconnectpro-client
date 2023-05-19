@@ -262,11 +262,11 @@ const JobDetail = () => {
                         <div>
                           <h2 className="text-blue-700 text-lg">{applicant.name}</h2>
                           <p className="mb-3 text-gray-600">{applicant.email}</p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-black">
                             Salary Expectation: {applicant.privacy === 'Public' && new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(applicant.salary_expectation)}
                             {applicant.privacy !== 'Public' && <span className="text-red-500">Private</span>}
                           </p>
-                          <p className="text-sm mb-3 text-gray-500">
+                          <p className="text-sm mb-3 text-black">
                             Applied On:{' '}
                             {new Date(applicant.Application?.createdAt).toLocaleDateString('id-ID', {
                               day: 'numeric',

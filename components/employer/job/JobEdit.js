@@ -148,15 +148,7 @@ const JobEdit = ({ job }) => {
           <label className="font-bold">
             Categories<span className="required text-red-600 text-lg">*</span>
           </label>
-          <Select
-              name='categoryIds'
-              defaultValue={formData.categoryIds}
-              onChange={handleCategorySelect}
-              options={categoryOptions}
-              isMulti
-              className='basic-multi-select'
-              classNamePrefix='select'
-            />
+          <Select name="categoryIds" defaultValue={formData.categoryIds} onChange={handleCategorySelect} options={categoryOptions} isMulti className="basic-multi-select" classNamePrefix="select" />
         </div>
 
         <div className="">
@@ -218,13 +210,12 @@ const JobEdit = ({ job }) => {
             <option value="0">Closed</option>
           </select>
         </div>
-
         <div className="flex justify-end">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" type="button" onClick={handleEditSubmit}>
-            Submit
-          </button>
-          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" type="button" onClick={() => router.push('/employer/job')}>
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded mr-2" type="button" onClick={() => router.push('/employer/job')}>
             Cancel
+          </button>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded" type="button" onClick={handleEditSubmit}>
+            Submit
           </button>
         </div>
       </form>
