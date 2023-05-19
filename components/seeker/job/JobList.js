@@ -114,7 +114,7 @@ const JobList = () => {
     if (typeFilter && job.type !== typeFilter) {
       return false;
     }
-    if (experienceFilter && job.minimum_experience < experienceFilter) {
+    if (experienceFilter && job.minimum_experience > experienceFilter) {
       return false;
     }
     return true;

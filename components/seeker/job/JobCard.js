@@ -31,6 +31,7 @@ const JobCard = ({ job }) => {
               </Link>
               <Link href={`/seeker/companies/${job.Company.id}`}>
                 <p className="text-blue-500 hover:text-blue-900">{job.Company.company_name}</p>
+                <p className="text-gray-500 hover:text-blue-900 text-xs my-1">Minimum Exp : {job.minimum_experience}</p>
               </Link>
               <p className="text-gray-500 text-sm mb-3">
                 {job.location} &#x2022; {job.type}
