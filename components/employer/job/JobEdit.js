@@ -3,10 +3,12 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { getCategoryList } from '@/modules/fetch';
+import Select from 'react-select';
 
 const JobEdit = ({ job }) => {
   const router = useRouter();
   const [categoryOptions, setCategoryOptions] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [formData, setFormData] = useState({
     title: job.title,
     location: job.location,
@@ -25,7 +27,11 @@ const JobEdit = ({ job }) => {
   const fetchCategories = async () => {
     try {
       const categories = await getCategoryList();
-      setCategoryOptions(categories);
+      const options = categories.map((category) => ({
+        value: category.id,
+        label: category.category,
+      }));
+      setCategoryOptions(options);
     } catch (error) {
       console.log(error);
     }
@@ -35,18 +41,8 @@ const JobEdit = ({ job }) => {
     fetchCategories();
   }, []);
 
-  const handleCategorySelect = (e) => {
-    const { options } = e.target;
-    const selectedCategories = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedCategories.push(options[i].value);
-      }
-    }
-    setFormData((prevState) => ({
-      ...prevState,
-      categoryIds: selectedCategories,
-    }));
+  const handleCategorySelect = (selectedOptions) => {
+    setSelectedCategories(selectedOptions);
   };
 
   const handleInputChange = (e) => {
@@ -59,6 +55,12 @@ const JobEdit = ({ job }) => {
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
+    const categoryIds = selectedCategories.map((category) => category.value);
+
+    const formDataWithCategories = {
+      ...formData,
+      categoryIds: categoryIds,
+    };
     try {
       const { id } = job;
       const response = await fetch(`http://localhost:8000/jobs/${id}`, {
@@ -67,7 +69,7 @@ const JobEdit = ({ job }) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${Cookies.get('token')}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formDataWithCategories),
       });
       const data = await response.json();
       if (response.ok) {
@@ -143,16 +145,18 @@ const JobEdit = ({ job }) => {
         </div>
 
         <div className="">
-          <label className="">
+          <label className="font-bold">
             Categories<span className="required text-red-600 text-lg">*</span>
           </label>
-          <select className="w-full px-4 py-2 border rounded-md" name="categoryIds" value={formData.categoryIds} onChange={handleCategorySelect} required multiple>
-            {categoryOptions.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.category}
-              </option>
-            ))}
-          </select>
+          <Select
+              name='categoryIds'
+              defaultValue={formData.categoryIds}
+              onChange={handleCategorySelect}
+              options={categoryOptions}
+              isMulti
+              className='basic-multi-select'
+              classNamePrefix='select'
+            />
         </div>
 
         <div className="">
