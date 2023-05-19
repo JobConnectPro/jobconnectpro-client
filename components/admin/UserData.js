@@ -43,15 +43,7 @@ const UserList = () => {
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
       pages.push(
-        <button
-          key={i}
-          className={`border px-4 py-2 rounded ${
-            i === currentPage
-              ? 'bg-blue-500 text-white'
-              : 'bg-white text-gray-700'
-          }`}
-          onClick={() => handlePageChange(i)}
-        >
+        <button key={i} className={`border px-4 py-2 rounded ${i === currentPage ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'}`} onClick={() => handlePageChange(i)}>
           {i}
         </button>
       );
@@ -71,80 +63,70 @@ const UserList = () => {
   };
 
   return (
-    <div className="w-full p-4">
-      {/* {JSON.stringify(users)} */}
-      <div className="flex justify-between">
-        <form>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none"></div>
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={handleSearchQueryChange}
-              id="default-search"
-              className="block  px-3 py-2 text-gray-900 rounded-lg "
-              placeholder="Search user by name"
-              required
-            />
+    <>
+      <div className="mt-[22px] h-screen">
+        <h1 className="mx-6 mb-4 text-3xl font-bold">Users</h1>
+        <div className="mx-6 rounded-md bg-white border border-slate-200">
+          <div className="flex justify-between items-center mx-auto py-3 pl-6 bg-blue-700 text-white text-md font-semibold rounded-t-md">
+            <p className="border-white">Users</p>
           </div>
-        </form>
-
-        <div>
-          <h1 className=" mb-4 text-lg mx-auto text-center text-blue-700 p-1 border-2 border-blue-500 rounded-md">
-            All Data Users
-          </h1>
-        </div>
-        <div className="">
-          <div className="flex justify-between mb-4">
-            <div className="flex items-center mr-2">
-              <span>Per page:</span>
-              <select
-                className="mx-2 border p-1"
-                value={perPage}
-                onChange={handlePerPageChange}
-              >
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-              </select>
+          <div className="relative overflow-x-auto mx-6 my-4">
+            <div className="flex flex-row justify-between mb-4">
+              <div className="flex items-center mr-2">
+                <span>Show:</span>
+                <select className="mx-2 border rounded-lg p-1" value={perPage} onChange={handlePerPageChange}>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+              <form>
+                <input
+                  type="search"
+                  value={searchQuery}
+                  onChange={handleSearchQueryChange}
+                  id="default-search"
+                  className="block border-gray border text-sm px-3 py-2 text-gray-900 rounded-lg "
+                  placeholder="Search user by name...."
+                  required
+                />
+              </form>
+            </div>
+            <div className="relative overflow-x-auto">
+              <table class="w-full text-sm divide-y text-left divide-gray-200 border">
+                <thead>
+                  <tr>
+                    <th className="px-6 py-3 text-left text-sm text-gray-400 uppercase tracking-wider w-[20%]">Name</th>
+                    <th className="px-6 py-3 text-left text-sm text-gray-400 uppercase tracking-wider w-[10%]">Email</th>
+                    <th className="px-6 py-3 text-left text-sm text-gray-400 uppercase tracking-wider w-[5%]">Role</th>
+                    <th className="px-6 py-3 text-left text-sm text-gray-400 uppercase tracking-wider w-[15%]">Birthday</th>
+                    <th className="px-6 py-3 text-left text-sm text-gray-400 uppercase tracking-wider w-[5%]">Gender</th>
+                    <th className="px-6 py-3 text-left text-sm text-gray-400 uppercase tracking-wider w-[10%]">Phone</th>
+                    <th className="px-6 py-3 text-left text-sm text-gray-400 uppercase tracking-wider w-[35%]">Address</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {users.map((user) => (
+                    <tr key={user.id} className="bg-white border-b hover:bg-gray-50">
+                      <td className="px-6 py-2">{user.name}</td>
+                      <td className="px-6 py-2">{user.email}</td>
+                      <td className="px-6 py-2">{user.role}</td>
+                      <td className="px-6 py-2">{setBirtday(user.birthday)}</td>
+                      <td className="px-6 py-2">{user.gender}</td>
+                      <td className="px-6 py-2">{user.phone}</td>
+                      <td className="px-6 py-2">{user.address}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="w-full">
+                <div className="flex justify-center">{renderPagination()}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400s ">
-          <thead className="h-10 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
-            <tr>
-              <th className="px-6 py-3 ">Name</th>
-              <th className="px-6 py-3 ">Email</th>
-              <th className="px-6 py-3  ">Role</th>
-              <th className="px-6 py-3 ">Birthday</th>
-              <th className="px-6 py-3 ">Gender</th>
-              <th className="px-6 py-3 ">Phone</th>
-              <th className="px-6 py-3  ">Address</th>
-            </tr>
-          </thead>
-          <tbody className=" ">
-            {users.map((user) => (
-              <tr
-                key={user.id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 "
-              >
-                <td className="px-6 py-3  ">{user.name}</td>
-                <td className="px-6 py-3">{user.email}</td>
-                <td className="px-6 py-3  ">{user.role}</td>
-                <td className="px-6 py-3  ">{setBirtday(user.birthday)}</td>
-                <td className="px-6 py-3 ">{user.gender}</td>
-                <td className="px-6 py-3  ">{user.phone}</td>
-                <td className="px-6 py-3 ">{user.address}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="flex justify-center mt-4">{renderPagination()}</div>
-    </div>
+    </>
   );
 };
 export default UserList;
