@@ -246,8 +246,11 @@ export default function JobCreate() {
           </label>
           <select id="type" name="type" value={formData.type} onChange={handleInputChange} required className="w-full border border-gray-300 rounded-md p-2">
             <option value="">-- Select Type --</option>
-            <option value="Full-time">On-site</option>
-            <option value="Part-time">Remote</option>
+            <option value="Full Time">Full Time</option>
+            <option value="Part Time">Part Time</option>
+            <option value="Freelance">Freelance</option>
+            <option value="Onsite">Onsite</option>
+            <option value="Remote">Remote</option>
           </select>
         </div>
 

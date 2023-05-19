@@ -30,23 +30,15 @@ const loginUser = async (email, password) => {
 };
 
 // ==========
-const getJobsList = async (searchQuery = '', page = 1, perPage = 10, locationFilter = '', typeFilter = '', experienceFilter = '') => {
+const getJobsList = async (params) => {
   try {
-    const response = await instance.get(`/jobs`, {
-      params: {
-        title: searchQuery,
-        page,
-        limit: perPage,
-        location: locationFilter,
-        type: typeFilter,
-        experience: experienceFilter,
-      },
-    });
+    const response = await instance.get('/jobs', { params });
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || 'Something went wrong');
   }
 };
+
 
 const getJobDetails = async (id) => {
   try {
