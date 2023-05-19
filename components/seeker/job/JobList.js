@@ -51,7 +51,6 @@ const JobList = () => {
     setCurrentPage(1);
 
     if (!searchValue) {
-      // Jika field pencarian dikosongkan, reset query pencarian ke nilai awal atau kosong
       setSearchQuery('');
     }
   };
@@ -115,11 +114,13 @@ const JobList = () => {
     if (typeFilter && job.type !== typeFilter) {
       return false;
     }
-    if (experienceFilter && job.experience < experienceFilter) {
+    if (experienceFilter && job.minimum_experience < experienceFilter) {
       return false;
     }
     return true;
   });
+
+  console.log(experienceFilter)
 
   return (
     <div className='mb-5'>
@@ -201,7 +202,7 @@ const JobList = () => {
         </div>
       </div>
       <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-6'>
-        {jobs.map((job) => (
+      {filteredJobs.map((job) => (
           <JobCard job={job} key={job.id} />
         ))}
       </div>
