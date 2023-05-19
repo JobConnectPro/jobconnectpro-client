@@ -13,3 +13,24 @@ const EmployerSignUp = () => {
 };
 
 export default EmployerSignUp;
+
+export const getServerSideProps = async (context) => {
+  let { token } = context.req.cookies;
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  } else {
+    token = '';
+  }
+
+  return {
+    props: {
+      token,
+    },
+  };
+};

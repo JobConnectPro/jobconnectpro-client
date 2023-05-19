@@ -97,7 +97,7 @@ const ApplicantStatus = () => {
                           description: application.Application.description,
                         });
                       }}
-                      className="bg-yellow-400 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded mb-5"
+                      className="bg-yellow-400 hover:bg-yellow-600 text-black font-bold py-2 px-6 rounded mb-5"
                     >
                       Edit Application Status
                     </button>
