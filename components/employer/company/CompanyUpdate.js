@@ -131,17 +131,12 @@ const CompanyUpdate = ({ res }) => {
           />
           {errors.website && <span className="text-red-500 text-sm">This field is required</span>}
         </div>
-        <div className="flex items-center justify-center space-x-4">
-          <button
-            onClick={() => {
-              router.push(`http://localhost:3000/employer/companies/${prevCompany.id}`);
-            }}
-            className="bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
-          >
+        <div className="flex justify-end">
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded mr-2" type="button" onClick={() => router.push(`/employer/companies/${prevCompany.id}`)}>
             Cancel
           </button>
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">
-            Update
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded" type="submit">
+            Submit
           </button>
         </div>
       </form>

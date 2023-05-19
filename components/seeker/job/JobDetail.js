@@ -233,7 +233,7 @@ const JobDetail = ({ job }) => {
                   onClick={() => {
                     handleBookmark(job.id);
                   }}
-                  className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded mr-2 mb-3"
+                  className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-6 rounded mr-2 mb-3"
                 >
                   Bookmark
                 </button>
@@ -241,7 +241,7 @@ const JobDetail = ({ job }) => {
                   onClick={() => {
                     handleApplication(job.id);
                   }}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
                 >
                   Send Application
                 </button>

@@ -126,7 +126,7 @@ const CompanyDetailEmployer = ({ res }) => {
               <p className="text-lg text-white ml-3">PROFILE</p>
               <div>
                 <button
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded mr-2"
+                  className="bg-green-500 hover:bg-green-700 text-white text-sm font-bold py-2 px-6 rounded mr-2"
                   onClick={() => {
                     setIsLogo(true);
                     setIsUpload(false);
@@ -134,11 +134,11 @@ const CompanyDetailEmployer = ({ res }) => {
                 >
                   Upload
                 </button>
-                <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded mr-2" onClick={handleUpdate}>
+                <button className="bg-yellow-400 hover:bg-yellow-500 text-black text-sm font-bold py-2 px-6 rounded mr-2" onClick={handleUpdate}>
                   Edit Company
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded"
+                  className="bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2 px-6 rounded"
                   onClick={() => {
                     setIsModalOpen(true);
                   }}
@@ -165,9 +165,6 @@ const CompanyDetailEmployer = ({ res }) => {
                         {...register('logo', { required: true })}
                       ></input>
                       <div className="flex justify-center text-center space-x-2 pt-4">
-                        <button className="bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700" type="submit">
-                          Update
-                        </button>
                         <button
                           className="bg-white p-2 px-4 rounded-md font-semibold text-blue-500 border border-slate-300 hover:border-blue-500"
                           onClick={() => {
@@ -175,6 +172,9 @@ const CompanyDetailEmployer = ({ res }) => {
                           }}
                         >
                           Cancel
+                        </button>
+                        <button className="bg-blue-500 p-2 px-6 rounded-md font-semibold text-white border border-slate-300 hover:border-blue-700" type="submit">
+                          Submit
                         </button>
                       </div>
                     </div>
