@@ -104,7 +104,7 @@ const JobList = () => {
   };
 
   const locations = ['Surabaya', 'Jakarta', 'Jogja', 'Malang', 'Bandung'];
-  const types = ['Onsite', 'Remote'];
+  const types = ['Onsite', 'Remote', 'Full Time', 'Part Time', 'Freelance'];
   const experiences = [1, 2, 3, 4, 5];
 
   const filteredJobs = jobs.filter((job) => {
