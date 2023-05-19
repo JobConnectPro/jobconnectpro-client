@@ -68,19 +68,6 @@ const JobList = () => {
   const types = ['Onsite', 'Remote'];
   const experiences = [1, 2, 3, 4, 5];
 
-  const filteredJobs = jobs.filter((job) => {
-    if (locationFilter && job.location !== locationFilter) {
-      return false;
-    }
-    if (typeFilter && job.type !== typeFilter) {
-      return false;
-    }
-    if (experienceFilter && job.experience < experienceFilter) {
-      return false;
-    }
-    return true;
-  });
-
   console.log(locationFilter);
   console.log(experienceFilter);
 
