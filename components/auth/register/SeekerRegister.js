@@ -41,56 +41,55 @@ const SeekerRegister = () => {
         const response = await registerUser(data, role);
 
         toast.success('We have created your account for you.', {
-          position: 'top-center',
+          position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: 'colored',
         });
         reset();
       } else {
         toast.error('Password is not match. Please try again.', {
-          position: 'top-center',
+          position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: 'light',
+          theme: 'colored',
         });
       }
     } catch (error) {
       toast.error(`${error.message}`, {
-        position: 'top-center',
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: 'colored',
       });
     }
   };
   return (
     <>
       <div className=" flex flex-col bg-gray-100">
-        <div className="container max-w-xl mx-auto flex flex-col px-2 justify-center">
-          <div className="bg-white px-6 py-8 rounded shadow-md my-5">
-            <h1 className="mb-8 text-3xl text-center">Seeker Sign up</h1>
-
+        <div className="container max-w-xl mx-auto flex flex-col px-2 my-10 justify-center">
+          <div className="bg-white px-6 py-8 rounded shadow-md">
+            <h1 className="mb-6 text-2xl text-center text-gray-900">Jobseeker Sign Up</h1>
             <form className=" w-full max-w-lg" onSubmit={handleSubmit(handleRegister)}>
-              <div className="flex flex-wrap mx-3 mb-3">
+              <div className="flex flex-wrap mb-3">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">FullName</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Full Name</label>
                   <input type="text" className="block border border-grey-light w-full p-2 rounded " {...register('name', { required: true })} placeholder="Full Name" />
                 </div>
                 <div className="w-full md:w-1/2 px-3">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
                   <input
                     type="text"
                     className="block border border-grey-light w-full p-2 rounded "
@@ -100,9 +99,9 @@ const SeekerRegister = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap mx-3 mb-3">
+              <div className="flex flex-wrap mb-3">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
                   <input
                     type="password"
                     className="block border border-grey-light w-full p-2 rounded "
@@ -112,7 +111,7 @@ const SeekerRegister = () => {
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Confirm Password</label>
                   <input
                     type="password"
                     className="block border border-grey-light w-full p-2 rounded "
@@ -122,21 +121,21 @@ const SeekerRegister = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap mx-3 mb-3">
+              <div className="flex flex-wrap mb-3">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Phone Number</label>
                   <input
-                    type="text"
+                    type="number"
                     className="block border border-grey-light w-full p-2 rounded"
                     // name="phone"
                     {...register('phone', { required: true })}
-                    placeholder="Phone Number"
+                    placeholder="0812xxxxx"
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap mx-3 mb-6">
+              <div className="flex flex-wrap mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Gender</label>
                   <select
                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 p-2 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
                     {...register('gender', { required: true })}
@@ -147,7 +146,7 @@ const SeekerRegister = () => {
                   </select>
                 </div>
                 <div className="w-full md:w-1/2 px-3">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Birthday</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Birthday</label>
                   <Controller
                     control={control}
                     name="birthday"
@@ -165,9 +164,9 @@ const SeekerRegister = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap mx-3 mb-5">
+              <div className="flex flex-wrap mb-5">
                 <div className="w-full px-3">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Address</label>
                   <input
                     type="text"
                     className="block border border-grey-light w-full p-2 rounded"
@@ -177,14 +176,14 @@ const SeekerRegister = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap mx-3 mb-5">
+              <div className="flex flex-wrap mb-5">
                 <div className="w-full px-3">
                   <button className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign Up</button>
                 </div>
               </div>
               <p class="text-sm text-center font-light text-gray-500 dark:text-gray-400">
                 Already have an account ?{' '}
-                <Link href="/register" class="font-medium text-blue-500 hover:underline dark:text-primary-500">
+                <Link href="/signin" class="font-medium text-blue-500 hover:underline dark:text-primary-500">
                   Sign in
                 </Link>
               </p>

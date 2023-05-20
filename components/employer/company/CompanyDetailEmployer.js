@@ -122,7 +122,7 @@ const CompanyDetailEmployer = ({ res }) => {
       <div className="mt-[22px] pb-9">
         <div className="mx-6">
           <div className="rounded-lg overflow-hidden border border-slate-200">
-            <div className="bg-blue-700 p-4 flex justify-between items-center">
+            <div className="bg-blue-700 p-4 flex flex-col md:flex-row justify-between items-center">
               <p className="text-lg text-white ml-3">PROFILE</p>
               <div>
                 <button
