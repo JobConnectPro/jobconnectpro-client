@@ -25,14 +25,14 @@ export default function UserLogin() {
       Cookies.set('role', role);
       Cookies.set('id', id);
       toast.success('Login Successfully!', {
-        position: 'top-center',
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: 'colored',
       });
       const roles = Cookies.get('role');
 
@@ -45,27 +45,27 @@ export default function UserLogin() {
       }
     } catch (err) {
       toast.error(`${err.message}`, {
-        position: 'top-center',
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
+        theme: 'colored',
       });
     }
   };
   return (
     <>
       <div className=" flex flex-col bg-gray-100">
-        <div className="container max-w-md  mx-auto flex flex-col px-2 mt-10 mb-20">
+        <div className="container max-w-md  mx-auto flex flex-col px-2 my-10">
           <div className="bg-white px-6 py-8 rounded shadow-md">
-            <h1 className="mb-8 text-xl text-center font-bold text-gray-900 md:text-2xl dark:text-white">Sign In to jobconnect</h1>
+            <h1 className="mb-6 text-2xl text-center text-gray-900">Sign In to JobConnect</h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(handleLogin)}>
               <div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900">Email</label>
                   <input
                     type="text"
                     className="block border border-grey-light w-full p-2 rounded mb-4"
@@ -75,7 +75,7 @@ export default function UserLogin() {
                   />
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900">Password</label>
                   <input
                     type="password"
                     className="block border border-grey-light w-full p-2 rounded mb-4"
@@ -108,7 +108,7 @@ export default function UserLogin() {
               <button className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign In</button>
               <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{' '}
-                <Link href="/register" className="font-medium text-blue-500 hover:underline dark:text-primary-500">
+                <Link href="/signup/seeker" className="font-medium text-blue-500 hover:underline dark:text-primary-500">
                   Sign up
                 </Link>
               </p>
