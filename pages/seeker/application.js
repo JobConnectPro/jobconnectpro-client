@@ -13,6 +13,7 @@ const Applications = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
   const [isDelete, setIsDelete] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentId, setCurrentId] = useState(0);
 
   useEffect(() => {
     if (isDelete === false) {
@@ -114,6 +115,7 @@ const Applications = ({ data }) => {
                     <button
                       onClick={() => {
                         setIsModalOpen(true);
+                        setCurrentId(application.id);
                       }}
                       className="bg-red-500 hover:bg-red-600 text-white text-xs font-bold py-2 px-6 rounded self-center md:self-end"
                     >
@@ -125,14 +127,14 @@ const Applications = ({ data }) => {
                 {/* Modal Confirmation */}
                 <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className="modal" overlayClassName="modal-overlay">
                   <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                    <div className="fixed inset-0 bg-gray-500 bg-opacity-20 transition-opacity" />
+                    <div className="fixed inset-0 bg-gray-500 bg-opacity-10" />
                     <div className="fixed inset-0 z-10 overflow-y-auto">
                       <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
-                        <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-lg transition-all sm:my-8 sm:w-full sm:max-w-lg">
                           <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                            <div className="sm:flex items-center">
-                              <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                                <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+                            <div className="flex flex-col items-center">
+                              <div className="mx-auto flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-red-100 ">
+                                <svg className="h-14 w-14 text-red-600" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
                                   <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -140,12 +142,12 @@ const Applications = ({ data }) => {
                                   />
                                 </svg>
                               </div>
-                              <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">
-                                  CONFIRMATION
+                              <div className="mt-3 text-center">
+                                <h3 className="text-2xl mb-1 font-semibold leading-6 text-gray-900" id="modal-title">
+                                  Are you sure?
                                 </h3>
-                                <div className="">
-                                  <p className="text-sm text-gray-500">Are you sure you want to proceed? This data will be removed. This action cannot be undone.</p>
+                                <div className="self-center">
+                                  <p className="text-sm text-gray-500">This data will be removed. This action cannot be undone.</p>
                                 </div>
                               </div>
                             </div>
@@ -156,7 +158,7 @@ const Applications = ({ data }) => {
                               className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                               onClick={() => {
                                 setIsDelete(true);
-                                handleDelete(application.id);
+                                handleDelete(currentId);
                               }}
                             >
                               Remove
