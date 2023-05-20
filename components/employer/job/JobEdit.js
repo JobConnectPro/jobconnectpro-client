@@ -145,7 +145,7 @@ const JobEdit = ({ job }) => {
         </div>
 
         <div className="">
-          <label className="font-bold">
+          <label className="">
             Categories<span className="required text-red-600 text-lg">*</span>
           </label>
           <Select name="categoryIds" defaultValue={formData.categoryIds} onChange={handleCategorySelect} options={categoryOptions} isMulti className="basic-multi-select" classNamePrefix="select" />

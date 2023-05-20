@@ -42,7 +42,7 @@ const CompanyDetail = ({ res }) => {
               <div>
                 <p className="text-3xl font-bold">{company.company_name}</p>
                 <p className="text-gray-600 text-sm mb-4">Registered {diffForHumans(company.createdAt)}</p>
-                <p className="text-gray-800 mb-5">{company.description}</p>
+                <p className="text-gray-800 mb-5 text-justify">{company.description}</p>
               </div>
               <div className="flex flex-row flex-wrap justify-start">
                 <div className="basis-auto mr-4 mb-4">
@@ -63,7 +63,7 @@ const CompanyDetail = ({ res }) => {
                 </div>
               </div>
             </div>
-            <div className="col-span-1 lg:col-span-1 self-center border rounded-lg p-4">
+            <div className="col-span-1 lg:col-span-1 self-center lg:justify-self-end border rounded-lg p-4">
               {company.logo != null && <Image loader={() => company.logo} className="object-center" src={company.logo} alt="Company Logo" width={180} height={180} />}
               {company.logo == null && <Image className="object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={180} height={180} />}
             </div>

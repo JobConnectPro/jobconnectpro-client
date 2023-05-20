@@ -114,6 +114,8 @@ const CompanyUpdate = ({ res }) => {
             name="description"
             defaultValue={prevCompany?.description}
             {...register('description', { required: true })}
+            cols="4"
+            rows="8"
             className={`appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.website ? 'border-red-500' : ''}`}
           />
         </div>
