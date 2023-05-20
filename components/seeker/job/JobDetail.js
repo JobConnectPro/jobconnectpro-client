@@ -178,9 +178,9 @@ const JobDetail = ({ job }) => {
           </div>
           <div className="px-6 mt-5">
             <h1 className="text-2xl font-bold">Job Description</h1>
-            <p className="text-gray-800 mb-4 font-medium">{job.description}</p>
+            <p className="text-gray-800 mb-4 font-medium text-justify">{job.description}</p>
             <h1 className="text-2xl font-bold">Requirement</h1>
-            <p className="text-gray-800 mb-4 font-medium">{job.requirement}</p>
+            <p className="text-gray-800 mb-4 font-medium text-justify">{job.requirement}</p>
           </div>
           <div className="px-6 mb-2">
             <h1 className="text-2xl mb-2 font-bold">Job Summary</h1>
@@ -200,6 +200,12 @@ const JobDetail = ({ job }) => {
               <div>
                 <h1 className="text-lg text-gray-500">STARTING DATE</h1>
                 <p className="text-blue-700">{formattedStartingDate}</p>
+              </div>
+              <div>
+                <h1 className="text-lg text-gray-500">JOB CATEGORY</h1>
+                {job.JobCategories.map((category) => {
+                  return <p className="text-blue-700">{category.category}</p>;
+                })}
               </div>
               <div>
                 <h1 className="text-lg text-gray-500">COMPANY</h1>
