@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Modal from 'react-modal';
+import Loading from '@/components/loading/Loading';
 
 Modal.setAppElement('#__next');
 
@@ -17,6 +18,7 @@ const JobDetail = () => {
   const [display, setDisplay] = useState(false);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const startingDate = new Date(job.starting_date);
   const formattedStartingDate = startingDate.toLocaleDateString('en-US', {
@@ -50,6 +52,9 @@ const JobDetail = () => {
       const res = await getJobsPost(jobId);
       setJob(res);
       setDisplay(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 200);
     };
     fetchData();
   }, [jobId]);
@@ -105,6 +110,11 @@ const JobDetail = () => {
       });
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="mt-[22px] pb-9">
       {!isEditFormOpen && (

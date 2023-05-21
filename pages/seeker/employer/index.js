@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Loading from '@/components/loading/Loading';
 
 const Employers = ({ data }) => {
   const [employers, setEmployers] = useState([...data.data]);
@@ -11,6 +12,7 @@ const Employers = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [perPage, setPerPage] = useState(10);
+  const [isLoading, setIsLoading] = useState(true);
 
   const diffForHumans = (date) => {
     const now = new Date();
@@ -39,6 +41,9 @@ const Employers = ({ data }) => {
       .then((res) => {
         setEmployers([...res.data.data]);
         setTotalPages(res.data.totalPages);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 200);
       })
       .catch((error) => {
         console.log(error);
@@ -65,6 +70,10 @@ const Employers = ({ data }) => {
     }
     return <div className="flex items-center justify-center mt-4">{pages}</div>;
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Layout>
@@ -106,9 +115,7 @@ const Employers = ({ data }) => {
                       return (
                         <div className="mt-2" key={company.id}>
                           {company.logo != null && <Image loader={() => company.logo} className="inline-block" src={company.logo} alt="Company Logo" width={40} height={40} />}
-                          {company.logo == null && (
-                            <Image className="inline-block" src="/img/blank-pp.jpg" alt="Company Logo" width={40} height={40} />
-                          )}
+                          {company.logo == null && <Image className="inline-block" src="/img/blank-pp.jpg" alt="Company Logo" width={40} height={40} />}
                           <Link href={`/seeker/companies/${company.id}`}>
                             <div className="inline-block pl-2 text-sm text-blue-500 hover:text-blue-900">{company.company_name}</div>
                           </Link>

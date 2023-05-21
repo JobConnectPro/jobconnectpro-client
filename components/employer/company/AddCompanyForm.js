@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { getSectors, addCompany } from '@/modules/fetchCompanies';
 import { toast } from 'react-toastify';
+import Loading from '@/components/loading/Loading';
 
 const AddCompanyForm = () => {
   const [sectors, setSectors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -20,6 +22,9 @@ const AddCompanyForm = () => {
     };
 
     fetchSectors();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
   }, []);
 
   const onSubmit = async (data) => {
@@ -50,6 +55,10 @@ const AddCompanyForm = () => {
       });
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="mt-[22px]">

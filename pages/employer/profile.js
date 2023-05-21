@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import BasicInformation from '@/components/profile/basicInfomation/BasicInformation';
 import Layout from '@/components/layout/Dashboard';
+import Loading from '@/components/loading/Loading';
 
 const EmployerProfiles = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
@@ -10,6 +11,7 @@ const EmployerProfiles = ({ data }) => {
     basicInformation: false,
   });
   const [isUpload, setIsUpload] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -18,11 +20,18 @@ const EmployerProfiles = ({ data }) => {
       })
       .then((res) => {
         setProfile({ ...res.data });
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 200);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [isEdit, isUpload]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Layout profile={profile}>

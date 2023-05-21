@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { getUser } from '@/modules/fetchUser';
-// import TableData from "../Tabledatauser/Table";
+import Loading from '@/components/loading/Loading';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -10,15 +8,17 @@ const UserList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [perPage, setPerPage] = useState(10);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // console.log(searchQuery);
   useEffect(() => {
     try {
       const fetchData = async () => {
         const res = await getUser(searchQuery, currentPage, perPage);
         setUsers(res.data);
         setTotalPages(res.totalPages);
-        console.log(res);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 200);
       };
       fetchData([searchQuery, currentPage, perPage]);
     } catch (error) {
@@ -61,6 +61,10 @@ const UserList = () => {
 
     return birthday;
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

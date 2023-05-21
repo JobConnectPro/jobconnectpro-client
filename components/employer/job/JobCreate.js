@@ -4,6 +4,7 @@ import { createJob, getCategoryList, getCompanyList } from '@/modules/fetch';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import Select from 'react-select';
+import Loading from '@/components/loading/Loading';
 
 export default function JobCreate() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function JobCreate() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [companyOptions, setCompanyOptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -68,7 +70,6 @@ export default function JobCreate() {
           theme: 'colored',
         });
         router.push('/employer/job');
-        console.log(data);
       } else {
         toast.error(`${data.message}`, {
           position: 'top-right',
@@ -136,7 +137,14 @@ export default function JobCreate() {
   useEffect(() => {
     fetchCategories();
     fetchCompanyList();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="mt-[22px]">
@@ -227,15 +235,11 @@ export default function JobCreate() {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="minimum_salary">
-              Minimum Salary
-            </label>
+            <label htmlFor="minimum_salary">Minimum Salary</label>
             <input type="number" id="minimum_salary" name="minimum_salary" value={formData.minimum_salary} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
           </div>
           <div>
-            <label htmlFor="maximum_salary">
-              Maximum Salary
-            </label>
+            <label htmlFor="maximum_salary">Maximum Salary</label>
             <input type="number" id="maximum_salary" name="maximum_salary" value={formData.maximum_salary} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
           </div>
         </div>
@@ -262,9 +266,7 @@ export default function JobCreate() {
         </div>
 
         <div>
-          <label htmlFor="starting_date">
-            Starting Date
-          </label>
+          <label htmlFor="starting_date">Starting Date</label>
           <input type="date" id="starting_date" name="starting_date" value={formData.starting_date} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
         </div>
 

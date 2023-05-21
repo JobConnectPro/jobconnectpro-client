@@ -2,8 +2,8 @@ import { useState, useEffect, Fragment } from 'react';
 import { useRouter } from 'next/router';
 import { getApplicant } from '@/modules/fetch';
 import { MdEmail, MdPeopleAlt, MdContactPhone, MdCalendarMonth, MdLocationOn } from 'react-icons/md';
-
 import Image from 'next/image';
+
 const BasicInfomationApplicant = () => {
   const router = useRouter();
   const applicantId = router.query.applicantid;
