@@ -7,10 +7,15 @@ import Loading from '@/components/loading/Loading';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#__next');
 
 const JobDetail = ({ job }) => {
   const router = useRouter();
   const [role, setRole] = useState('');
+  const [currentId, setCurrentId] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const diffForHumans = (date) => {
@@ -87,6 +92,8 @@ const JobDetail = ({ job }) => {
         }
       )
       .then((res) => {
+        setCurrentId(0);
+        setIsModalOpen(false);
         toast.success(res.data.message, {
           position: 'top-right',
           autoClose: 5000,
@@ -99,6 +106,8 @@ const JobDetail = ({ job }) => {
         });
       })
       .catch((error) => {
+        setCurrentId(0);
+        setIsModalOpen(false);
         console.log(error);
         toast.error(error.response.data.message, {
           position: 'top-right',
@@ -255,7 +264,8 @@ const JobDetail = ({ job }) => {
                 </button>
                 <button
                   onClick={() => {
-                    handleApplication(job.id);
+                    setIsModalOpen(true);
+                    setCurrentId(job.id);
                   }}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
                 >
@@ -270,6 +280,57 @@ const JobDetail = ({ job }) => {
           </div>
         </div>
       </div>
+
+      {/* Modal Confirmation */}
+      <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className="modal" overlayClassName="modal-overlay">
+        <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-10" />
+          <div className="fixed inset-0 z-10 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+              <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-lg transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="bg-white px-4 pb-2 pt-5">
+                  <div className="flex flex-col items-center">
+                    <div className="my-5">
+                      <h3 className="text-2xl mb-5 font-semibold leading-6 text-gray-900" id="modal-title">
+                        Terms and Conditions
+                      </h3>
+                      <div className="self-start justify-self-start">
+                        <ul className="list-disc ml-6 text-sm text-gray-500">
+                          <li className="mb-2">Submit a complete and accurate profile information</li>
+                          <li className="mb-2">Attach your updated resume and relevant documents</li>
+                          <li className="mb-2">Application does not guarantee job placement</li>
+                          <li className="mb-2">We reserve the right to reject any application</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  <button
+                    type="button"
+                    className="inline-flex w-full justify-center rounded-md bg-blue-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                    onClick={() => {
+                      handleApplication(currentId);
+                    }}
+                  >
+                    Send Application
+                  </button>
+                  <button
+                    type="button"
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      setCurrentId(0);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
