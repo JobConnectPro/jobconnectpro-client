@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { getCategoryList } from '@/modules/fetch';
 import Select from 'react-select';
+import Loading from '@/components/loading/Loading';
 
 const JobEdit = ({ job }) => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const JobEdit = ({ job }) => {
     minimum_experience: job.minimum_experience,
     status: job.status,
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchCategories = async () => {
     try {
@@ -39,6 +41,9 @@ const JobEdit = ({ job }) => {
 
   useEffect(() => {
     fetchCategories();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
   }, []);
 
   const handleCategorySelect = (selectedOptions) => {
@@ -109,6 +114,10 @@ const JobEdit = ({ job }) => {
       });
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="mt-[22px]">

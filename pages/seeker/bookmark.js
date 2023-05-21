@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
 import Modal from 'react-modal';
+import Loading from '@/components/loading/Loading';
 
 Modal.setAppElement('#__next');
 
@@ -14,6 +15,7 @@ const Bookmarks = ({ data }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentId, setCurrentId] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const diffForHumans = (date) => {
     const now = new Date();
@@ -37,8 +39,10 @@ const Bookmarks = ({ data }) => {
           headers: { authorization: 'Bearer ' + Cookies.get('token') },
         })
         .then((res) => {
-          console.log(res.data);
           setProfile({ ...res.data });
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 200);
         })
         .catch((error) => {
           console.log(error);
@@ -79,6 +83,10 @@ const Bookmarks = ({ data }) => {
         });
       });
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Layout>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { FaTrashAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import Loading from '@/components/loading/Loading';
 
 const SectorsForm = () => {
   const [input, setInput] = useState({
@@ -14,6 +15,7 @@ const SectorsForm = () => {
   const [isAdd, setIsAdd] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [currentId, setCurrentId] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -22,6 +24,9 @@ const SectorsForm = () => {
       })
       .then((res) => {
         setSectors([...res.data]);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 200);
       })
       .catch((error) => {
         console.log(error);
@@ -145,6 +150,10 @@ const SectorsForm = () => {
         });
       });
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="mt-[22px] h-screen">

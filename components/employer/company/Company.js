@@ -2,6 +2,7 @@ import CompanyCard from './CompanyCard';
 import { useState, useEffect } from 'react';
 import { getCompanies } from '@/modules/fetchCompanies';
 import CustomPagination from './CustomPagination';
+import Loading from '@/components/loading/Loading';
 
 const Company = () => {
   const [companies, setCompanies] = useState([]);
@@ -10,6 +11,7 @@ const Company = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +20,9 @@ const Company = () => {
         setCompanies(res.data);
         setTotalPages(res.totalPages);
         setTotalItems(res.totalItems);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 200);
       } catch (error) {
         console.log(error);
       }
@@ -38,6 +43,10 @@ const Company = () => {
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

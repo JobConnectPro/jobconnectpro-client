@@ -6,6 +6,7 @@ import { BsFillMortarboardFill } from 'react-icons/bs';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import Loading from '@/components/loading/Loading';
 
 const ApplicantStatus = () => {
   const router = useRouter();
@@ -17,11 +18,15 @@ const ApplicantStatus = () => {
     status: '',
     description: '',
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getApplicant(applicantId, jobId);
       setApplicant(res);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 200);
     };
     fetchData();
   }, [isEdit]);
@@ -69,6 +74,10 @@ const ApplicantStatus = () => {
         });
       });
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

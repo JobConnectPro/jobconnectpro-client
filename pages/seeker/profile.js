@@ -12,9 +12,11 @@ import Project from '@/components/profile/project/Project';
 import UserSkill from '@/components/profile/skill/Skill';
 import Resume from '@/components/profile/resume/Resume';
 import Layout from '@/components/layout/Dashboard';
+import Loading from '@/components/loading/Loading';
 
 const SeekerProfiles = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
+  const [isLoading, setIsLoading] = useState(true);
   const [isAdd, setIsAdd] = useState({
     workExperience: false,
     education: false,
@@ -51,11 +53,18 @@ const SeekerProfiles = ({ data }) => {
       })
       .then((res) => {
         setProfile({ ...res.data });
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 200);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [isAdd, isEdit, isDelete, isUpload]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Layout profile={profile}>

@@ -1,6 +1,7 @@
 import { getJobsList } from '@/modules/fetch';
 import { useState, useEffect } from 'react';
 import JobCard from './JobCard';
+import Loading from '@/components/loading/Loading';
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
@@ -13,13 +14,16 @@ const JobList = () => {
   const [locationFilter, setLocationFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [experienceFilter, setExperienceFilter] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchDataJobs = async () => {
     try {
       const res = await getJobsList(searchQuery, currentPage, perPage, locationFilter, typeFilter, experienceFilter);
       setJobs(res.data);
       setTotalPages(res.totalPages);
-      console.log(res);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 200);
     } catch (error) {
       console.error(error);
       // Handle error
@@ -98,7 +102,9 @@ const JobList = () => {
     return true;
   });
 
-  console.log(experienceFilter);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="mb-5">

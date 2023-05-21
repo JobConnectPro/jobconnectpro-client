@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
 import Modal from 'react-modal';
+import Loading from '@/components/loading/Loading';
 
 Modal.setAppElement('#__next');
 
@@ -14,6 +15,7 @@ const Applications = ({ data }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentId, setCurrentId] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (isDelete === false) {
@@ -23,6 +25,9 @@ const Applications = ({ data }) => {
         })
         .then((res) => {
           setProfile({ ...res.data });
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 300);
         })
         .catch((error) => {
           console.log(error);
@@ -78,6 +83,10 @@ const Applications = ({ data }) => {
         });
       });
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Layout>

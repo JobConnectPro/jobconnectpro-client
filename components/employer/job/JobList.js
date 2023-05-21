@@ -1,19 +1,27 @@
 import { getJobsPosts } from '@/modules/fetch';
 import { useState, useEffect } from 'react';
 import JobCard from './JobCard';
-import { RiArrowDropDownLine, RiArrowDropUpLine, RiEdit2Fill, RiAddCircleLine } from 'react-icons/ri';
+import Loading from '@/components/loading/Loading';
 import Link from 'next/link';
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getJobsPosts();
       setJobs(res);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 200);
     };
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

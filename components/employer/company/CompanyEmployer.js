@@ -2,17 +2,22 @@ import CompanyCard from './CompanyCard';
 import { useState, useEffect } from 'react';
 import { getCompaniesEmployer } from '@/modules/fetchCompanies';
 import Link from 'next/link';
+import Loading from '@/components/loading/Loading';
 
 const CompanyEmployer = () => {
   const [companies, setCompanies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await getCompaniesEmployer(searchQuery);
         setCompanies(res);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 200);
       } catch (error) {
         console.log(error);
       }
@@ -28,6 +33,10 @@ const CompanyEmployer = () => {
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

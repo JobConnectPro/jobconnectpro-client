@@ -3,13 +3,32 @@ import { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Dashboard';
 import Link from 'next/link';
 import { MdEmail, MdPeopleAlt, MdContactPhone, MdCalendarMonth, MdLocationOn } from 'react-icons/md';
-
 import Image from 'next/image';
+import Loading from '@/components/loading/Loading';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const EmployerDetails = ({ data }) => {
   const router = useRouter();
-  const { id } = router.query;
+  const { employerId } = router.query;
   const [employer, setEmployer] = useState({ ...data });
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/users/employer/${employerId}`, {
+        headers: { authorization: 'Bearer ' + Cookies.get('token') },
+      })
+      .then((res) => {
+        setEmployer({ ...res.data });
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 200);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const diffForHumans = (date) => {
     const now = new Date();
@@ -32,6 +51,10 @@ const EmployerDetails = ({ data }) => {
     month: 'long',
     year: 'numeric',
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Layout>
@@ -70,9 +93,7 @@ const EmployerDetails = ({ data }) => {
                 {employer.Companies.map((company) => {
                   return (
                     <div className="flex flex-col w-full justify-center items-center" key={company.id}>
-                      {company.logo != null && (
-                        <Image loader={() => company.logo} className="inline-block object-center" src={company.logo} alt="Company Logo" width={50} height={50} />
-                      )}
+                      {company.logo != null && <Image loader={() => company.logo} className="inline-block object-center" src={company.logo} alt="Company Logo" width={50} height={50} />}
                       {company.logo == null && <Image className="inline-block object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={50} height={50} />}
                       <Link href={`/seeker/companies/${company.id}`}>
                         <div className="text-black hover:text-blue-500 text-sm">{company.company_name}</div>

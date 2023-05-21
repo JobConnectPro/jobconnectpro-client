@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
-import { RiBookmarkFill, RiSendPlaneFill } from 'react-icons/ri';
+import Loading from '@/components/loading/Loading';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,6 +11,8 @@ import Link from 'next/link';
 const JobDetail = ({ job }) => {
   const router = useRouter();
   const [role, setRole] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
   const diffForHumans = (date) => {
     const now = new Date();
     const newDate = new Date(date);
@@ -27,7 +29,11 @@ const JobDetail = ({ job }) => {
   };
   useEffect(() => {
     setRole(Cookies.get('role'));
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
   }, [role]);
+
   const startingDate = new Date(job.starting_date);
   const formattedStartingDate = startingDate.toLocaleDateString('en-US', {
     year: 'numeric',
@@ -156,6 +162,10 @@ const JobDetail = ({ job }) => {
       });
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
