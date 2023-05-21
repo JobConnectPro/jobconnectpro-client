@@ -66,16 +66,16 @@ const EmployerDetails = ({ data }) => {
                 </p>
               </div>
               <div className="text-md text-gray-500 mb-2">Recruiter in:</div>
-              <div className="flex flex-row w-full items-center justify-center">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-4 items-center justify-center">
                 {employer.Companies.map((company) => {
                   return (
-                    <div className="basis-1/2 flex flex-col w-full justify-center items-center" key={company.id}>
+                    <div className="flex flex-col w-full justify-center items-center" key={company.id}>
                       {company.logo != null && (
-                        <Image loader={() => company.logo} className="inline-block h-10 object-cover object-center" src={company.logo} alt="Company Logo" width={80} height={80} />
+                        <Image loader={() => company.logo} className="inline-block object-center" src={company.logo} alt="Company Logo" width={50} height={50} />
                       )}
-                      {company.logo == null && <Image className="inline-block h-10 object-cover object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={80} height={80} />}
+                      {company.logo == null && <Image className="inline-block object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={50} height={50} />}
                       <Link href={`/seeker/companies/${company.id}`}>
-                        <div className="text-black hover:text-blue-500">{company.company_name}</div>
+                        <div className="text-black hover:text-blue-500 text-sm">{company.company_name}</div>
                       </Link>
                     </div>
                   );
