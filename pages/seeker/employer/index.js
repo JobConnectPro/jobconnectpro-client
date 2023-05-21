@@ -83,7 +83,7 @@ const Employers = ({ data }) => {
         </div>
         {/* pagination */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row justify-start gap-2 mx-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row justify-start gap-2 mx-6">
           {employers.map((employer) => {
             return (
               <div className="bg-white rounded-lg border-slate-200 border overflow-hidden pt-4" key={employer.id}>
