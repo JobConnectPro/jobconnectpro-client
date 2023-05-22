@@ -223,7 +223,11 @@ const JobDetail = ({ job }) => {
               <div>
                 <h1 className="text-lg text-gray-500">JOB CATEGORY</h1>
                 {job.JobCategories.map((category) => {
-                  return <p className="text-blue-700" key={category.id}>{category.category}</p>;
+                  return (
+                    <p className="text-blue-700" key={category.id}>
+                      {category.category}
+                    </p>
+                  );
                 })}
               </div>
               <div>
@@ -244,10 +248,13 @@ const JobDetail = ({ job }) => {
               </div>
               <div className="col-span-2">
                 <h1 className="text-lg text-gray-500">SALARY</h1>
-                <p className="text-blue-700">
-                  {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(job.minimum_salary)} -{' '}
-                  {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(job.maximum_salary)}
-                </p>
+                {job.minimum_salary !== 0 && (
+                  <p className="text-blue-700">
+                    {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(job.minimum_salary)} -{' '}
+                    {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(job.maximum_salary)}
+                  </p>
+                )}
+                {job.minimum_salary === 0 && <p className="text-red-700">Private</p>}
               </div>
             </div>
           </div>

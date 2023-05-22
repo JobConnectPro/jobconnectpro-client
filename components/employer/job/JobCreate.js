@@ -26,6 +26,7 @@ export default function JobCreate() {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [companyOptions, setCompanyOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -229,17 +230,36 @@ export default function JobCreate() {
             <option value="Associate/Supervisor">Director/Executive</option>
           </select>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="minimum_salary">Minimum Salary</label>
-            <input type="number" id="minimum_salary" name="minimum_salary" value={formData.minimum_salary} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
+        {!isChecked && (
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="minimum_salary">Minimum Salary</label>
+              <input type="number" id="minimum_salary" name="minimum_salary" value={formData.minimum_salary} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
+            </div>
+            <div>
+              <label htmlFor="maximum_salary">Maximum Salary</label>
+              <input type="number" id="maximum_salary" name="maximum_salary" value={formData.maximum_salary} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
+            </div>
           </div>
-          <div>
-            <label htmlFor="maximum_salary">Maximum Salary</label>
-            <input type="number" id="maximum_salary" name="maximum_salary" value={formData.maximum_salary} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md p-2" />
-          </div>
+        )}
+        <div>
+          <label>
+            <input
+              className="mr-2"
+              type="checkbox"
+              checked={isChecked}
+              onChange={() => {
+                if (isChecked === true) {
+                  setIsChecked(false);
+                } else {
+                  setIsChecked(true);
+                  setFormData({ ...formData, minimum_salary: 0, maximum_salary: 0 });
+                }
+              }}
+            />
+            Hide Salary Range
+          </label>
         </div>
-
         <div>
           <label htmlFor="type">
             Type<span className="required text-red-600 text-lg">*</span>

@@ -25,6 +25,7 @@ const JobEdit = ({ job }) => {
     status: job.status,
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
 
   const fetchCategories = async () => {
     try {
@@ -188,14 +189,37 @@ const JobEdit = ({ job }) => {
           <input className="w-full px-4 py-2 border rounded-md" type="text" name="type" value={formData.type} onChange={handleInputChange} required />
         </div>
 
-        <div className="">
-          <label className="">Minimum Salary</label>
-          <input className="w-full px-4 py-2 border rounded-md" type="number" name="minimum_salary" value={formData.minimum_salary} onChange={handleInputChange} required />
-        </div>
+        {!isChecked && (
+          <div className="grid grid-cols-2 gap-4">
+            <div className="">
+              <label className="">Minimum Salary</label>
+              <input className="w-full px-4 py-2 border rounded-md" type="number" name="minimum_salary" value={formData.minimum_salary} onChange={handleInputChange} required />
+            </div>
 
-        <div className="">
-          <label className="">Maximum Salary</label>
-          <input className="w-full px-4 py-2 border rounded-md" type="number" name="maximum_salary" value={formData.maximum_salary} onChange={handleInputChange} required />
+            <div className="">
+              <label className="">Maximum Salary</label>
+              <input className="w-full px-4 py-2 border rounded-md" type="number" name="maximum_salary" value={formData.maximum_salary} onChange={handleInputChange} required />
+            </div>
+          </div>
+        )}
+
+        <div>
+          <label>
+            <input
+              className="mr-2"
+              type="checkbox"
+              checked={isChecked}
+              onChange={() => {
+                if (isChecked === true) {
+                  setIsChecked(false);
+                } else {
+                  setIsChecked(true);
+                  setFormData({ ...formData, minimum_salary: 0, maximum_salary: 0 });
+                }
+              }}
+            />
+            Hide Salary Range
+          </label>
         </div>
 
         <div className="">
