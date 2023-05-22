@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import Layout from '@/components/layout/Dashboard';
 import Link from 'next/link';
 import { MdEmail, MdPeopleAlt, MdContactPhone, MdCalendarMonth, MdLocationOn } from 'react-icons/md';
@@ -104,7 +104,7 @@ const EmployerDetails = ({ data }) => {
               </div>
             </div>
           </div>
-          <div className="basis-full lg:basis-1/2">
+          <div className="basis-full lg:basis-1/2 mb-10">
             <div className="rounded-lg overflow-hidden border border-slate-200 ml-0 lg:ml-2">
               <div className="bg-blue-700 p-4">
                 <p className="text-lg text-white ml-3">JOB POST</p>
@@ -112,9 +112,9 @@ const EmployerDetails = ({ data }) => {
               <div className="grid grid-cols-1 gap-2 bg-white px-4 py-4">
                 {employer.Jobs.map((job) => {
                   return (
-                    <>
+                    <Fragment key={job.id}>
                       {job.status === '1' && (
-                        <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between" key={job.id}>
+                        <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
                           <div className="flex items-center">
                             {job.Company.logo != null && (
                               <Image loader={() => job.Company.logo} className="mr-4 object-cover object-center" src={job.Company.logo} alt="Alternative text" width={60} height={60} />
@@ -135,7 +135,7 @@ const EmployerDetails = ({ data }) => {
                           </div>
                         </div>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })}
               </div>

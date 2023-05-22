@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Layout from '@/components/layout/Dashboard';
 import Image from 'next/image';
 import axios from 'axios';
@@ -95,13 +95,13 @@ const Bookmarks = ({ data }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 grid-flow-row justify-start gap-2 mx-6">
           {profile.UserBookmark.map((bookmark) => {
             return (
-              <>
-                <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between" key={bookmark.id}>
+              <Fragment key={bookmark.id}>
+                <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
                   <div className="flex items-center">
                     {bookmark.Company.logo != null && (
-                      <Image loader={() => bookmark.Company.logo} className="mr-4 object-cover object-center" src={bookmark.Company.logo} alt="Alternative text" width={60} height={60} />
+                      <Image loader={() => bookmark.Company.logo} className="mr-4 object-cover object-center" src={bookmark.Company.logo} alt="Company Logo" width={60} height={60} />
                     )}
-                    {bookmark.Company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
+                    {bookmark.Company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Company Logo" width={60} height={60} />}
                     <div>
                       <Link href={`/seeker/job/${bookmark.id}`}>
                         <h2 className="text-lg font-semibold text-black hover:text-blue-900">{bookmark.title}</h2>
@@ -180,7 +180,7 @@ const Bookmarks = ({ data }) => {
                     </div>
                   </div>
                 </Modal>
-              </>
+              </Fragment>
             );
           })}
         </div>

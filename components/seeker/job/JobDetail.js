@@ -223,7 +223,7 @@ const JobDetail = ({ job }) => {
               <div>
                 <h1 className="text-lg text-gray-500">JOB CATEGORY</h1>
                 {job.JobCategories.map((category) => {
-                  return <p className="text-blue-700">{category.category}</p>;
+                  return <p className="text-blue-700" key={category.id}>{category.category}</p>;
                 })}
               </div>
               <div>
@@ -286,21 +286,19 @@ const JobDetail = ({ job }) => {
         <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
           <div className="fixed inset-0 bg-gray-500 bg-opacity-10" />
           <div className="fixed inset-0 z-10 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
-              <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-lg transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pb-2 pt-5">
+            <div className="flex min-h-full items-center justify-center text-center sm:items-center sm:p-0">
+              <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-lg transition-all">
+                <div className="bg-white">
                   <div className="flex flex-col items-center">
-                    <div className="my-5">
-                      <h3 className="text-2xl mb-5 font-semibold leading-6 text-gray-900" id="modal-title">
+                    <div className="mx-8 my-8">
+                      <h3 className="text-xl mb-3 uppercase font-semibold text-gray-900" id="modal-title">
                         Terms and Conditions
                       </h3>
-                      <div className="self-start justify-self-start">
-                        <ul className="list-disc ml-6 text-sm text-gray-500">
-                          <li className="mb-2">Submit a complete and accurate profile information</li>
-                          <li className="mb-2">Attach your updated resume and relevant documents</li>
-                          <li className="mb-2">Application does not guarantee job placement</li>
-                          <li className="mb-2">We reserve the right to reject any application</li>
-                        </ul>
+                      <div className="self-start text-justify justify-self-start text-sm text-gray-500">
+                        <p>&#x2022; Submit a complete and accurate profile information</p>
+                        <p>&#x2022; Attach your updated resume and relevant documents</p>
+                        <p>&#x2022; Application does not guarantee job placement</p>
+                        <p>&#x2022; We reserve the right to reject any application</p>
                       </div>
                     </div>
                   </div>

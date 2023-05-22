@@ -82,8 +82,8 @@ const Project = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, setIsD
             <>
               {profile.Projects.map((project) => {
                 return (
-                  <>
-                    <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-6 border-b" key={project.id}>
+                  <Fragment key={project.id}>
+                    <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-6 border-b">
                       <div className="flex">
                         <p className="text-gray-400">{new Date(project.start_date).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}</p>
                         <p className="text-gray-400 mx-1">
@@ -171,7 +171,7 @@ const Project = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, setIsD
                         </div>
                       </div>
                     </Modal>
-                  </>
+                  </Fragment>
                 );
               })}
             </>

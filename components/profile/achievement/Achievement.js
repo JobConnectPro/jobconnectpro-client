@@ -83,8 +83,8 @@ const Achievement = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, se
             <>
               {profile.Achievements.map((achievement) => {
                 return (
-                  <>
-                    <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-6 border-b" key={achievement.id}>
+                  <Fragment key={achievement.id}>
+                    <div className="grid grid-cols-1 lg:grid-cols-4 mt-4 pb-4 justify-center items-start px-6 border-b">
                       <div>
                         <p className="text-gray-400">{new Date(achievement.date).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' })}</p>
                       </div>
@@ -168,7 +168,7 @@ const Achievement = ({ profile, isAdd, setIsAdd, isEdit, setIsEdit, isDelete, se
                         </div>
                       </div>
                     </Modal>
-                  </>
+                  </Fragment>
                 );
               })}
             </>

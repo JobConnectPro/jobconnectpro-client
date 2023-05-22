@@ -97,7 +97,7 @@ const UserList = () => {
               </form>
             </div>
             <div className="relative overflow-x-auto">
-              <table class="w-full text-sm divide-y text-left divide-gray-200 border">
+              <table className="w-full text-sm divide-y text-left divide-gray-200 border">
                 <thead>
                   <tr>
                     <th className="px-6 py-3 text-left text-sm text-gray-400 uppercase tracking-wider w-[20%]">Name</th>

@@ -206,20 +206,18 @@ const SkillsForm = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {skills.map((cat) => (
-                <>
-                  <tr key={cat.id}>
-                    <td className="px-6 py-2">{cat.skill}</td>
-                    <td className="px-6 py-2 text-center">
-                      {' '}
-                      <button onClick={() => handleDelete(cat.id)} className="mr-2">
-                        <FaTrashAlt size={18} className="text-gray-400 hover:text-blue-900" />{' '}
-                      </button>
-                      <button onClick={() => handleEdit(cat.id)}>
-                        <RiEdit2Fill size={18} className="text-blue-700 hover:text-blue-900" />{' '}
-                      </button>
-                    </td>
-                  </tr>
-                </>
+                <tr key={cat.id}>
+                  <td className="px-6 py-2">{cat.skill}</td>
+                  <td className="px-6 py-2 text-center">
+                    {' '}
+                    <button onClick={() => handleDelete(cat.id)} className="mr-2">
+                      <FaTrashAlt size={18} className="text-gray-400 hover:text-blue-900" />{' '}
+                    </button>
+                    <button onClick={() => handleEdit(cat.id)}>
+                      <RiEdit2Fill size={18} className="text-blue-700 hover:text-blue-900" />{' '}
+                    </button>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>

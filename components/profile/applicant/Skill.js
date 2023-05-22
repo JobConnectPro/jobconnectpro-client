@@ -20,7 +20,7 @@ const SkillApplicant = () => {
 
   return (
     <>
-      <div class="bg-white border border-slate-200 rounded-lg overflow-hidden mb-10">
+      <div className="bg-white border border-slate-200 rounded-lg overflow-hidden mb-10">
         <div className="px-6 py-4">
           <div className="flex">
             <BsFillMortarboardFill size={30} />
