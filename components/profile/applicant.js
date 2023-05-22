@@ -6,6 +6,7 @@ import ProjectApplicant from './applicant/Project';
 import SkillApplicant from './applicant/Skill';
 import ApplicantStatus from './applicant/ApplicantStatus';
 import AchievementApplicant from './applicant/Achievement';
+import TrainingApplicant from './applicant/Training';
 
 const ApplicantProfile = () => {
   return (
@@ -17,6 +18,7 @@ const ApplicantProfile = () => {
       <OrganizationApplicant />
       <AchievementApplicant />
       <ProjectApplicant />
+      <TrainingApplicant />
       <SkillApplicant />
     </div>
   );
