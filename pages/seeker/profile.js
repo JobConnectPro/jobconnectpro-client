@@ -13,6 +13,7 @@ import UserSkill from '@/components/profile/skill/Skill';
 import Resume from '@/components/profile/resume/Resume';
 import Layout from '@/components/layout/Dashboard';
 import Loading from '@/components/loading/Loading';
+import Training from '@/components/profile/training/Training';
 
 const SeekerProfiles = ({ data }) => {
   const [profile, setProfile] = useState({ ...data });
@@ -24,6 +25,7 @@ const SeekerProfiles = ({ data }) => {
     achievement: false,
     organization: false,
     project: false,
+    training: false,
   });
   const [isEdit, setIsEdit] = useState({
     basicInformation: false,
@@ -34,6 +36,7 @@ const SeekerProfiles = ({ data }) => {
     achievement: false,
     organization: false,
     project: false,
+    training: false,
     resume: false,
   });
   const [isDelete, setIsDelete] = useState({
@@ -43,6 +46,7 @@ const SeekerProfiles = ({ data }) => {
     achievement: false,
     organization: false,
     project: false,
+    training: false,
   });
   const [isUpload, setIsUpload] = useState(false);
 
@@ -77,6 +81,7 @@ const SeekerProfiles = ({ data }) => {
       <Achievement profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isEdit={isEdit} setIsEdit={setIsEdit} isDelete={isDelete} setIsDelete={setIsDelete} />
       <Organization profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isEdit={isEdit} setIsEdit={setIsEdit} isDelete={isDelete} setIsDelete={setIsDelete} />
       <Project profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isEdit={isEdit} setIsEdit={setIsEdit} isDelete={isDelete} setIsDelete={setIsDelete} />
+      <Training profile={profile} isAdd={isAdd} setIsAdd={setIsAdd} isEdit={isEdit} setIsEdit={setIsEdit} isDelete={isDelete} setIsDelete={setIsDelete} />
       <Resume profile={profile} isEdit={isEdit} setIsEdit={setIsEdit} />
     </Layout>
   );
