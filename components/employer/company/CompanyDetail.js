@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -77,9 +77,9 @@ const CompanyDetail = ({ res }) => {
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 bg-white px-8 py-8">
             {filteredJobs.length > 0 ? (
               filteredJobs.map((job) => (
-                <>
+                <Fragment key={job.id}>
                   {job.status === '1' && (
-                    <div key={job.id} className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
+                    <div className="bg-white rounded-lg border-slate-200 border p-6 flex items-center justify-between">
                       <div className="flex items-center">
                         {company.logo != null && <Image loader={() => company.logo} className="mr-4 object-cover object-center" src={company.logo} alt="Alternative text" width={60} height={60} />}
                         {company.logo == null && <Image className="mr-4 object-cover object-center" src="/img/blank-pp.jpg" alt="Alternative text" width={60} height={60} />}
@@ -97,7 +97,7 @@ const CompanyDetail = ({ res }) => {
                       </div>
                     </div>
                   )}
-                </>
+                </Fragment>
               ))
             ) : (
               <p>No job found</p>

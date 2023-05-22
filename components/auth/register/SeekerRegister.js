@@ -85,11 +85,11 @@ const SeekerRegister = () => {
             <form className=" w-full max-w-lg" onSubmit={handleSubmit(handleRegister)}>
               <div className="flex flex-wrap mb-3">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Full Name</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">Full Name</label>
                   <input type="text" className="block border border-grey-light w-full p-2 rounded " {...register('name', { required: true })} placeholder="Full Name" />
                 </div>
                 <div className="w-full md:w-1/2 px-3">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
                   <input
                     type="text"
                     className="block border border-grey-light w-full p-2 rounded "
@@ -101,7 +101,7 @@ const SeekerRegister = () => {
               </div>
               <div className="flex flex-wrap mb-3">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
                   <input
                     type="password"
                     className="block border border-grey-light w-full p-2 rounded "
@@ -111,7 +111,7 @@ const SeekerRegister = () => {
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Confirm Password</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">Confirm Password</label>
                   <input
                     type="password"
                     className="block border border-grey-light w-full p-2 rounded "
@@ -123,7 +123,7 @@ const SeekerRegister = () => {
               </div>
               <div className="flex flex-wrap mb-3">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Phone Number</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">Phone Number</label>
                   <input
                     type="number"
                     className="block border border-grey-light w-full p-2 rounded"
@@ -135,7 +135,7 @@ const SeekerRegister = () => {
               </div>
               <div className="flex flex-wrap mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Gender</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">Gender</label>
                   <select
                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 p-2 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 "
                     {...register('gender', { required: true })}
@@ -146,7 +146,7 @@ const SeekerRegister = () => {
                   </select>
                 </div>
                 <div className="w-full md:w-1/2 px-3">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Birthday</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">Birthday</label>
                   <Controller
                     control={control}
                     name="birthday"
@@ -166,7 +166,7 @@ const SeekerRegister = () => {
               </div>
               <div className="flex flex-wrap mb-5">
                 <div className="w-full px-3">
-                  <label class="block mb-2 text-sm font-medium text-gray-900 ">Address</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 ">Address</label>
                   <input
                     type="text"
                     className="block border border-grey-light w-full p-2 rounded"
@@ -181,9 +181,9 @@ const SeekerRegister = () => {
                   <button className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign Up</button>
                 </div>
               </div>
-              <p class="text-sm text-center font-light text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
                 Already have an account ?{' '}
-                <Link href="/signin" class="font-medium text-blue-500 hover:underline dark:text-primary-500">
+                <Link href="/signin" className="font-medium text-blue-500 hover:underline dark:text-primary-500">
                   Sign in
                 </Link>
               </p>

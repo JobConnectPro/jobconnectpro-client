@@ -92,7 +92,7 @@ const Employers = ({ data }) => {
         </div>
         {/* pagination */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row justify-start gap-2 mx-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-flow-row justify-start gap-2 mx-6">
           {employers.map((employer) => {
             return (
               <div className="bg-white rounded-lg border-slate-200 border overflow-hidden pt-4" key={employer.id}>
@@ -114,10 +114,10 @@ const Employers = ({ data }) => {
                     {employer.Companies.map((company) => {
                       return (
                         <div className="mt-2" key={company.id}>
-                          {company.logo != null && <Image loader={() => company.logo} className="inline-block" src={company.logo} alt="Company Logo" width={40} height={40} />}
-                          {company.logo == null && <Image className="inline-block" src="/img/blank-pp.jpg" alt="Company Logo" width={40} height={40} />}
+                          {company.logo != null && <Image loader={() => company.logo} className="inline-block" src={company.logo} alt="Company Logo" width={30} height={30} />}
+                          {company.logo == null && <Image className="inline-block" src="/img/blank-pp.jpg" alt="Company Logo" width={30} height={30} />}
                           <Link href={`/seeker/companies/${company.id}`}>
-                            <div className="inline-block pl-2 text-sm text-blue-500 hover:text-blue-900">{company.company_name}</div>
+                            <div className="inline-block pl-2 text-xs text-blue-500 hover:text-blue-900">{company.company_name}</div>
                           </Link>
                         </div>
                       );

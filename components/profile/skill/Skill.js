@@ -82,8 +82,8 @@ const UserSkill = ({ profile, isAdd, setIsAdd, isDelete, setIsDelete }) => {
             <>
               {profile.UserSkilled.map((project) => {
                 return (
-                  <>
-                    <div key={project.id}>
+                  <Fragment key={project.id}>
+                    <div>
                       <div className="grid grid-cols-2 border border-gray-200 rounded-lg p-4">
                         <div>
                           <p className="text-lg">{project.skill}</p>
@@ -157,7 +157,7 @@ const UserSkill = ({ profile, isAdd, setIsAdd, isDelete, setIsDelete }) => {
                         </div>
                       </div>
                     </Modal>
-                  </>
+                  </Fragment>
                 );
               })}
             </>

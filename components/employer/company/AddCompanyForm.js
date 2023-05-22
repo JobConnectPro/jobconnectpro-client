@@ -66,7 +66,7 @@ const AddCompanyForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mx-6 mb-10">
         <div className="mb-4">
           <label htmlFor="company_name">
-            Company Name<span class="required text-red-600 text-lg">*</span>
+            Company Name<span className="required text-red-600 text-lg">*</span>
           </label>
           <input
             type="text"
@@ -79,7 +79,7 @@ const AddCompanyForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="sector_id">
-            Sector<span class="required text-red-600 text-lg">*</span>
+            Sector<span className="required text-red-600 text-lg">*</span>
           </label>
           <select
             id="sector_id"
@@ -98,7 +98,7 @@ const AddCompanyForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="address">
-            Address<span class="required text-red-600 text-lg">*</span>
+            Address<span className="required text-red-600 text-lg">*</span>
           </label>
           <input
             type="text"
@@ -111,7 +111,7 @@ const AddCompanyForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="description">
-            Description<span class="required text-red-600 text-lg">*</span>
+            Description<span className="required text-red-600 text-lg">*</span>
           </label>
           <textarea
             id="description"
@@ -124,7 +124,7 @@ const AddCompanyForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="website">
-            Website<span class="required text-red-600 text-lg">*</span>
+            Website<span className="required text-red-600 text-lg">*</span>
           </label>
           <input
             type="text"
@@ -137,7 +137,7 @@ const AddCompanyForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="logo">
-            Logo<span class="required text-red-600 text-lg">*</span>
+            Logo<span className="required text-red-600 text-lg">*</span>
           </label>
           <input
             type="file"

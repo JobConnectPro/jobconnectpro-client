@@ -78,7 +78,7 @@ const Company = () => {
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-6">
           {companies.length > 0 ? companies.map((company) => <CompanyCard key={company.id} company={company}></CompanyCard>) : <p>No companies found</p>}
         </div>
-        <div className="mt-8 mx-6">
+        <div className="mt-8 mx-6 pb-10">
           <CustomPagination currentPage={currentPage} totalPages={totalPages} totalItems={totalItems} onPageChange={handlePageChange} />
         </div>
       </div>
