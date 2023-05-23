@@ -1,11 +1,11 @@
-import React from 'react';
-import Logo from '../Logo';
-import { loginUser } from '@/modules/fetch';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
-import Link from 'next/link';
-import Cookies from 'js-cookie';
+import React from "react";
+import Logo from "../Logo";
+import { loginUser } from "@/modules/fetch";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import Link from "next/link";
+import Cookies from "js-cookie";
 
 export default function UserLogin() {
   const router = useRouter();
@@ -21,38 +21,38 @@ export default function UserLogin() {
       const { email, password } = data;
       const { token, role, id } = await loginUser(email, password);
 
-      Cookies.set('token', token);
-      Cookies.set('role', role);
-      Cookies.set('id', id);
-      toast.success('Login Successfully!', {
-        position: 'top-right',
+      Cookies.set("token", token);
+      Cookies.set("role", role);
+      Cookies.set("id", id);
+      toast.success("Login Successfully!", {
+        position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'colored',
+        theme: "colored",
       });
-      const roles = Cookies.get('role');
+      const roles = Cookies.get("role");
 
-      if (roles === 'Admin') {
-        router.push('/admin/profile');
-      } else if (roles === 'Employer') {
-        router.push('/employer/profile');
+      if (roles === "Admin") {
+        router.push("/admin/profile");
+      } else if (roles === "Employer") {
+        router.push("/employer/profile");
       } else {
-        router.push('/seeker/profile');
+        router.push("/seeker/profile");
       }
     } catch (err) {
       toast.error(`${err.message}`, {
-        position: 'top-right',
+        position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'colored',
+        theme: "colored",
       });
     }
   };
@@ -70,7 +70,7 @@ export default function UserLogin() {
                     type="text"
                     className="block border border-grey-light w-full p-2 rounded mb-4"
                     // name="email"
-                    {...register('email', { required: true })}
+                    {...register("email", { required: true })}
                     placeholder="Email"
                   />
                 </div>
@@ -80,7 +80,7 @@ export default function UserLogin() {
                     type="password"
                     className="block border border-grey-light w-full p-2 rounded mb-4"
                     // name="password"
-                    {...register('password', { required: true })}
+                    {...register("password", { required: true })}
                     placeholder="Password"
                   />
                 </div>
@@ -100,14 +100,19 @@ export default function UserLogin() {
                     <label className="text-gray-500 dark:text-gray-300">Remember me</label>
                   </div>
                 </div>
-                <Link href="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+                <Link
+                  href="/forgot-password"
+                  className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >
                   Forgot password?
                 </Link>
               </div>
 
-              <button className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign In</button>
+              <button className=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Sign In
+              </button>
               <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{' '}
+                Don’t have an account yet?{" "}
                 <Link href="/signup/seeker" className="font-medium text-blue-500 hover:underline dark:text-primary-500">
                   Sign up
                 </Link>
