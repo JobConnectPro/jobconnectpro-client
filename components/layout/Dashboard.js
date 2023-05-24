@@ -31,7 +31,7 @@ const Dashboard = ({ children, profile, handleSearch }) => {
         <div className="w-full sticky top-0 z-30 bg-white border-b border-gray-200">
           <div className="flex justify-between items-center p-4">
             <div className="flex flex-row items-center">
-              <span className="mr-3 mt-2">
+              <span className="mr-3 mt-2 hover:font-semibold hover:text-blue-700">
                 <button
                   onClick={() => {
                     if (isHide) {
@@ -41,7 +41,7 @@ const Dashboard = ({ children, profile, handleSearch }) => {
                     }
                   }}
                 >
-                  <RiAlignJustify size={20} />
+                  <RiAlignJustify className="bg-gray-300 p-1 rounded-md" size={30} />
                 </button>
               </span>
               <Logo />
@@ -132,13 +132,19 @@ const Dashboard = ({ children, profile, handleSearch }) => {
         {/* end of navbar */}
 
         {/* sidebar */}
-        <div className="flex flex-row flex-nowrap">
+        <div className="flex ">
           <div
             className={
-              isHide ? "hidden" : "h-full w-[208px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200"
+              isHide
+                ? "hidden"
+                : "fixed h-full lg:w-56 md:w-48 sm:w-36 flex text-gray-600 bg-white p-4 pr-0 border-r border-gray-200"
             }
           >
-            <nav className="flex flex-col gap-4">
+            <nav className="w-full flex flex-col gap-6 font-semibold lg:text-base md:text-base sm:text-sm">
+              {/* <Link href={'/job-board'} className="flex gap-2 items-center cursor-pointer hover:text-blue-700">
+                <AiOutlineSearch size={20} />
+                Job Board
+              </Link> */}
               {role == "Admin" && <SidebarAdmin />}
               {role == "Employer" && <SidebarEmployer />}
               {role == "Seeker" && <SidebarSeeker />}
@@ -147,7 +153,7 @@ const Dashboard = ({ children, profile, handleSearch }) => {
           {/* end of sidebar */}
 
           {/* main content */}
-          <div className={isHide ? "basis-full ml-0" : "basis-full ml-52"}>{children}</div>
+          <div className={isHide ? "w-full" : "w-full lg:ml-56 md:ml-48 sm:ml-36"}>{children}</div>
           {/* main content */}
         </div>
       </div>
