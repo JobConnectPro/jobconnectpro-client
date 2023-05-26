@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <div className="px-14 h-screen grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 mb-28 items-center bg-cover bg-center bg-[url('../public/bg.jpg')]">
+    <div className="px-14 h-screen grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 mb-24 items-center bg-cover bg-center bg-[url('../public/bg.jpg')]">
       <div className="col-span-1 md:col-span-1 lg:col-span-1">
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-black mb-4">
           Find the Best Career Opportunities With <span className="text-blue-700">JobConnect</span>

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function ForJobseeker() {
   return (
-    <div className="my-20 mx-14 grid grid-cols-1 lg:grid-cols-2">
+    <div className="mb-20 mt-24 mx-14 grid grid-cols-1 lg:grid-cols-2">
       <img className="w-full h-48 md:w-full md:h-80 lg:h-full rounded-t-xl lg:rounded-tr-none lg:rounded-l-xl object-cover object-left" src="./jobseeker4.jpg" alt="findjobs.jpg" />
       <div className="flex flex-col bg-[#0181fe] rounded-b-xl lg:rounded-r-xl lg:rounded-bl-none text-white p-8">
         <h1 className="text-xl mb-8">For Jobseeker</h1>

@@ -24,7 +24,7 @@ const JobCardHome = ({ job }) => {
         <div className="hover:scale-105">
           <Link href={`job-detail/${job.id}`}>
             <div className="rounded-lg border-slate-200 border p-6 shadow-gray-200 shadow-lg">
-              <h2 className="text-lg h-16 font-semibold text-gray-700">{job.title}</h2>
+              <h2 className="text-lg h-12 font-semibold text-gray-700">{job.title}</h2>
               <div className="flex items-center">
                 {job.Company.logo != null && (
                   <Image
@@ -32,8 +32,8 @@ const JobCardHome = ({ job }) => {
                     className="mr-4 object-cover object-center"
                     src={job.Company.logo}
                     alt="Alternative text"
-                    width={120}
-                    height={120}
+                    width={100}
+                    height={100}
                   />
                 )}
                 {job.Company.logo == null && (
@@ -41,18 +41,18 @@ const JobCardHome = ({ job }) => {
                     className="mr-4 object-cover object-center"
                     src="/img/blank-pp.jpg"
                     alt="Alternative text"
-                    width={120}
-                    height={120}
+                    width={100}
+                    height={100}
                   />
                 )}
                 <div>
-                  <p className="text-blue-500 font-extrabold">{job.Company.company_name}</p>
-                  <p className="text-gray-500 font-bold text-sm mb-3">
+                  <p className="text-blue-500">{job.Company.company_name}</p>
+                  <p className="text-gray-500 text-sm mb-3">
                     {job.location} &#x2022; {job.type}
                   </p>
                 </div>
               </div>
-              <p className="w-full text-green-500 text-xs text-right font-semibold">
+              <p className="w-full text-green-500 text-xs text-right">
                 Posted {diffForHumans(job.createdAt)}
               </p>
             </div>
