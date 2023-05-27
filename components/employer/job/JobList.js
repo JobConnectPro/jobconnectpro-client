@@ -32,7 +32,7 @@ const JobList = () => {
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded mx-6">Add Job</button>
           </Link>
         </div>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-6 pb-10">
           {jobs.Jobs?.map((job) => (
             <JobCard job={job} key={job.id} />
           ))}

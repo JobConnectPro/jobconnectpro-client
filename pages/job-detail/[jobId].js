@@ -81,7 +81,7 @@ export default function JobHome() {
               <h1 className="text-2xl font-bold py-2">Job Summary</h1>
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                 <div>
-                  <h1 className="text-lg text-gray-500 uppercase text-gray-500 uppercase">Company</h1>
+                  <h1 className="text-lg text-gray-500 uppercase">Company</h1>
                   <p className="text-blue-700 pb-2">{jobData.Company?.company_name}</p>
                 </div>
                 <div>
