@@ -8,7 +8,7 @@ const JobList = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [perPage, setPerPage] = useState(10);
+  const [perPage, setPerPage] = useState(12);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
@@ -153,7 +153,7 @@ const JobList = () => {
         <div className="flex items-center mr-2">
           <span>Show:</span>
           <select className="mx-2 border rounded-lg p-1" value={perPage} onChange={handlePerPageChange}>
-            <option value="10">10</option>
+            <option value="12">12</option>
             <option value="20">20</option>
             <option value="50">50</option>
           </select>
