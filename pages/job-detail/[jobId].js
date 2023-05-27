@@ -1,11 +1,11 @@
-import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/homepage/Footer';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/homepage/Footer";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function JobHome() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function JobHome() {
         const res = await axios.get(`http://localhost:8000/job/${jobId}`);
         setJobData(res.data);
       } catch (error) {
-        console.error('Error fetching jobs:', error);
+        console.error("Error fetching jobs:", error);
       }
     };
 
@@ -32,19 +32,19 @@ export default function JobHome() {
     const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
 
     if (diffInDays === 0) {
-      return 'today';
+      return "today";
     } else if (diffInDays === 1) {
-      return 'yesterday';
+      return "yesterday";
     } else {
       return `${diffInDays} days ago`;
     }
   };
 
   const startingDate = new Date(jobData.starting_date);
-  const formattedStartingDate = startingDate.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  const formattedStartingDate = startingDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
   return (
@@ -54,8 +54,19 @@ export default function JobHome() {
         <div className="border border-gray-300 rounded-b-xl">
           <img className="w-full bg-cover bg-center h-64 bg-[url('../public/jobseeker.webp')]" />
           <div className="bg-white mx-4 absolute mt-[-80px] shadow-gray-300 shadow-lg">
-            {jobData.Company?.logo != null && <Image loader={() => jobData.Company.logo} className="" src={jobData.Company.logo} alt="Profile Picture" width={150} height={150} />}
-            {jobData.Company?.logo == null && <Image className="object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={150} height={150} />}
+            {jobData.Company?.logo != null && (
+              <Image
+                loader={() => jobData.Company.logo}
+                className=""
+                src={jobData.Company.logo}
+                alt="Profile Picture"
+                width={150}
+                height={150}
+              />
+            )}
+            {jobData.Company?.logo == null && (
+              <Image className="object-center" src="/img/blank-pp.jpg" alt="Profile Picture" width={150} height={150} />
+            )}
           </div>
           <div className="bg-white pt-24 px-4 pb-3 border-b">
             <h1 className="text-4xl font-bold">{jobData.title}</h1>
@@ -81,7 +92,7 @@ export default function JobHome() {
               <h1 className="text-2xl font-bold py-2">Job Summary</h1>
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                 <div>
-                  <h1 className="text-lg text-gray-500 uppercase text-gray-500 uppercase">Company</h1>
+                  <h1 className="text-lg text-gray-500 uppercase">Company</h1>
                   <p className="text-blue-700 pb-2">{jobData.Company?.company_name}</p>
                 </div>
                 <div>
@@ -112,8 +123,13 @@ export default function JobHome() {
                   <h1 className="text-lg text-gray-500 uppercase">Salary</h1>
                   {jobData.minimum_salary !== 0 && (
                     <p className="text-blue-700">
-                      {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(jobData.minimum_salary)} -{' '}
-                      {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(jobData.maximum_salary)}
+                      {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(
+                        jobData.minimum_salary
+                      )}{" "}
+                      -{" "}
+                      {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(
+                        jobData.maximum_salary
+                      )}
                     </p>
                   )}
                   {jobData.minimum_salary === 0 && <p className="text-red-700">Private</p>}

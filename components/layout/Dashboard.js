@@ -1,26 +1,26 @@
-import { useEffect, Fragment } from 'react';
-import { useState } from 'react';
-import Cookies from 'js-cookie';
-import Link from 'next/link';
-import Logo from '../Logo';
-import { RiArrowDropDownLine, RiLogoutBoxRLine, RiSettings4Line, RiAlignJustify } from 'react-icons/ri';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { CgProfile } from 'react-icons/cg';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import SidebarEmployer from './sidebar/SidebarEmployer';
-import SidebarSeeker from './sidebar/SidebarSeeker';
-import SidebarAdmin from './sidebar/SidebarAdmin';
+import { useEffect, Fragment } from "react";
+import { useState } from "react";
+import Cookies from "js-cookie";
+import Link from "next/link";
+import Logo from "../Logo";
+import { RiArrowDropDownLine, RiLogoutBoxRLine, RiSettings4Line, RiAlignJustify } from "react-icons/ri";
+import { AiOutlineSearch } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import SidebarEmployer from "./sidebar/SidebarEmployer";
+import SidebarSeeker from "./sidebar/SidebarSeeker";
+import SidebarAdmin from "./sidebar/SidebarAdmin";
 
 const Dashboard = ({ children, profile }) => {
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState("");
   const [isHide, setIsHide] = useState(false);
 
   useEffect(() => {
-    setRole(Cookies.get('role'));
+    setRole(Cookies.get("role"));
   }, [role]);
 
   function classNames(...classes) {
-    return classes.filter(Boolean).join(' ');
+    return classes.filter(Boolean).join(" ");
   }
 
   return (
@@ -30,8 +30,9 @@ const Dashboard = ({ children, profile }) => {
         <div className="w-full sticky top-0 z-30 bg-white border-b border-gray-200">
           <div className="flex justify-between items-center p-4">
             <div className="flex flex-row items-center">
-              <span className="mr-3 mt-2">
+              <span className="mr-4 mt-2">
                 <button
+                  className={isHide ? `text-gray-700 hover:text-blue-700` : `text-blue-700 hover:text-gray-700`}
                   onClick={() => {
                     if (isHide) {
                       setIsHide(false);
@@ -40,7 +41,7 @@ const Dashboard = ({ children, profile }) => {
                     }
                   }}
                 >
-                  <RiAlignJustify size={20} />
+                  <RiAlignJustify size={25} />
                 </button>
               </span>
               <Logo />
@@ -69,7 +70,13 @@ const Dashboard = ({ children, profile }) => {
                       <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                         <Menu.Item>
                           {({ active }) => (
-                            <Link href="/seeker/profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                            <Link
+                              href="/seeker/profile"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
                               <div className="flex">
                                 <CgProfile size={20} />
                                 <p className=" ml-2">Profile</p>
@@ -79,7 +86,13 @@ const Dashboard = ({ children, profile }) => {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <Link href="/change-password" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                            <Link
+                              href="/change-password"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
                               <div className="flex">
                                 <RiSettings4Line size={20} />
                                 <p className=" ml-2">Change Password</p>
@@ -91,10 +104,13 @@ const Dashboard = ({ children, profile }) => {
                           {({ active }) => (
                             <Link
                               href="/"
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
                               onClick={() => {
-                                Cookies.remove('token');
-                                Cookies.remove('role');
+                                Cookies.remove("token");
+                                Cookies.remove("role");
                               }}
                             >
                               <div className="flex">
@@ -115,18 +131,28 @@ const Dashboard = ({ children, profile }) => {
         {/* end of navbar */}
 
         {/* sidebar */}
-        <div className="flex flex-row flex-nowrap">
-          <div className={isHide ? 'hidden' : 'h-full w-[208px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200'}>
-            <nav className="flex flex-col gap-4">
-              {role == 'Admin' && <SidebarAdmin />}
-              {role == 'Employer' && <SidebarEmployer />}
-              {role == 'Seeker' && <SidebarSeeker />}
+        {/* <div className="flex flex-row flex-nowrap"> */}
+        <div className="flex">
+          {/* <div className={isHide ? 'hidden' : 'h-full w-[208px] basis-auto fixed flex bg-white p-4 pr-10 border-r border-gray-200'}> */}
+          <div
+            className={
+              isHide
+                ? "hidden"
+                : "fixed h-full lg:w-56 md:w-48 sm:w-36 flex text-gray-700 bg-white p-4 pr-0 border-r border-gray-200"
+            }
+          >
+            {/* <nav className="flex flex-col gap-4"> */}
+            <nav className="w-full flex flex-col gap-6 font-semibold lg:text-base md:text-base sm:text-sm">
+              {role == "Admin" && <SidebarAdmin />}
+              {role == "Employer" && <SidebarEmployer />}
+              {role == "Seeker" && <SidebarSeeker />}
             </nav>
           </div>
           {/* end of sidebar */}
 
           {/* main content */}
-          <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-52'}>{children}</div>
+          {/* <div className={isHide ? 'basis-full ml-0' : 'basis-full ml-52'}>{children}</div> */}
+          <div className={isHide ? "w-full" : "w-full lg:ml-56 md:ml-48 sm:ml-36"}>{children}</div>
           {/* main content */}
         </div>
       </div>
